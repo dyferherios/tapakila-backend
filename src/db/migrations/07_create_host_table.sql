@@ -1,5 +1,5 @@
 create table if not exists host(
-    id char(26) primary key,
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4 (),
     name varchar(100),
     description text,
     created_at timestamp,
