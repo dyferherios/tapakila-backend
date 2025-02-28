@@ -1,12 +1,7 @@
 import Organisateur from "./Organisateur.js";
 import Reservation from "./Reservation.js";
-import { Ticket } from "./Ticket.js";
+import TicketType from "./TicketType.js";
 
-export interface TicketsNumberWithPrice {
-    type: Ticket,
-    number: number,
-    ticketPrice: number
-}
 
 export default class Event{
     id: string;
@@ -14,17 +9,21 @@ export default class Event{
     eventDate: Date;
     eventDescription: string;
     eventLocation: string;
+    startTime: TimeRanges;
+    endTime: TimeRanges;
     allReservation: Reservation[];
-    numberOfTicketsToSellWithType: TicketsNumberWithPrice[];
+    numberOfTicketsToSellWithType: TicketType[];
     organisateur: Organisateur;
-    constructor(id: string, eventName: string, eventDate: Date, allReservation: Reservation[], numberOfTicketsToSellWithType: TicketsNumberWithPrice[], eventDescription: string, eventLocation: string, organisateur: Organisateur) {
+    constructor(id: string, eventName: string, eventDate: Date,startTime: TimeRanges, endTime: TimeRanges,eventLocation: string, allReservation: Reservation[], numberOfTicketsToSellWithType: TicketType[], eventDescription: string,  organisateur: Organisateur) {
         this.id = id;
         this.eventName = eventName;
         this.eventDate = eventDate;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.eventLocation = eventLocation;
         this.allReservation = allReservation;
         this.numberOfTicketsToSellWithType = numberOfTicketsToSellWithType;
         this.eventDescription = eventDescription;
-        this.eventLocation = eventLocation;
         this.organisateur = organisateur;
     }
 
@@ -32,8 +31,8 @@ export default class Event{
         this.allReservation.push(newResevation);
     }
 
-    public addTicketsNumberWithPrice(ticketsNumberWithPrice: TicketsNumberWithPrice): void{
-        this.numberOfTicketsToSellWithType.push(ticketsNumberWithPrice);
+    public addNumberOfTicketsToSellWithType(TicketType: TicketType): void{
+        this.numberOfTicketsToSellWithType.push(TicketType);
     }
 
     
@@ -53,11 +52,22 @@ export default class Event{
         return this.allReservation;
     }
 
-    public getNumberOfTicketsToSellWithType() : TicketsNumberWithPrice[] {
+    public getStartTIme() : TimeRanges {
+        return this.startTime;
+    }
+
+    public getEndTIme() : TimeRanges {
+        return this.endTime;
+    }
+
+
+    public getNumberOfTicketsToSellWithType() : TicketType[] {
         return this.numberOfTicketsToSellWithType;
     }
 
     public getOrganisateur(): Organisateur{
         return this.organisateur;
     }
+
+
 }
