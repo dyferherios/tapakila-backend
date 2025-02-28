@@ -19,7 +19,7 @@ export class Event {
   updatedAt: Date;
   deletedAt?: Date;
 
-  constructor(id: string, eventHallId: EventHall, hostId: Host, userId: User, title: string, slug: string, description: string, startDate: Date, startTime: string, endDate: Date, endTime: string, ageLimit: string) {
+  constructor(id: string, eventHallId: EventHall, hostId: Host, userId: User, title: string, slug: string, description: string, startDate: Date, startTime: string, endDate: Date, endTime: string, ageLimit: string, createdAt: Date, updatedAt: Date) {
     this.id = id;
     this.eventHallId = eventHallId;
     this.hostId = hostId;
@@ -32,8 +32,8 @@ export class Event {
     this.endDate = endDate;
     this.endTime = endTime;
     this.ageLimit = ageLimit;
-    this.createdAt = new Date();
-    this.updatedAt = new Date();
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
   }
 
   public getId(): string {

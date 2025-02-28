@@ -1,5 +1,7 @@
 import { TicketType } from "./TicketType.js";
+import { Event } from "./Event.js";
 import { User } from "./User.js";
+import { Currency } from "./Currency.js";
 
 export class Ticket {
   id: string;
@@ -8,13 +10,13 @@ export class Ticket {
   userId: User;
   ticketNumber: string;
   amountPaid: number;
-  currencyId: string;
+  currencyId: Currency;
   paymentConfirmed: boolean;
   createdAt: Date;
   updatedAt: Date;
   deletedAt?: Date;
 
-  constructor(id: string, eventId: Event, ticketTypeId: TicketType, userId: User, ticketNumber: string, amountPaid: number, currencyId: string, paymentConfirmed: boolean, createdAt: Date, updatedAt: Date, deletedAt?: Date) {
+  constructor(id: string, eventId: Event, ticketTypeId: TicketType, userId: User, ticketNumber: string, amountPaid: number, currencyId: Currency, paymentConfirmed: boolean, createdAt: Date, updatedAt: Date, deletedAt?: Date) {
     this.id = id;
     this.eventId = eventId;
     this.ticketTypeId = ticketTypeId;
@@ -45,7 +47,7 @@ export class Ticket {
   public getAmountPaid(): number {
     return this.amountPaid;
   }
-  public getCurrencyId(): string {
+  public getCurrencyId(): Currency {
     return this.currencyId;
   }
   public getPaymentConfirmed(): boolean {
@@ -78,7 +80,7 @@ export class Ticket {
   public setAmountPaid(amountPaid: number): void {
     this.amountPaid = amountPaid;
   }
-  public setCurrencyId(currencyId: string): void {
+  public setCurrencyId(currencyId: Currency): void {
     this.currencyId = currencyId;
   }
   public setPaymentConfirmed(paymentConfirmed: boolean): void {

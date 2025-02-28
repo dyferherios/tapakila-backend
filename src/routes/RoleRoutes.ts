@@ -14,5 +14,6 @@ router.get("/:id", async (req, res) => {
     res.status(500).json({ error: "An error occurred while fetching the role" })
   }
 })
+router.post("/", RoleController.saveRole); 
 
 export default router;
