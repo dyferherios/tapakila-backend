@@ -1,20 +1,26 @@
+import EventHall from "./EventHall.js";
 import Organisateur from "./Organisateur.js";
 import Reservation from "./Reservation.js";
 import TicketType from "./TicketType.js";
 
+type TimeString = `${number}:${number}:${number}`;
 
 export default class Event{
     id: string;
     eventName: string;
     eventDate: Date;
     eventDescription: string;
-    eventLocation: string;
-    startTime: TimeRanges;
-    endTime: TimeRanges;
+    eventLocation: EventHall;
+    startTime: TimeString;
+    endTime: TimeString;
     allReservation: Reservation[];
     numberOfTicketsToSellWithType: TicketType[];
-    organisateur: Organisateur;
-    constructor(id: string, eventName: string, eventDate: Date,startTime: TimeRanges, endTime: TimeRanges,eventLocation: string, allReservation: Reservation[], numberOfTicketsToSellWithType: TicketType[], eventDescription: string,  organisateur: Organisateur) {
+    organisateur: Organisateur[];
+    createAt: Date;
+    updateAt: Date;
+    deleteAt: Date;    
+    
+    constructor(id: string, eventName: string, eventDate: Date,startTime: TimeString, endTime: TimeString,eventLocation: EventHall, allReservation: Reservation[], numberOfTicketsToSellWithType: TicketType[], eventDescription: string,  organisateur: Organisateur[], createAt: Date, updateAt: Date, deleteAt: Date) {
         this.id = id;
         this.eventName = eventName;
         this.eventDate = eventDate;
@@ -25,6 +31,9 @@ export default class Event{
         this.numberOfTicketsToSellWithType = numberOfTicketsToSellWithType;
         this.eventDescription = eventDescription;
         this.organisateur = organisateur;
+        this.createAt = createAt;
+        this.updateAt = updateAt;
+        this.deleteAt = deleteAt;
     }
 
     public addReservation(newResevation: Reservation): void{
@@ -35,6 +44,9 @@ export default class Event{
         this.numberOfTicketsToSellWithType.push(TicketType);
     }
 
+    public addOrganisateur(newOrganisateur: Organisateur): void{
+        this.organisateur.push(newOrganisateur);
+    }
     
     public getId() : string {
         return this.id;
@@ -52,11 +64,11 @@ export default class Event{
         return this.allReservation;
     }
 
-    public getStartTIme() : TimeRanges {
+    public getStartTIme() : TimeString {
         return this.startTime;
     }
 
-    public getEndTIme() : TimeRanges {
+    public getEndTIme() : TimeString {
         return this.endTime;
     }
 
@@ -65,9 +77,20 @@ export default class Event{
         return this.numberOfTicketsToSellWithType;
     }
 
-    public getOrganisateur(): Organisateur{
+    public getOrganisateur(): Organisateur[]{
         return this.organisateur;
     }
 
+    public getCreateAt() : Date {
+        return this.createAt;
+    }
+
+    public getUpdateAt() : Date {
+        return this.updateAt;
+    }
+
+    public getDeleteAt() : Date {
+        return this.deleteAt;
+    }
 
 }

@@ -1,10 +1,9 @@
-export default class TicketType {
-    constructor(id, ticket, description, price, number, createAt, updateAt, deleteAt) {
+export default class EventHall {
+    constructor(id, name, description, adress, createAt, updateAt, deleteAt) {
         this.id = id;
-        this.ticket = ticket;
+        this.name = name;
         this.description = description;
-        this.price = price;
-        this.number = number;
+        this.adress = adress;
         this.createAt = createAt;
         this.updateAt = updateAt;
         this.deleteAt = deleteAt;
@@ -12,17 +11,14 @@ export default class TicketType {
     getId() {
         return this.id;
     }
-    getTicket() {
-        return this.ticket;
+    getName() {
+        return this.name;
     }
-    getDescrition() {
+    getDescription() {
         return this.description;
     }
-    getPrice() {
-        return this.price;
-    }
-    getNumber() {
-        return this.number;
+    getAdress() {
+        return this.adress;
     }
     getCreateAt() {
         return this.createAt;

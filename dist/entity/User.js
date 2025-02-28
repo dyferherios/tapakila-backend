@@ -1,10 +1,11 @@
 export default class User {
-    constructor(id, name, contact, email, adress) {
+    constructor(id, name, contact, email, adress, image) {
         this.id = id;
         this.name = name;
         this.contact = contact;
         this.email = email;
         this.adress = adress;
+        this.image = image;
     }
     getId() {
         return this.id;
@@ -20,5 +21,8 @@ export default class User {
     }
     getAdress() {
         return this.adress;
+    }
+    getImage() {
+        return this.image;
     }
 }
