@@ -1,56 +1,88 @@
-import { Ticket } from "./Ticket.js";
+export class TicketType {
+  id: string;
+  eventId: string;
+  title: string;
+  slug: string;
+  description: string;
+  availableTicket: number;
+  price: number;
+  currencyId: string;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt?: Date;
 
-export default class TicketType {
-    id: string;
-    ticket: Ticket;
-    description: string;
-    price: number;
-    number: number;
-    createAt: Date;
-    updateAt: Date;
-    deleteAt: Date;
-    constructor(id: string, ticket: Ticket, description: string, price: number, number: number, createAt: Date, updateAt: Date, deleteAt: Date) {
-        this.id = id;
-        this.ticket = ticket;
-        this.description = description;
-        this.price = price;
-        this.number = number;
-        this.createAt = createAt;
-        this.updateAt = updateAt;
-        this.deleteAt = deleteAt;
-    }
-    
-    public getId(): string {
-        return this.id;
-    } 
+  constructor(id: string, eventId: string, title: string, slug: string, description: string, availableTicket: number, price: number, currencyId: string) {
+    this.id = id;
+    this.eventId = eventId;
+    this.title = title;
+    this.slug = slug;
+    this.description = description;
+    this.availableTicket = availableTicket;
+    this.price = price;
+    this.currencyId = currencyId;
+    this.createdAt = new Date();
+    this.updatedAt = new Date();
+  }
 
-    public getTicket(): Ticket {
-        return this.ticket;
-    } 
-
-    public getDescrition(): string {
-        return this.description;
-    } 
-
-    public getPrice(): number {
-        return this.price;
-    } 
-
-    public getNumber(): number {
-        return this.number;
-    } 
-
-    public getCreateAt() : Date {
-        return this.createAt;
-    }
-
-    public getUpdateAt() : Date {
-        return this.updateAt;
-    }
-
-    public getDeleteAt() : Date {
-        return this.deleteAt;
-    }
-
+  public getId(): string {
+    return this.id;
+  } 
+  public getEventId(): string {
+    return this.eventId;
+  }
+  public getTitle(): string {
+    return this.title
+  }
+  public getSlug(): string {
+    return this.slug;
+  }
+  public getDescription(): string {
+    return this.description;
+  }
+  public getAvailableTicket(): number {
+    return this.availableTicket
+  }
+  public getPrice(): number {
+    return this.price;
+  }
+  public getCurrencyId(): string {
+    return this.currencyId;
+  }
+  public getCreatedAt(): Date {
+    return this.createdAt;
+  }
+  public getUpdatedAt(): Date {
+    return this.updatedAt;
+  }
+  public getDeletedAt(): Date | undefined {
+    return this.deletedAt;
+  }
+  public setId(id: string): void {
+    this.id = id;
+  }
+  public setEventId(eventId: string): void {
+    this.eventId = eventId;
+  }
+  public setTitle(title: string): void {
+    this.title = title;
+  }
+  public setSlug(slug: string): void {
+    this.slug = slug
+  }
+  public setDescription(description: string): void {
+    this.description = description;
+  }
+  public setAvailableTicket(availableTicket: number): void {
+    this.availableTicket = availableTicket;
+  }
+  public setPrice(price: number): void {
+    this.price = price;
+  }
+  public setCurrencyId(currencyId: string): void {
+    this.currencyId = currencyId;
+  }
+  public setCreatedAt(createdAt: Date): void {
+    this.createdAt = createdAt;
+  }
 
 }

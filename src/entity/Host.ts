@@ -1,11 +1,10 @@
-export class EventHall {
+export class Host {
   id: string;
   name: string;
   description: string;
   createdAt: Date;
   updatedAt: Date;
-  deletedAt?: Date;
-
+  
   constructor(id: string, name: string, description: string) {
     this.id = id;
     this.name = name;
@@ -16,7 +15,7 @@ export class EventHall {
 
   public getId(): string {
     return this.id;
-  } 
+  }
 
   public getName(): string {
     return this.name;
@@ -52,9 +51,5 @@ export class EventHall {
 
   public setUpdatedAt(updatedAt: Date): void {
     this.updatedAt = updatedAt;
-  }
-
-  public setDeletedAt(deletedAt: Date): void {
-    this.deletedAt = deletedAt;
   }
 }

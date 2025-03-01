@@ -1,5 +1,5 @@
 import pool from '../db/datasource.js';
-import User from '../entity/User.js';
+import { User } from '../entity/User.js';
 
 const getUsers = async (request: any, response: any) => {
   try {
@@ -11,7 +11,12 @@ const getUsers = async (request: any, response: any) => {
         row.contact,
         row.email,
         row.adress,
-        row.image
+        row.image,
+        row.password,
+        row.created_at,
+        row.updated_at,
+        row.deleted_at,
+        row.role
       );
     });
     response.status(200).json(users);
