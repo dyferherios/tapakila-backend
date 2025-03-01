@@ -3,20 +3,22 @@ import { User } from '../entity/User.js';
 
 const getUsers = async (request: any, response: any) => {
   try {
-    const results = await pool.query('SELECT * FROM users');
+    const results = await pool.query('SELECT * FROM "user"');
     const users: User[] = results.rows.map((row) => {
       return new User(
         row.id.toString(),
+        row.username,
         row.name,
-        row.contact,
         row.email,
-        row.adress,
-        row.image,
+        row.email_verified_at,
         row.password,
+        row.image_url,
+        row.password,
+        row.country_id,
         row.created_at,
         row.updated_at,
-        row.deleted_at,
-        row.role
+        row.deleted_at
+        
       );
     });
     response.status(200).json(users);
