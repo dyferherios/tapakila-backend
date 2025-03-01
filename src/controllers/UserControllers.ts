@@ -3,7 +3,7 @@ import User from '../entity/User.js';
 
 const getUsers = async (request: any, response: any) => {
   try {
-    const results = await pool.query('SELECT * FROM users ORDER BY id DESC');
+    const results = await pool.query('SELECT * FROM users');
     const users: User[] = results.rows.map((row) => {
       return new User(
         row.id.toString(),
