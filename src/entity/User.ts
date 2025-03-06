@@ -4,12 +4,14 @@ export default class User {
     contact: string;
     email: string;
     adress: string;
-    constructor(id: string, name: string, contact: string, email: string, adress: string) {
+    image: string;
+    constructor(id: string, name: string, contact: string, email: string, adress: string, image: string) {
         this.id = id;
         this.name = name;
         this.contact = contact;
         this.email = email;
         this.adress = adress;
+        this.image = image;
     }
 
     public getId(): string {
@@ -30,6 +32,10 @@ export default class User {
 
     public getAdress(): string {
         return this.adress;
+    }
+
+    public getImage(): string {
+        return this.image;
     }
 
 }
