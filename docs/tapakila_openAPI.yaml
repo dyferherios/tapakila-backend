@@ -1,0 +1,547 @@
+openapi: 3.0.0
+
+info:
+  title: Tapakila API (Ticket_place)
+  description: API for managing tickets 
+  version: 1.0.0
+
+servers:
+  - url: https://tapakila-backend.onrender.com
+    description: Testing server
+
+paths:
+  /users:
+    get:
+      summary: Retrieve all users
+      description: Returns a list of all registered users
+      tags:
+        - User
+      operationId: GetUsers
+      responses:
+        "200":
+          description: List of users retrieved successfully
+          content: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    post:
+      summary: Create a new user
+      description: Adds a new user to the system.
+      tags:
+        - User
+      operationId: CreateUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateUser"
+      responses:
+        "201":
+          description: User created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "400":
+          description: Bad request (invalid input).
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /users/{id}:
+    get:
+      summary: Get a user by ID
+      description: Retrieve details of a specific user by their unique ID.
+      tags:
+        - User
+      operationId: GetUserById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: User details retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "404":
+          description: User not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    put:
+      summary: Update a user
+      description: Update the details of an existing user.
+      tags:
+        - User
+      operationId: UpdateUser
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateUser"
+      responses:
+        "200":
+          description: User updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "400":
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: User not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    delete:
+      summary: Delete a user
+      description: Deletes a user by their ID.
+      tags:
+        - User
+      operationId: DeleteUser
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "204":
+          description: User deleted successfully.
+        "404":
+          description: User not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /roles:
+    get:
+      summary: Retrieve all roles
+      description: Returns a list of all registered roles
+      tags:
+        - Role
+      operationId: GetRoles
+      responses:
+        "200":
+          description: List of roles retrieved successfully
+          content: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Role"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    post:
+      summary: Create a new role
+      description: Adds a new role to the system.
+      tags:
+        - Role
+      operationId: CreateRole
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateRole"
+      responses:
+        "201":
+          description: Role created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Role"
+        "400":
+          description: Bad request (invalid input).
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /roles/{id}:
+    get:
+      summary: Get a role by ID
+      description: Retrieve details of a specific role by their unique ID.
+      tags:
+        - Role
+      operationId: GetRoleById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Role details retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Role"
+        "404":
+          description: User not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    put:
+      summary: Update a role
+      description: Update the details of an existing role.
+      tags:
+        - Role
+      operationId: UpdateRole
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateRole"
+      responses:
+        "200":
+          description: Role updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Role"
+        "400":
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: User not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    delete:
+      summary: Delete a role
+      description: Deletes a role by their ID.
+      tags:
+        - Role
+      operationId: DeleteRole
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "204":
+          description: User deleted successfully.
+        "404":
+          description: User not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /countries:
+    get:
+      summary: Retrieve all countries
+      description: Returns a list of all registered countries
+      tags:
+        - Country
+      operationId: GetCountries
+      responses:
+        "200":
+          description: List of countries retrieved successfully
+          content: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Country"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    post:
+      summary: Create a new country
+      description: Adds a new country to the system.
+      tags:
+        - Country
+      operationId: CreateCountry
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateCountry"
+      responses:
+        "201":
+          description: country created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Country"
+        "400":
+          description: Bad request (invalid input).
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /countries/{id}:
+    get:
+      summary: Get a country by ID
+      description: Retrieve details of a specific country by their unique ID.
+      tags:
+        - Country
+      operationId: GetCountryById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Country details retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Country"
+        "404":
+          description: User not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    put:
+      summary: Update a country
+      description: Update the details of an existing country.
+      tags:
+        - Country
+      operationId: UpdateCountry
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateCountry"
+      responses:
+        "200":
+          description: Country updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Country"
+        "400":
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: User not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    delete:
+      summary: Delete a country
+      description: Deletes a country by their ID.
+      tags:
+        - Country
+      operationId: DeleteCountry
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "204":
+          description: User deleted successfully.
+        "404":
+          description: User not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+
+components:
+  schemas:
+    CreateUser:
+      type: object
+      required:
+        - username
+        - email
+        - password
+      properties:
+        role_id:
+          type: string
+          format: uuid
+          example: "c4c71626-12a6-40ad-a126-00b70f2e40c1"
+          nullable: true
+        username:
+          type: string
+          example: "john_doe"
+        email:
+          type: string
+          format: email
+          example: "john.doe@example.com"
+        password:
+          type: string
+          format: password
+          example: "strongpassword123"
+        image_url:
+          type: string
+          format: uri
+          example: "https://example.com/images/john.jpg"
+        country_id:
+          type: string
+          format: uuid
+    User:
+      allOf:
+        - $ref: "#/components/schemas/CreateUser"
+        - type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+              example: "c4c71626-12a6-40ad-a126-00b70f2e40c1"
+            email_verified_at:
+              type: string
+              format: date-time
+              nullable: true
+              example: "2024-03-07T14:30:00Z"
+            created_at:
+              type: string
+              format: date-time
+            updated_at:
+              type: string
+              format: date-time
+            deleted_at:
+              type: string
+              format: date-time
+              nullable: true
+              example: null
+    UpdateUser:
+      allOf:
+        - $ref: "#/components/schemas/CreateUser"
+        - type: object
+    CreateRole:
+      required:
+        - title
+      type: object
+      properties:
+        title:
+          type: string
+    Role:
+      allOf:
+        - $ref: "#/components/schemas/CreateRole"
+        - type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+              example: "c4c71626-12a6-40ad-a126-00b70f2e40c1"
+            created_at:
+              type: string
+              format: date-time
+              example: "2024-03-07T14:30:00Z"
+            updated_at:
+              type: string
+              format: date-time
+              example: "2024-03-07T14:30:00Z"
+    UpdateRole:
+      allOf:
+        - $ref: "#/components/schemas/CreateRole"
+        - type: object
+    CreateCountry:
+      required:
+        - name
+      type: object
+      properties:
+        name:
+          type: string
+    Country:
+      allOf:
+        - $ref: "#/components/schemas/CreateCountry"
+        - type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+            created_at:
+              type: string
+              format: date-time
+            updated_at:
+              type: string
+              format: date-time
+            deleted_at:
+              type: string
+              format: date-time
+    UpdateCountry:
+      allOf:
+        - $ref: "#/components/schemas/CreateCountry"
+        - type: object
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          example: "User not found"
+        status:
+          type: integer
+          example: 404
+        
+        
+  
+   
+   

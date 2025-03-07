@@ -1,4 +1,4 @@
-CREATE EXTENSION IF NOT EXISTS pgulid;
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 create table if not exists "role"(
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
