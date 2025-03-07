@@ -10,6 +10,10 @@
     "strict": true,                                      /* Enable all strict type-checking options. */
 
   },
+   "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "node"
+  },
   "include": ["src/"],
   "exclude": ["node_modules"]
 }
