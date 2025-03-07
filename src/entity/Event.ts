@@ -1,96 +1,125 @@
-import EventHall from "./EventHall.js";
-import Organisateur from "./Organisateur.js";
-import Reservation from "./Reservation.js";
-import TicketType from "./TicketType.js";
+export class Event {
+  id: string;
+  eventHallId: string;
+  hostId: string;
+  userId: string;
+  title: string;
+  slug: string;
+  description: string;
+  startDate: Date;
+  startTime: string;
+  endDate: Date;
+  endTime: string;
+  ageLimit: string;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt?: Date;
 
-type TimeString = `${number}:${number}:${number}`;
+  constructor(id: string, eventHallId: string, hostId: string, userId: string, title: string, slug: string, description: string, startDate: Date, startTime: string, endDate: Date, endTime: string, ageLimit: string) {
+    this.id = id;
+    this.eventHallId = eventHallId;
+    this.hostId = hostId;
+    this.userId = userId;
+    this.title = title;
+    this.slug = slug;
+    this.description = description;
+    this.startDate = startDate;
+    this.startTime = startTime;
+    this.endDate = endDate;
+    this.endTime = endTime;
+    this.ageLimit = ageLimit;
+    this.createdAt = new Date();
+    this.updatedAt = new Date();
+  }
 
-export default class Event{
-    id: string;
-    eventName: string;
-    eventDate: Date;
-    eventDescription: string;
-    eventLocation: EventHall;
-    startTime: TimeString;
-    endTime: TimeString;
-    allReservation: Reservation[];
-    numberOfTicketsToSellWithType: TicketType[];
-    organisateur: Organisateur[];
-    createAt: Date;
-    updateAt: Date;
-    deleteAt: Date;    
-    
-    constructor(id: string, eventName: string, eventDate: Date,startTime: TimeString, endTime: TimeString,eventLocation: EventHall, allReservation: Reservation[], numberOfTicketsToSellWithType: TicketType[], eventDescription: string,  organisateur: Organisateur[], createAt: Date, updateAt: Date, deleteAt: Date) {
-        this.id = id;
-        this.eventName = eventName;
-        this.eventDate = eventDate;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.eventLocation = eventLocation;
-        this.allReservation = allReservation;
-        this.numberOfTicketsToSellWithType = numberOfTicketsToSellWithType;
-        this.eventDescription = eventDescription;
-        this.organisateur = organisateur;
-        this.createAt = createAt;
-        this.updateAt = updateAt;
-        this.deleteAt = deleteAt;
-    }
-
-    public addReservation(newResevation: Reservation): void{
-        this.allReservation.push(newResevation);
-    }
-
-    public addNumberOfTicketsToSellWithType(TicketType: TicketType): void{
-        this.numberOfTicketsToSellWithType.push(TicketType);
-    }
-
-    public addOrganisateur(newOrganisateur: Organisateur): void{
-        this.organisateur.push(newOrganisateur);
-    }
-    
-    public getId() : string {
-        return this.id;
-    }
-
-    public getEventName() : string {
-        return this.eventName;
-    }
-    
-    public getEventDate() : Date {
-        return this.eventDate;
-    }
-
-    public getAllReservation() : Reservation[] {
-        return this.allReservation;
-    }
-
-    public getStartTIme() : TimeString {
-        return this.startTime;
-    }
-
-    public getEndTIme() : TimeString {
-        return this.endTime;
-    }
-
-
-    public getNumberOfTicketsToSellWithType() : TicketType[] {
-        return this.numberOfTicketsToSellWithType;
-    }
-
-    public getOrganisateur(): Organisateur[]{
-        return this.organisateur;
-    }
-
-    public getCreateAt() : Date {
-        return this.createAt;
-    }
-
-    public getUpdateAt() : Date {
-        return this.updateAt;
-    }
-
-    public getDeleteAt() : Date {
-        return this.deleteAt;
-    }
-
+  public getId(): string {
+    return this.id;
+  }
+  public getEventHallId(): string {
+    return this.eventHallId;
+  }
+  public getHostId(): string {
+    return this.hostId;
+  }
+  public getUserId(): string {
+    return this.userId;
+  }
+  public getTitle(): string {
+    return this.title;
+  }
+  public getSlug(): string {
+    return this.slug;
+  }
+  public getDescription(): string {
+    return this.description;
+  }
+  public getStartDate(): Date {
+    return this.startDate;
+  }
+  public getStartTime(): string {
+    return this.startTime;
+  }
+  public getEndDate(): Date {
+    return this.endDate;
+  }
+  public getEndTime(): string {
+    return this.endTime;
+  }
+  public getAgeLimit(): string {
+    return this.ageLimit;
+  }
+  public getCreatedAt(): Date {
+    return this.createdAt;
+  }
+  public getUpdatedAt(): Date {
+    return this.updatedAt;
+  }
+  public getDeletedAt(): Date | undefined {
+    return this.deletedAt;
+  }
+  public setId(id: string): void {
+    this.id = id;
+  }
+  public setEventHallId(eventHallId: string): void {
+    this.eventHallId = eventHallId;
+  }
+  public setHostId(hostId: string): void {
+    this.hostId = hostId;
+  }
+  public setUserId(userId: string): void {
+    this.userId = userId;
+  }
+  public setTitle(title: string): void {
+    this.title = title;
+  }
+  public setSlug(slug: string): void {
+    this.slug = slug;
+  }
+  public setDescription(description: string): void {
+    this.description = description;
+  }
+  public setStartDate(startDate: Date): void {
+    this.startDate = startDate;
+  }
+  public setStartTime(startTime: string): void {
+    this.startTime = startTime;
+  }
+  public setEndDate(endDate: Date): void {
+    this.endDate = endDate;
+  }
+  public setEndTime(endTime: string): void {
+    this.endTime = endTime;
+  }
+  public setAgeLimit(ageLimit: string): void {
+    this.ageLimit = ageLimit;
+  }
+  public setCreatedAt(createdAt: Date): void {
+    this.createdAt = createdAt;
+  }
+  public setUpdatedAt(updatedAt: Date): void {
+    this.updatedAt
+  }
+  public setDeletedAt(deletedAt: Date): void {
+    this.deletedAt = deletedAt;
+  }
 }

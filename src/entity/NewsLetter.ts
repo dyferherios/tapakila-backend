@@ -1,29 +1,29 @@
-export class EventHall {
+export class Newsletter {
   id: string;
   name: string;
-  description: string;
+  email: string;
   createdAt: Date;
   updatedAt: Date;
   deletedAt?: Date;
-
-  constructor(id: string, name: string, description: string) {
+  constructor(id: string, name: string, email: string, createdAt: Date, updatedAt: Date, deletedAt?: Date) {
     this.id = id;
     this.name = name;
-    this.description = description;
-    this.createdAt = new Date();
-    this.updatedAt = new Date();
+    this.email = email;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
+    this.deletedAt = deletedAt;
   }
 
   public getId(): string {
     return this.id;
-  } 
+  }
 
   public getName(): string {
     return this.name;
   }
 
-  public getDescription(): string {
-    return this.description;
+  public getEmail(): string {
+    return this.email;
   }
 
   public getCreatedAt(): Date {
@@ -34,6 +34,10 @@ export class EventHall {
     return this.updatedAt;
   }
 
+  public getDeletedAt(): Date | undefined {
+    return this.deletedAt;
+  }
+
   public setId(id: string): void {
     this.id = id;
   }
@@ -42,8 +46,8 @@ export class EventHall {
     this.name = name;
   }
 
-  public setDescription(description: string): void {
-    this.description = description;
+  public setEmail(email: string): void {
+    this.email = email;
   }
 
   public setCreatedAt(createdAt: Date): void {
@@ -57,4 +61,5 @@ export class EventHall {
   public setDeletedAt(deletedAt: Date): void {
     this.deletedAt = deletedAt;
   }
+
 }
