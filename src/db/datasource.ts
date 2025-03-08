@@ -13,4 +13,9 @@ const datasource = new Pool({
   port: parseInt(process.env.DB_PORT!, 10),
 });
 
+console.log(process.env.DB_PASSWORD);
+
+console.log(datasource);
+
+
 export default datasource;

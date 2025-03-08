@@ -1,6 +1,8 @@
+import { EventEmitter } from "stream";
+
 export class TicketType {
   id: string;
-  eventId: string;
+  eventId: Event;
   title: string;
   slug: string;
   description: string;
@@ -11,7 +13,7 @@ export class TicketType {
   updatedAt: Date;
   deletedAt?: Date;
 
-  constructor(id: string, eventId: string, title: string, slug: string, description: string, availableTicket: number, price: number, currencyId: string) {
+  constructor(id: string, eventId: Event, title: string, slug: string, description: string, availableTicket: number, price: number, currencyId: string) {
     this.id = id;
     this.eventId = eventId;
     this.title = title;
@@ -27,7 +29,7 @@ export class TicketType {
   public getId(): string {
     return this.id;
   } 
-  public getEventId(): string {
+  public getEventId(): Event {
     return this.eventId;
   }
   public getTitle(): string {
@@ -60,7 +62,7 @@ export class TicketType {
   public setId(id: string): void {
     this.id = id;
   }
-  public setEventId(eventId: string): void {
+  public setEventId(eventId: Event): void {
     this.eventId = eventId;
   }
   public setTitle(title: string): void {

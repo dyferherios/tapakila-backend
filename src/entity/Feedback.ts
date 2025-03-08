@@ -1,13 +1,15 @@
+import { User } from "./User.js";
+
 export class Feedback {
   id: string;
-  userId: string;
+  userId: User;
   subject: string;
   message: string;
   createdAt: Date;
   updatedAt: Date;
   deletedAt?: Date;
 
-  constructor(id: string, userId: string, subject: string, message: string, createdAt: Date, updatedAt: Date, deletedAt?: Date) {
+  constructor(id: string, userId: User, subject: string, message: string, createdAt: Date, updatedAt: Date, deletedAt?: Date) {
     this.id = id;
     this.userId = userId;
     this.subject = subject;
@@ -21,7 +23,7 @@ export class Feedback {
     return this.id;
   }
 
-  public getUserId(): string {
+  public getUserId(): User {
     return this.userId;
   }
 
@@ -49,7 +51,7 @@ export class Feedback {
     this.id = id;
   }
 
-  public setUserId(userId: string): void {
+  public setUserId(userId: User): void {
     this.userId = userId;
   }
 

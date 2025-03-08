@@ -1,8 +1,12 @@
+import { EventHall } from "./EventHall.js";
+import { Host } from "./Host.js";
+import { User } from "./User.js";
+
 export class Event {
   id: string;
-  eventHallId: string;
-  hostId: string;
-  userId: string;
+  eventHallId: EventHall;
+  hostId: Host;
+  userId: User;
   title: string;
   slug: string;
   description: string;
@@ -15,7 +19,7 @@ export class Event {
   updatedAt: Date;
   deletedAt?: Date;
 
-  constructor(id: string, eventHallId: string, hostId: string, userId: string, title: string, slug: string, description: string, startDate: Date, startTime: string, endDate: Date, endTime: string, ageLimit: string) {
+  constructor(id: string, eventHallId: EventHall, hostId: Host, userId: User, title: string, slug: string, description: string, startDate: Date, startTime: string, endDate: Date, endTime: string, ageLimit: string) {
     this.id = id;
     this.eventHallId = eventHallId;
     this.hostId = hostId;
@@ -35,13 +39,13 @@ export class Event {
   public getId(): string {
     return this.id;
   }
-  public getEventHallId(): string {
+  public getEventHallId(): EventHall {
     return this.eventHallId;
   }
-  public getHostId(): string {
+  public getHostId(): Host {
     return this.hostId;
   }
-  public getUserId(): string {
+  public getUserId(): User {
     return this.userId;
   }
   public getTitle(): string {
@@ -80,13 +84,13 @@ export class Event {
   public setId(id: string): void {
     this.id = id;
   }
-  public setEventHallId(eventHallId: string): void {
+  public setEventHallId(eventHallId: EventHall): void {
     this.eventHallId = eventHallId;
   }
-  public setHostId(hostId: string): void {
+  public setHostId(hostId: Host): void {
     this.hostId = hostId;
   }
-  public setUserId(userId: string): void {
+  public setUserId(userId: User): void {
     this.userId = userId;
   }
   public setTitle(title: string): void {
