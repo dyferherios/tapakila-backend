@@ -5,6 +5,7 @@ const app = express();
 app.use(express.json());
 
 app.use("/users", userRoutes);
+app.use("/users/:id", userRoutes);
 
 const PORT = 5000;
 app.listen(PORT, () => {
