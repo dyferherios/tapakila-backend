@@ -2,10 +2,6 @@ import pool from '../db/datasource.js';
 import { User } from '../entity/User.js';
 import { CountryController } from './CountryController.js';
 import { RoleController } from './RoleController.js';
-import { count } from 'console';
-
-const roleController: RoleController = new RoleController();
-const countryController: CountryController = new CountryController();
 
 class UserController {
 

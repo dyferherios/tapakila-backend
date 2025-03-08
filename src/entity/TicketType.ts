@@ -1,5 +1,5 @@
-import { EventEmitter } from "stream";
-
+import { Currency } from "./Currency.js";
+import { Event } from "./Event.js";
 export class TicketType {
   id: string;
   eventId: Event;
@@ -8,12 +8,12 @@ export class TicketType {
   description: string;
   availableTicket: number;
   price: number;
-  currencyId: string;
+  currencyId: Currency;
   createdAt: Date;
   updatedAt: Date;
   deletedAt?: Date;
 
-  constructor(id: string, eventId: Event, title: string, slug: string, description: string, availableTicket: number, price: number, currencyId: string) {
+  constructor(id: string, eventId: Event, title: string, slug: string, description: string, availableTicket: number, price: number, currencyId: Currency, createdAt: Date, updatedAt: Date) {
     this.id = id;
     this.eventId = eventId;
     this.title = title;
@@ -22,8 +22,8 @@ export class TicketType {
     this.availableTicket = availableTicket;
     this.price = price;
     this.currencyId = currencyId;
-    this.createdAt = new Date();
-    this.updatedAt = new Date();
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
   }
 
   public getId(): string {
@@ -47,7 +47,7 @@ export class TicketType {
   public getPrice(): number {
     return this.price;
   }
-  public getCurrencyId(): string {
+  public getCurrencyId(): Currency {
     return this.currencyId;
   }
   public getCreatedAt(): Date {
@@ -80,7 +80,7 @@ export class TicketType {
   public setPrice(price: number): void {
     this.price = price;
   }
-  public setCurrencyId(currencyId: string): void {
+  public setCurrencyId(currencyId: Currency): void {
     this.currencyId = currencyId;
   }
   public setCreatedAt(createdAt: Date): void {
