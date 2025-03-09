@@ -412,8 +412,274 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
-
-
+  /events:
+    get:
+      summary: Retrieve all events
+      description: Returns a list of all registered events
+      tags:
+        - Event
+      operationId: GetEvents
+      responses:
+        "200":
+          description: List of events retrieved successfully
+          content: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Event"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    post:
+      summary: Create a new event
+      description: Adds a new event to the system.
+      tags:
+        - Event
+      operationId: CreateEvent
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateEvent"
+      responses:
+        "201":
+          description: event created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Event"
+        "400":
+          description: Bad request (invalid input).
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /events/{id}:
+    get:
+      summary: Get a event by ID
+      description: Retrieve details of a specific event by their unique ID.
+      tags:
+        - Event
+      operationId: GetEventById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Event details retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Event"
+        "404":
+          description: Event not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    put:
+      summary: Update an event
+      description: Update the details of an existing event.
+      tags:
+        - Event
+      operationId: UpdateEvent
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateEvent"
+      responses:
+        "200":
+          description: Event updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Event"
+        "400":
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: Event not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    delete:
+      summary: Delete an event
+      description: Deletes an event by their ID.
+      tags:
+        - Event
+      operationId: DeleteEvent
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "204":
+          description: Event deleted successfully.
+        "404":
+          description: Event not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /event_halls:
+    get:
+      summary: Retrieve all events hall
+      description: Returns a list of all registered events hall
+      tags:
+        - Event_hall
+      operationId: GetEventsHall
+      responses:
+        "200":
+          description: List of events hall retrieved successfully
+          content: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/EventHall"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    post:
+      summary: Create a new event hall
+      description: Adds a new event hall to the system.
+      tags:
+        - Event_hall
+      operationId: CreateEventHall
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateEventHall"
+      responses:
+        "201":
+          description: Event hall created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EventHall"
+        "400":
+          description: Bad request (invalid input).
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /events_hall/{id}:
+    get:
+      summary: Get a event hall by ID
+      description: Retrieve details of a specific event hall by their unique ID.
+      tags:
+        - Event_hall
+      operationId: GetEventHallById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Event hall details retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EventHall"
+        "404":
+          description: Event not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    put:
+      summary: Update an event hall
+      description: Update the details of an existing event hall.
+      tags:
+        - Event_hall
+      operationId: UpdateEventHall
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateEventHall"
+      responses:
+        "200":
+          description: Event hall updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EventHall"
+        "400":
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: Event not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    delete:
+      summary: Delete an event hall
+      description: Deletes an event hall by their ID.
+      tags:
+        - Event_hall
+      operationId: DeleteEventHall
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "204":
+          description: Event  hall deleted successfully.
+        "404":
+          description: Event hall not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
 components:
   schemas:
     CreateUser:
@@ -466,6 +732,7 @@ components:
             updated_at:
               type: string
               format: date-time
+              nullable: true
             deleted_at:
               type: string
               format: date-time
@@ -498,6 +765,7 @@ components:
             updated_at:
               type: string
               format: date-time
+              nullable: true
               example: "2024-03-07T14:30:00Z"
     UpdateRole:
       allOf:
@@ -524,12 +792,111 @@ components:
             updated_at:
               type: string
               format: date-time
+              nullable: true
             deleted_at:
               type: string
               format: date-time
     UpdateCountry:
       allOf:
         - $ref: "#/components/schemas/CreateCountry"
+        - type: object
+    CreateEvent:
+      type: object
+      required:
+        - event_hall
+        - user_id
+        - host_id
+        - title
+        - start_date
+        - start_time
+        - end_date
+        - end_time
+      properties:
+        host_id:
+          type: string
+          format: uuid
+        user_id:
+          type: string
+          format: uuid
+        event_hall_id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        slug:
+          type: string
+        description:
+          type: string
+          format: text
+        start_date:
+          type: string
+          format: date
+        start_time:
+          type: string
+          format: time
+        end_date:
+          type: string
+          format: date
+        end_time:
+          type: string
+          format: time
+        age_limit:
+          type: integer
+    Event:
+      allOf:
+        - $ref: "#/components/schemas/CreateEvent"
+        - type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+            created_at:
+              type: string
+              format: date-time
+            updated_at:
+              type: string
+              format: date-time
+              nullable: true
+            deleted_at:
+              type: string
+              format: date-time
+              nullable: true
+    UpdateEvent:
+      allOf:
+        - $ref: "#/components/schemas/CreateEvent"
+        - type: object
+    CreateEventHall:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+          format: text
+    EventHall:
+      allOf:
+        - $ref: "#/components/schemas/CreateEventHall"
+        - type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+            created_at:
+              type: string
+              format: date-time
+            updated_at:
+              type: string
+              format: date-time
+              nullable: true
+            deleted_at:
+              type: string
+              format: date-time
+              nullable: true
+    UpdateEventHall:
+      allOf:
+        - $ref: "#/components/schemas/CreateEventHall"
         - type: object
     ErrorResponse:
       type: object
