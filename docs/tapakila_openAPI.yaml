@@ -507,7 +507,7 @@ paths:
               $ref: "#/components/schemas/UpdateEvent"
       responses:
         "200":
-          description: Country updated successfully.
+          description: Event updated successfully.
           content:
             application/json:
               schema:
@@ -542,6 +542,140 @@ paths:
           description: Event deleted successfully.
         "404":
           description: Event not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /event_halls:
+    get:
+      summary: Retrieve all events hall
+      description: Returns a list of all registered events hall
+      tags:
+        - Event_hall
+      operationId: GetEventsHall
+      responses:
+        "200":
+          description: List of events hall retrieved successfully
+          content: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/EventHall"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    post:
+      summary: Create a new event hall
+      description: Adds a new event hall to the system.
+      tags:
+        - Event_hall
+      operationId: CreateEventHall
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateEventHall"
+      responses:
+        "201":
+          description: Event hall created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EventHall"
+        "400":
+          description: Bad request (invalid input).
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /events_hall/{id}:
+    get:
+      summary: Get a event hall by ID
+      description: Retrieve details of a specific event hall by their unique ID.
+      tags:
+        - Event_hall
+      operationId: GetEventHallById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Event hall details retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EventHall"
+        "404":
+          description: Event not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    put:
+      summary: Update an event hall
+      description: Update the details of an existing event hall.
+      tags:
+        - Event_hall
+      operationId: UpdateEventHall
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateEventHall"
+      responses:
+        "200":
+          description: Event hall updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EventHall"
+        "400":
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: Event not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    delete:
+      summary: Delete an event hall
+      description: Deletes an event hall by their ID.
+      tags:
+        - Event_hall
+      operationId: DeleteEventHall
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "204":
+          description: Event  hall deleted successfully.
+        "404":
+          description: Event hall not found.
           content:
             application/json:
               schema:
@@ -730,6 +864,39 @@ components:
     UpdateEvent:
       allOf:
         - $ref: "#/components/schemas/CreateEvent"
+        - type: object
+    CreateEventHall:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+          format: text
+    EventHall:
+      allOf:
+        - $ref: "#/components/schemas/CreateEventHall"
+        - type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+            created_at:
+              type: string
+              format: date-time
+            updated_at:
+              type: string
+              format: date-time
+              nullable: true
+            deleted_at:
+              type: string
+              format: date-time
+              nullable: true
+    UpdateEventHall:
+      allOf:
+        - $ref: "#/components/schemas/CreateEventHall"
         - type: object
     ErrorResponse:
       type: object
