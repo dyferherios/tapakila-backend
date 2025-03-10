@@ -10,9 +10,9 @@ class TagController {
                     row.id.toString(),
                     row.title,
                     row.decsription,
-                    row.createdAt,
-                    row.updateAt,
-                    row.deleteAt
+                    row.created_at,
+                    row.updated_at,
+                    row.deleted_at
                 );
             });
             response.status(200).json(tags);
@@ -32,9 +32,9 @@ class TagController {
                 tag.id.toString(),
                 tag.title,
                 tag.decsription,
-                tag.createdAt,
-                tag.updateAt,
-                tag.deleteAt
+                tag.created_at,
+                tag.updated_at,
+                tag.deleted_at
             );
             return tagObject;
         } catch (error) {

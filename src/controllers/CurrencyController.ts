@@ -6,17 +6,17 @@ class CurrencyController {
     static getCurrencies = async(request: any, response: any) => {
         try {
             const results =  await pool.query('SELECT * FROM currency');
-            const Currencies: Currency[] = results.rows.map((row) => {
-                return new(
+            const currencies: Currency[] = results.rows.map((row) => {
+                return new Currency(
                     row.id.toString(),
                     row.title,
-                    row.decsription,
-                    row.createdAt,
-                    row.updatedAt,
-                    row.deleteAt
+                    row.description,
+                    row.created_at,
+                    row.updated_at,
+                    row.delete_at
                 );
             });
-            response.status(200).json(Currencies);
+            response.status(200).json(currencies);
         } catch (error) {
             console.error(error);
             response.status(500).json([error]);
@@ -31,10 +31,10 @@ class CurrencyController {
             return new Currency(
                 currency.id.toString(),
                 currency.title,
-                currency.decsription,
-                currency.createdAt,
-                currency.updatedAt,
-                currency.deleteAt
+                currency.description,
+                currency.created_at,
+                currency.updated_at,
+                currency.delete_at
             );
         } catch (error) {
             console.error(error);

@@ -5,16 +5,16 @@ class NewsletterController {
     static getNewsletters = async (request: any, response: any) => {
         try {
             const results = await pool.query('SELECT * FROM newsletter');
-            const Newsletters: Newsletter[] = results.rows.map((row) => {
+            const newsletters: Newsletter[] = results.rows.map((row) => {
                 return new Newsletter(
                     row.id.toString(),
                     row.name,
-                    row.decsription,
+                    row.email,
                     row.createdAt,
                     row.updatedAt
                 );
             });
-            response.status(200).json(Newsletter);
+            response.status(200).json(newsletters);
         } catch (error) {
             console.error(error);
             response.status(500).json({ error });
@@ -30,7 +30,7 @@ class NewsletterController {
             return new Newsletter(
                     newsletter.id.toString(),
                     newsletter.name,
-                    newsletter.decsription,
+                    newsletter.email,
                     newsletter.createdAt,
                     newsletter.updatedAt
                 );

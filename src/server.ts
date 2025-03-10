@@ -21,15 +21,15 @@ app.use("/users", userRoutes);
 app.use("/roles", roleRoutes);
 app.use("/countries", countryRoutes);
 app.use("/tags", tagRoutes);
-app.use("/hots", hostRoutes);
-app.use("eventHalls",eventHallRoutes);
+app.use("/hosts", hostRoutes);
+app.use("/eventHalls",eventHallRoutes);
 app.use("/currencies", currencyRoutes);
 app.use("/newsletters", newsLetterRoutes);
 app.use("/feedbacks", feedbackRoutes);
 app.use("/events", eventRoutes);
 app.use("/ticketTypes", ticketTypesRoutes);
 app.use("/tickets", ticketRoutes);
-app.use("/ticketVerification", ticketVerificationRoutes);
+app.use("/ticketVerifications", ticketVerificationRoutes);
 const PORT = 5000;
 
 app.listen(PORT, () => {

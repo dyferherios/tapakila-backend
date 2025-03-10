@@ -14,6 +14,7 @@ export class Currency {
     this.updatedAt = updatedAt;
     this.deletedAt = deletedAt;
   }
+  
   public getId(): string {
     return this.id;
   }
