@@ -6,7 +6,7 @@ export class EventHall {
   updatedAt: Date;
   deletedAt?: Date;
 
-  constructor(id: string, name: string, description: string) {
+  constructor(id: string, name: string, description: string, createAt: Date, updatedAt: Date) {
     this.id = id;
     this.name = name;
     this.description = description;
