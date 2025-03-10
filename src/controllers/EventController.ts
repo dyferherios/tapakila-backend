@@ -7,7 +7,7 @@ import { EventHallController } from './EventHallController.js';
 class EventController {
     static getEvents = async (request: any, response: any) => {
         try {
-            const results = await pool.query('SELECT * FROM event');
+            const results = await pool.query('SELECT * FROM "event"');
             const Events = await Promise.all(
                 results.rows.map(async (row) => {
                 const eventhallId = row.event_hall_id.toString();

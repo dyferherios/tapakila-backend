@@ -12,17 +12,14 @@ class TicketController {
             const results = await pool.query("SELECT * FROM ticket");
             const tickets = await Promise.all(
                 results.rows.map(async (row) => {
-                    const eventId = row.event_id.toString();
                     const ticketTypeId = row.ticket_type_id.toString();
                     const userId = row.user_id.toString();
                     const currencyId = row.currency_id.toString();
-                    const event = await EventController.getEventById(eventId);
                     const ticketType = await TicketTypeController.getTicketTypeById(ticketTypeId);
                     const user = await UserController.getUserById(userId);
                     const currency = await CurrencyController.getCurrencyById(currencyId);
                     return new Ticket(
                         row.id.toString(),
-                        event,
                         ticketType,
                         user,
                         row.ticket_number,
@@ -48,17 +45,14 @@ class TicketController {
                 [ticketId]
             );
             const ticket = result.rows[0];
-            const eventId = ticket.event_id.toString();
             const ticketTypeId = ticket.ticket_type_id.toString();
             const userId = ticket.user_id.toString();
             const currencyId = ticket.currency_id.toString();
-            const event = await EventController.getEventById(eventId);
             const ticketType = await TicketTypeController.getTicketTypeById(ticketTypeId);
             const user = await UserController.getUserById(userId);
             const currency = await CurrencyController.getCurrencyById(currencyId);
             return new Ticket(
                 ticket.id.toString(),
-                event,
                 ticketType,
                 user,
                 ticket.ticket_number,
@@ -70,7 +64,7 @@ class TicketController {
             );
         } catch (error) {
             console.error(error);
-            throw new Error("Failed to retrieve user");
+            throw new Error("Failed to retrieve ticket");
         }
     };
 }

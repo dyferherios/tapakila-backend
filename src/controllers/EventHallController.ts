@@ -10,8 +10,8 @@ class EventHallController {
                     row.id.toString(),
                     row.name,
                     row.decsription,
-                    row.createdAt,
-                    row.updatedAt
+                    row.created_at,
+                    row.updated_at
                 );
             });
             response.status(200).json(EventHalls);
@@ -26,13 +26,15 @@ class EventHallController {
         if (result.rows.length === 0) {
             throw new Error('EventHall not found');
         }
-            const EventHall = result.rows[0];
+            const eventHall = result.rows[0]
+            console.log(eventHall);
+            
             return new EventHall(
-                    EventHall.id.toString(),
-                    EventHall.name,
-                    EventHall.decsription,
-                    EventHall.createdAt,
-                    EventHall.updatedAt
+                    eventHall.id.toString(),
+                    eventHall.name,
+                    eventHall.decsription,
+                    eventHall.createdAt,
+                    eventHall.updatedAt
                 );
         } catch (error) {
             console.error(error);

@@ -1,5 +1,7 @@
+DELETE FROM "user";
+
 INSERT INTO
-    "user" (
+    "user"(
         role_id,
         username,
         name,
@@ -9,66 +11,136 @@ INSERT INTO
         image_url,
         country_id,
         created_at,
-        updated_at
+        updated_at,
+        deleted_at
     )
 VALUES (
-        '51d63e13-1543-473d-87e7-b606603377c3', -- UUID pour le rôle Administrateur
-        'admin123',
-        'Jean Dupont',
-        'jean.dupont@example.com',
+        '28505d26-1396-4c00-b659-991ca0a88512',
+        'admin01',
+        'Alice Admin',
+        'alice@example.com',
         NOW(),
-        'password123',
-        'https://example.com/image1.jpg',
-        'c1a93ad4-28be-4d96-8352-068e057caff9', -- UUID pour France
+        'hashed_pw1',
+        'img1.jpg',
+        '3566aef7-96b4-4d4e-9d05-0ba52796c4b9',
         NOW(),
-        NOW()
+        NOW(),
+        NULL
     ),
     (
-        'cc0dc4e5-fec2-4e1d-b89e-36f296b7c057', -- UUID pour le rôle Modérateur
-        'moderator',
-        'Pierre Martin',
-        'pierre.martin@example.com',
+        '078ae949-23ac-4942-ba66-0520f68f32ac',
+        'organizer01',
+        'Bob Organizer',
+        'bob@example.com',
         NOW(),
-        'password456',
-        'https://example.com/image2.jpg',
-        '8d5267af-dae4-41c7-bd85-9602e5987e92', -- UUID pour États-Unis
+        'hashed_pw2',
+        'img2.jpg',
+        '59a79a5f-b743-4ff8-baa7-0e246d7a595f',
         NOW(),
-        NOW()
+        NOW(),
+        NULL
     ),
     (
-        '4e4613e8-4d45-4892-9fb6-af978b73f6c6', -- UUID pour le rôle Utilisateur
-        'user123',
-        'Marie Durand',
-        'marie.durand@example.com',
+        'ac7c9720-79fc-45b1-bc01-b2c54315d9a5',
+        'attendee01',
+        'Charlie Attendee',
+        'charlie@example.com',
         NOW(),
-        'password789',
-        'https://example.com/image3.jpg',
-        '3785e30f-450f-4185-b94d-849b4c9f9a22', -- UUID pour Canada
+        'hashed_pw3',
+        'img3.jpg',
+        'd5ce79a0-dcba-4cab-aac7-bde3fb3d3e97',
         NOW(),
-        NOW()
+        NOW(),
+        NULL
     ),
     (
-        '51d63e13-1543-473d-87e7-b606603377c3', -- UUID pour le rôle Administrateur
-        'user456',
-        'Sophie Leroy',
-        'sophie.leroy@example.com',
+        '4503d769-4ba3-4612-acda-4d5f921c4437',
+        'vendor01',
+        'Dave Vendor',
+        'dave@example.com',
         NOW(),
-        'password012',
-        'https://example.com/image4.jpg',
-        '9de4b867-34ec-4761-bf3d-7aa016656909', -- UUID pour Allemagne
+        'hashed_pw4',
+        'img4.jpg',
+        '9af77a06-e7d6-4a34-a45f-8674c0f4995c',
         NOW(),
-        NOW()
+        NOW(),
+        NULL
     ),
     (
-        '4e4613e8-4d45-4892-9fb6-af978b73f6c6', -- UUID pour le rôle Utilisateur
-        'user789',
-        'Lucas Martin',
-        'lucas.martin@example.com',
+        'd84a52c1-71db-4d36-854c-9772b71e8671',
+        'speaker01',
+        'Eve Speaker',
+        'eve@example.com',
         NOW(),
-        'password345',
-        'https://example.com/image5.jpg',
-        '588d9c17-bcd7-459d-b97b-d670277d9151', -- UUID pour Australie
+        'hashed_pw5',
+        'img5.jpg',
+        '36986c6c-a002-4f05-b3c8-d4908612afb5',
         NOW(),
-        NOW()
+        NOW(),
+        NULL
+    ),
+    (
+        '6fa86d9c-1222-4534-bb7f-bd7dd45df23f',
+        'volunteer01',
+        'Frank Volunteer',
+        'frank@example.com',
+        NOW(),
+        'hashed_pw6',
+        'img6.jpg',
+        '092b9d8d-d570-4bd1-be73-fcc7a5f3c022',
+        NOW(),
+        NOW(),
+        NULL
+    ),
+    (
+        'fa9163bb-7550-4250-b8d1-d077f98538dc',
+        'moderator01',
+        'Grace Moderator',
+        'grace@example.com',
+        NOW(),
+        'hashed_pw7',
+        'img7.jpg',
+        '25547620-72f4-4b76-bc2d-5f3dcf30abe8',
+        NOW(),
+        NOW(),
+        NULL
+    ),
+    (
+        '77d6d000-ebf4-4dca-81c3-bf521ce9f95b',
+        'sponsor01',
+        'Hank Sponsor',
+        'hank@example.com',
+        NOW(),
+        'hashed_pw8',
+        'img8.jpg',
+        '6cda42b5-dbcd-42b4-98e0-2432e3a05d73',
+        NOW(),
+        NOW(),
+        NULL
+    ),
+    (
+        'a7b68c4e-c7be-4411-a329-37d5c3f85714',
+        'guest01',
+        'Ivy Guest',
+        'ivy@example.com',
+        NOW(),
+        'hashed_pw9',
+        'img9.jpg',
+        '3c3e7a51-39cc-47c0-928c-7a19b91ac519',
+        NOW(),
+        NOW(),
+        NULL
+    ),
+    (
+        '01b869e4-123e-45c6-9be5-9f6dddca679a',
+        'press01',
+        'Jack Press',
+        'jack@example.com',
+        NOW(),
+        'hashed_pw10',
+        'img10.jpg',
+        '7ea0282d-a195-4200-8256-3127d4667e5c',
+        NOW(),
+        NOW(),
+        NULL
     );
-    
