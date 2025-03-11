@@ -102,7 +102,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/UpdateUser"
+              $ref: "#/components/schemas/CreateUser"
       responses:
         "200":
           description: User updated successfully.
@@ -236,7 +236,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/UpdateRole"
+              $ref: "#/components/schemas/CreateRole"
       responses:
         "200":
           description: Role updated successfully.
@@ -370,7 +370,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/UpdateCountry"
+              $ref: "#/components/schemas/CreateCountry"
       responses:
         "200":
           description: Country updated successfully.
@@ -504,7 +504,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/UpdateEvent"
+              $ref: "#/components/schemas/CreateEvent"
       responses:
         "200":
           description: Event updated successfully.
@@ -638,7 +638,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/UpdateEventHall"
+              $ref: "#/components/schemas/CreateEventHall"
       responses:
         "200":
           description: Event hall updated successfully.
@@ -738,10 +738,6 @@ components:
               format: date-time
               nullable: true
               example: null
-    UpdateUser:
-      allOf:
-        - $ref: "#/components/schemas/CreateUser"
-        - type: object
     CreateRole:
       required:
         - title
@@ -767,10 +763,6 @@ components:
               format: date-time
               nullable: true
               example: "2024-03-07T14:30:00Z"
-    UpdateRole:
-      allOf:
-        - $ref: "#/components/schemas/CreateRole"
-        - type: object
     CreateCountry:
       required:
         - name
@@ -796,10 +788,6 @@ components:
             deleted_at:
               type: string
               format: date-time
-    UpdateCountry:
-      allOf:
-        - $ref: "#/components/schemas/CreateCountry"
-        - type: object
     CreateEvent:
       type: object
       required:
@@ -861,10 +849,6 @@ components:
               type: string
               format: date-time
               nullable: true
-    UpdateEvent:
-      allOf:
-        - $ref: "#/components/schemas/CreateEvent"
-        - type: object
     CreateEventHall:
       type: object
       required:
@@ -894,10 +878,6 @@ components:
               type: string
               format: date-time
               nullable: true
-    UpdateEventHall:
-      allOf:
-        - $ref: "#/components/schemas/CreateEventHall"
-        - type: object
     ErrorResponse:
       type: object
       properties:

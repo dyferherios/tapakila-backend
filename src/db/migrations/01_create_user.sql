@@ -11,4 +11,3 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-create database if not exists tapakila;

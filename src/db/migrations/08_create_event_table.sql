@@ -9,7 +9,7 @@ create table if not exists "event"(
     start_date date,
     start_time time,
     end_date date,
-    end_time time,
+    end_time time, 
     age_limit varchar(2),
     created_at timestamp,
     updated_at timestamp,
