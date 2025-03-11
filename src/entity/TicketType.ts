@@ -1,17 +1,19 @@
+import { Currency } from "./Currency.js";
+import { Event } from "./Event.js";
 export class TicketType {
   id: string;
-  eventId: string;
+  eventId: Event;
   title: string;
   slug: string;
   description: string;
   availableTicket: number;
   price: number;
-  currencyId: string;
+  currencyId: Currency;
   createdAt: Date;
   updatedAt: Date;
   deletedAt?: Date;
 
-  constructor(id: string, eventId: string, title: string, slug: string, description: string, availableTicket: number, price: number, currencyId: string) {
+  constructor(id: string, eventId: Event, title: string, slug: string, description: string, availableTicket: number, price: number, currencyId: Currency, createdAt: Date, updatedAt: Date) {
     this.id = id;
     this.eventId = eventId;
     this.title = title;
@@ -20,14 +22,14 @@ export class TicketType {
     this.availableTicket = availableTicket;
     this.price = price;
     this.currencyId = currencyId;
-    this.createdAt = new Date();
-    this.updatedAt = new Date();
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
   }
 
   public getId(): string {
     return this.id;
   } 
-  public getEventId(): string {
+  public getEventId(): Event {
     return this.eventId;
   }
   public getTitle(): string {
@@ -45,7 +47,7 @@ export class TicketType {
   public getPrice(): number {
     return this.price;
   }
-  public getCurrencyId(): string {
+  public getCurrencyId(): Currency {
     return this.currencyId;
   }
   public getCreatedAt(): Date {
@@ -60,7 +62,7 @@ export class TicketType {
   public setId(id: string): void {
     this.id = id;
   }
-  public setEventId(eventId: string): void {
+  public setEventId(eventId: Event): void {
     this.eventId = eventId;
   }
   public setTitle(title: string): void {
@@ -78,7 +80,7 @@ export class TicketType {
   public setPrice(price: number): void {
     this.price = price;
   }
-  public setCurrencyId(currencyId: string): void {
+  public setCurrencyId(currencyId: Currency): void {
     this.currencyId = currencyId;
   }
   public setCreatedAt(createdAt: Date): void {

@@ -1,27 +1,30 @@
+import { Country } from "./Country.js";
+import { Role } from "./Role.js";
+
 export class User {
   id: string;
-  roleId: string;
+  roleId: Role;
   username: string;
   name: string;
   email: string;
   emailVerifiedAt: Date;
   password: string;
   imageUrl: string;
-  countryId: string;
+  countryId: Country;
   createdAt: Date;
   updatedAt: Date;
   deletedAt?: Date;
 
   constructor(
     id: string,
-    roleId: string,
+    roleId: Role,
     username: string,
     name: string,
     email: string,
     emailVerifiedAt: Date,
     password: string,
     imageUrl: string,
-    countryId: string,
+    countryId: Country,
     createdAt: Date,
     updatedAt: Date,
     deletedAt?: Date
@@ -43,7 +46,7 @@ export class User {
   public getId(): string {
     return this.id;
   }
-  public getRoleId(): string {
+  public getRoleId(): Role {
     return this.roleId;
   }
   public getUsername(): string {
@@ -64,7 +67,7 @@ export class User {
   public getImageUrl(): string {
     return this.imageUrl;
   }
-  public getCountryId(): string {
+  public getCountryId(): Country {
     return this.countryId;
   }
   public getCreatedAt(): Date {
@@ -79,7 +82,7 @@ export class User {
   public setId(id: string): void {
     this.id = id;
   }
-  public setRoleId(roleId: string): void {
+  public setRoleId(roleId: Role): void {
     this.roleId = roleId;
   }
   public setUsername(username: string): void {
@@ -100,7 +103,7 @@ export class User {
   public setImageUrl(imageUrl: string): void {
     this.imageUrl = imageUrl;
   }
-  public setCountryId(countryId: string): void {
+  public setCountryId(countryId: Country): void {
     this.countryId = countryId;
   }
   public setCreatedAt(createdAt: Date): void {

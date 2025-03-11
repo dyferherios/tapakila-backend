@@ -1,12 +1,15 @@
+import { Ticket } from "./Ticket.js";
+import { User } from "./User.js";
+
 export class TicketVerification {
   id: string;
-  ticketId: string;
-  userId: string;
+  ticketId: Ticket;
+  userId: User;
   paymentConfirmed: boolean;
   createdAt: Date;
   updatedAt: Date;
   deletedAt?: Date;
-  constructor(id: string, ticketId: string, userId: string, paymentConfirmed: boolean, createdAt: Date, updatedAt: Date, deletedAt?: Date) {
+  constructor(id: string, ticketId: Ticket, userId: User, paymentConfirmed: boolean, createdAt: Date, updatedAt: Date, deletedAt?: Date) {
     this.id = id;
     this.ticketId = ticketId;
     this.userId = userId;
@@ -18,10 +21,10 @@ export class TicketVerification {
   public getId(): string {
     return this.id;
   }
-  public getTicketId(): string {
+  public getTicketId(): Ticket {
     return this.ticketId;
   }
-  public getUserId(): string {
+  public getUserId(): User {
     return this.userId;
   }
   public getPaymentConfirmed(): boolean {
@@ -39,10 +42,10 @@ export class TicketVerification {
   public setId(id: string): void {
     this.id = id;
   }
-  public setTicketId(ticketId: string): void {
+  public setTicketId(ticketId: Ticket): void {
     this.ticketId = ticketId;
   }
-  public setUserId(userId: string): void {
+  public setUserId(userId: User): void {
     this.userId = userId;
   }
   public setPaymentConfirmed(paymentConfirmed: boolean): void {
