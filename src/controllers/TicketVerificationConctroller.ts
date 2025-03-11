@@ -7,7 +7,7 @@ class TicketVerificationController {
 
     static getTicketVerifications = async (request: any, response: any) => {
         try {
-            const results = await pool.query("SELECT * FROM ticket_vérification");
+            const results = await pool.query("SELECT * FROM ticket_verification");
             const ticketVerifications = await Promise.all(
                 results.rows.map(async (row) => {
                     const ticketId = row.ticket_id.toString();
