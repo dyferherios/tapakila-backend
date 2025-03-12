@@ -102,7 +102,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/UpdateUser"
+              $ref: "#/components/schemas/CreateUser"
       responses:
         "200":
           description: User updated successfully.
@@ -236,7 +236,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/UpdateRole"
+              $ref: "#/components/schemas/CreateRole"
       responses:
         "200":
           description: Role updated successfully.
@@ -370,7 +370,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/UpdateCountry"
+              $ref: "#/components/schemas/CreateCountry"
       responses:
         "200":
           description: Country updated successfully.
@@ -504,7 +504,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/UpdateEvent"
+              $ref: "#/components/schemas/CreateEvent"
       responses:
         "200":
           description: Event updated successfully.
@@ -615,7 +615,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/EventHall"
         "404":
-          description: Event not found.
+          description: Event hall not found.
           content:
             application/json:
               schema:
@@ -638,7 +638,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/UpdateEventHall"
+              $ref: "#/components/schemas/CreateEventHall"
       responses:
         "200":
           description: Event hall updated successfully.
@@ -653,7 +653,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
         "404":
-          description: Event not found.
+          description: Event hall not found.
           content:
             application/json:
               schema:
@@ -676,6 +676,1078 @@ paths:
           description: Event  hall deleted successfully.
         "404":
           description: Event hall not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /ticket_verification:
+    get:
+      summary: Retrieve all tickets verification
+      description: Returns a list of all registered tickes verification
+      tags:
+        - Ticket_verification
+      operationId: GetTicketVerification
+      responses:
+        "200":
+          description: List of tickets verification retrieved successfully
+          content: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TicketVerification"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    post:
+      summary: Create a new ticket verification
+      description: Adds a new ticket verification to the system.
+      tags:
+        - Ticket_verification
+      operationId: CreateTicketVerification
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateTicketVerification"
+      responses:
+        "201":
+          description: Ticket verification created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TicketVerification"
+        "400":
+          description: Bad request (invalid input).
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /ticket_verification/{id}:
+    get:
+      summary: Get a ticket verification by ID
+      description: Retrieve details of a specific ticket verification by their unique ID.
+      tags:
+        -  Ticket_verification
+      operationId: GetTicketVerificationById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description:  Ticket verification details retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TicketVerification"
+        "404":
+          description:  Ticket verification not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    put:
+      summary: Update a ticket verification
+      description: Update the details of an existing ticket verification.
+      tags:
+        -  Ticket_verification
+      operationId: UpdateTicketVerification
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateTicketVerification"
+      responses:
+        "200":
+          description:  Ticket verification updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TicketVerification"
+        "400":
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description:  Ticket verification not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    delete:
+      summary: Delete a ticket verification
+      description: Deletes a  ticket verification by their ID.
+      tags:
+        -  Ticket_verification
+      operationId: DeleteTicketVerification
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "204":
+          description:  Ticket verification deleted successfully.
+        "404":
+          description:  Ticket verification not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /feedbacks:
+    get:
+      summary: Retrieve all Feedbacks
+      description: Returns a list of all registered Feedbacks
+      tags:
+        - Feedbacks
+      operationId: GetFeedbacks
+      responses:
+        "200":
+          description: List of feedbacks retrieved successfully
+          content: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Feedbacks"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    post:
+      summary: Create a new Feedback
+      description: Adds a new Feedback to the system.
+      tags:
+        - Feedbacks
+      operationId: CreateFeedback
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateFeedbacks"
+      responses:
+        "201":
+          description: Feedback created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Feedbacks"
+        "400":
+          description: Bad request (invalid input).
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /feedbacks/{id}:
+    get:
+      summary: Get a feedback by ID
+      description: Retrieve details of a specific feedback by their unique ID.
+      tags:
+        -  Feedbacks
+      operationId: GetFeedbacksById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description:  Feedback details retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Feedbacks"
+        "404":
+          description:  Feedbacks not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    put:
+      summary: Update a feedback verification
+      description: Update the details of an existing feedback.
+      tags:
+        -  Feedbacks
+      operationId: UpdateFeedbacks
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateFeedbacks"
+      responses:
+        "200":
+          description:  Feedbacks updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Feedbacks"
+        "400":
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description:  Feedbacks not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    delete:
+      summary: Delete a Feedback
+      description: Deletes a Feedbacks by their ID.
+      tags:
+        -  Feedbacks
+      operationId: DeleteFeedbacks
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "204":
+          description:  Feedbacks deleted successfully.
+        "404":
+          description:  Feedbacks not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /tickets:
+    get:
+      summary: Retrieve all tickets
+      description: Returns a list of all registered tickets
+      tags:
+        - Ticket
+      operationId: GetTickets
+      responses:
+        "200":
+          description: List of Tickets retrieved successfully
+          content: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Ticket"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    post:
+      summary: Create a new Ticket
+      description: Adds a new Ticket to the system.
+      tags:
+        - Ticket
+      operationId: CreateTicket
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateTicket"
+      responses:
+        "201":
+          description: Ticket created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Ticket"
+        "400":
+          description: Bad request (invalid input).
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /tickets/{id}:
+    get:
+      summary: Get a ticket by ID
+      description: Retrieve details of a specific ticket by their unique ID.
+      tags:
+        -  Ticket
+      operationId: GetTicketById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description:  Ticket details retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Ticket"
+        "404":
+          description:  Ticket not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    put:
+      summary: Update a ticket 
+      description: Update the details of an existing ticket.
+      tags:
+        -  Ticket
+      operationId: UpdateTicket
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateTicket"
+      responses:
+        "200":
+          description:  Ticket updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Ticket"
+        "400":
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description:  Ticket not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    delete:
+      summary: Delete a Ticket
+      description: Deletes a Ticket by their ID.
+      tags:
+        -  Ticket
+      operationId: DeleteTicket
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "204":
+          description:  Ticket deleted successfully.
+        "404":
+          description:  Ticket not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /news_letter:
+    get:
+      summary: Retrieve all newsletters
+      description: Returns a list of all registered newsletters
+      tags:
+        - Newsletter
+      operationId: GetNewsletters
+      responses:
+        "200":
+          description: List of Newsletters retrieved successfully
+          content: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/NewsLetter"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    post:
+      summary: Create a new Newsletter
+      description: Adds a new Newsletter to the system.
+      tags:
+        - Newsletter
+      operationId: CreateNewsletter
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateNewsLetter"
+      responses:
+        "201":
+          description: Newsletter created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NewsLetter"
+        "400":
+          description: Bad request (invalid input).
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /news_letter/{id}:
+    get:
+      summary: Get a newsletter by ID
+      description: Retrieve details of a specific newsletter by their unique ID.
+      tags:
+        -  Newsletter
+      operationId: GetNewsletterById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description:  Newsletter details retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NewsLetter"
+        "404":
+          description:  Newsletter not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    put:
+      summary: Update a Newsletter 
+      description: Update the details of an existing Newsletter.
+      tags:
+        -  Newsletter
+      operationId: UpdateNewsletter
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateNewsLetter"
+      responses:
+        "200":
+          description:  Newsletter updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NewsLetter"
+        "400":
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description:  Newsletter not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    delete:
+      summary: Delete a Newsletter
+      description: Deletes a Newsletter by their ID.
+      tags:
+        -  Newsletter
+      operationId: DeleteNewsletter
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "204":
+          description:  Newsletter deleted successfully.
+        "404":
+          description:  Newsletter not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /ticket_type:
+    get:
+      summary: Retrieve all tickets types
+      description: Returns a list of all registered tickets types
+      tags:
+        - Ticket_Type
+      operationId: GetTicketType
+      responses:
+        "200":
+          description: List of Ticket_Type retrieved successfully
+          content: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TicketType"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    post:
+      summary: Create a new Ticket_Type
+      description: Adds a new Ticket_Type to the system.
+      tags:
+        - Ticket_Type
+      operationId: CreateTicketType
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateTicketType"
+      responses:
+        "201":
+          description: Ticket_Type created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TicketType"
+        "400":
+          description: Bad request (invalid input).
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /ticket_type/{id}:
+    get:
+      summary: Get a ticket type by ID
+      description: Retrieve details of a specific ticket type by their unique ID.
+      tags:
+        -  Ticket_Type
+      operationId: GetTicketTypeById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description:  Ticket type details retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TicketType"
+        "404":
+          description:  Ticket_Type not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    put:
+      summary: Update a Ticket_Type 
+      description: Update the details of an existing Ticket_Type.
+      tags:
+        -  Ticket_Type
+      operationId: UpdateTicketType
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateTicketType"
+      responses:
+        "200":
+          description:  Ticket_Type updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TicketType"
+        "400":
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description:  Ticket_Type not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    delete:
+      summary: Delete a Ticket_Type
+      description: Deletes a Ticket_Type by their ID.
+      tags:
+        -  Ticket_Type
+      operationId: DeleteTicketType
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "204":
+          description:  Ticket_Type deleted successfully.
+        "404":
+          description:  Ticket_Type not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /currencies:
+    get:
+      summary: Retrieve all currencies.
+      description: Returns a list of all registered currencies
+      tags:
+        - Currency
+      operationId: GetCurrency
+      responses:
+        "200":
+          description: List of Currency retrieved successfully
+          content: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Currency"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    post:
+      summary: Create a new Currency
+      description: Adds a new Currency to the system.
+      tags:
+        - Currency
+      operationId: CreateCurrency
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateCurrency"
+      responses:
+        "201":
+          description: Currency created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Currency"
+        "400":
+          description: Bad request (invalid input).
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /currencies/{id}:
+    get:
+      summary: Get a currency by ID
+      description: Retrieve details of a specific currency by their unique ID.
+      tags:
+        -  Currency
+      operationId: GetCurrencyById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description:  Currency details retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Currency"
+        "404":
+          description:  Currency not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    put:
+      summary: Update a Currency
+      description: Update the details of an existing Currency.
+      tags:
+        -  Currency
+      operationId: UpdateCurrency
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateCurrency"
+      responses:
+        "200":
+          description:  Currency updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Currency"
+        "400":
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description:  Currency not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    delete:
+      summary: Delete a Currency
+      description: Deletes a Currency by their ID.
+      tags:
+        -  Currency
+      operationId: DeleteCurrency
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "204":
+          description:  Currency deleted successfully.
+        "404":
+          description:  Currency not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /tags:
+    get:
+      summary: Retrieve all tags.
+      description: Returns a list of all registered tags
+      tags:
+        - Tag
+      operationId: GetTag
+      responses:
+        "200":
+          description: List of Tag retrieved successfully
+          content: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Tag"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    post:
+      summary: Create a new Tag
+      description: Adds a new Tag to the system.
+      tags:
+        - Tag
+      operationId: CreateTag
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateTag"
+      responses:
+        "201":
+          description: Tag created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Tag"
+        "400":
+          description: Bad request (invalid input).
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /tags/{id}:
+    get:
+      summary: Get a Tag by ID
+      description: Retrieve details of a specific Tag by their unique ID.
+      tags:
+        -  Tag
+      operationId: GetTagById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description:  Tag details retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Tag"
+        "404":
+          description:  Tag not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    put:
+      summary: Update a Tag
+      description: Update the details of an existing Tag.
+      tags:
+        -  Tag
+      operationId: UpdateTag
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateTag"
+      responses:
+        "200":
+          description:  Tag updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Tag"
+        "400":
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description:  Tag not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    delete:
+      summary: Delete a Tag
+      description: Deletes a Tag by their ID.
+      tags:
+        -  Tag
+      operationId: DeleteTag
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "204":
+          description:  Tag deleted successfully.
+        "404":
+          description:  Tag not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /hosts:
+    get:
+      summary: Retrieve all hosts.
+      description: Returns a list of all registered hosts
+      tags:
+        - Host
+      operationId: GetHost
+      responses:
+        "200":
+          description: List of Host retrieved successfully
+          content: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Host"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    post:
+      summary: Create a new Host
+      description: Adds a new Host to the system.
+      tags:
+        - Host
+      operationId: CreateHost
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateHost"
+      responses:
+        "201":
+          description: Host created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Host"
+        "400":
+          description: Bad request (invalid input).
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /hosts/{id}:
+    get:
+      summary: Get a Host by ID
+      description: Retrieve details of a specific Host by their unique ID.
+      tags:
+        -  Host
+      operationId: GetHostById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description:  Host details retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Host"
+        "404":
+          description:  Host not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    put:
+      summary: Update a Host
+      description: Update the details of an existing Host.
+      tags:
+        -  Host
+      operationId: UpdateHost
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateHost"
+      responses:
+        "200":
+          description:  Host updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Host"
+        "400":
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description:  Host not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    delete:
+      summary: Delete a Host
+      description: Deletes a Host by their ID.
+      tags:
+        -  Host
+      operationId: DeleteHost
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "204":
+          description:  Host deleted successfully.
+        "404":
+          description:  Host not found.
           content:
             application/json:
               schema:
@@ -738,10 +1810,6 @@ components:
               format: date-time
               nullable: true
               example: null
-    UpdateUser:
-      allOf:
-        - $ref: "#/components/schemas/CreateUser"
-        - type: object
     CreateRole:
       required:
         - title
@@ -767,10 +1835,6 @@ components:
               format: date-time
               nullable: true
               example: "2024-03-07T14:30:00Z"
-    UpdateRole:
-      allOf:
-        - $ref: "#/components/schemas/CreateRole"
-        - type: object
     CreateCountry:
       required:
         - name
@@ -796,10 +1860,6 @@ components:
             deleted_at:
               type: string
               format: date-time
-    UpdateCountry:
-      allOf:
-        - $ref: "#/components/schemas/CreateCountry"
-        - type: object
     CreateEvent:
       type: object
       required:
@@ -861,10 +1921,6 @@ components:
               type: string
               format: date-time
               nullable: true
-    UpdateEvent:
-      allOf:
-        - $ref: "#/components/schemas/CreateEvent"
-        - type: object
     CreateEventHall:
       type: object
       required:
@@ -894,10 +1950,268 @@ components:
               type: string
               format: date-time
               nullable: true
-    UpdateEventHall:
+    CreateTicketVerification:
+      required:
+        - ticket_id
+        - user_id
+      type: object
+      properties:
+        ticket_id:
+          type: string
+          format: uuid
+        user_id:
+          type: string
+          format: uuid
+        payment_confirmed:
+          type: boolean  
+          default: false
+    TicketVerification:
       allOf:
-        - $ref: "#/components/schemas/CreateEventHall"
+        - $ref: "#/components/schemas/CreateTicketVerification"
         - type: object
+          properties:
+            id: 
+              type: string
+              format: uuid
+            created_at:
+              type: string
+              format: date-time
+            updated_at:
+              type: string
+              format: date-time
+              nullable: true
+            deleted_at:
+              type: string
+              format: date-time
+              nullable: true
+    CreateFeedbacks:
+      required:
+        - user_id
+        - message
+      type: object
+      properties:
+        user_id:
+          type: string
+          format: uuid
+        subject:
+          type: string
+        message:
+          type: string
+          format: text
+    Feedbacks:
+      allOf:
+        - $ref: "#/components/schemas/CreateFeedbacks"
+        - type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+            created_at:
+              type: string
+              format: date-time
+            updated_at:
+              type: string
+              format: date-time
+              nullable: true
+            deleted_at:
+              type: string
+              format: date-time
+              nullable: true
+    CreateTicket:
+      type: object
+      properties:
+        event_id:
+          type: string
+          format: uuid
+        ticket_type_id:
+          type: string
+          format: uuid
+        user_id:
+          type: string
+          format: uuid
+        ticket_number:
+          type: string
+        amount_paid:
+          type: integer
+          default: 0
+        currency_id:
+          type: string
+          format: uuid
+        payment_confirmed:
+          type: boolean
+          default: false
+    Ticket:
+      allOf:
+        - $ref: "#/components/schemas/CreateTicket"
+        - type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+            created_at:
+              type: string
+              format: date-time
+            updated_at:
+              type: string
+              format: date-time
+              nullable: true
+            delete_at:
+              type: string
+              format: date-time
+              nullable: true
+    CreateNewsLetter:
+      type: object
+      required:
+        - name
+        - email
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+    NewsLetter:
+      allOf:
+        - $ref: "#/components/schemas/CreateNewsLetter"
+        - type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+            created_at:
+              type: string
+              format: date-time
+            updated_at:
+              type: string
+              format: date-time
+              nullable: true
+            delete_at:
+              type: string
+              format: date-time
+              nullable: true
+    CreateTicketType:
+      type: object
+      properties:
+        event_id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        slug:
+          type: string
+        description:
+          type: string
+          format: text
+        available_ticket:
+          type: integer
+          default: 0
+        price:
+          type: number
+          format: double
+          default: 0.0
+        currency_id:
+          type: string
+          format: uuid
+    TicketType:
+      allOf:
+        - $ref: "#/components/schemas/CreateTicketType"
+        - type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+            created_at:
+              type: string
+              format: date-time
+            updated_at:
+              type: string
+              format: date-time
+              nullable: true
+            delete_at:
+              type: string
+              format: date-time
+              nullable: true
+    CreateCurrency:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+          format: text
+    Currency:
+      allOf:
+        - $ref: "#/components/schemas/CreateCurrency"
+        - type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+            created_at:
+              type: string
+              format: date-time
+            updated_at:
+              type: string
+              format: date-time
+              nullable: true
+            delete_at:
+              type: string
+              format: date-time
+              nullable: true
+    CreateTag:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+          format: text
+    Tag:
+      allOf:
+        - $ref: "#/components/schemas/CreateTag"
+        - type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+            created_at:
+              type: string
+              format: date-time
+            updated_at:
+              type: string
+              format: date-time
+              nullable: true
+            delete_at:
+              type: string
+              format: date-time
+              nullable: true
+    CreateHost:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+          format: text
+    Host:
+      allOf:
+        - $ref: "#/components/schemas/CreateHost"
+        - type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+            created_at:
+              type: string
+              format: date-time
+            updated_at:
+              type: string
+              format: date-time
+              nullable: true
+            delete_at:
+              type: string
+              format: date-time
+              nullable: true
     ErrorResponse:
       type: object
       properties:
