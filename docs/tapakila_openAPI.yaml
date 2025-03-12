@@ -814,6 +814,140 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+  /feedbacks:
+    get:
+      summary: Retrieve all Feedbacks
+      description: Returns a list of all registered Feedbacks
+      tags:
+        - Feedbacks
+      operationId: GetFeedbacks
+      responses:
+        "200":
+          description: List of feedbacks retrieved successfully
+          content: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Feedbacks"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    post:
+      summary: Create a new Feedback
+      description: Adds a new Feedback to the system.
+      tags:
+        - Feedbacks
+      operationId: CreateFeedback
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateFeedbacks"
+      responses:
+        "201":
+          description: Feedback created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Feedbacks"
+        "400":
+          description: Bad request (invalid input).
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /feedbacks/{id}:
+    get:
+      summary: Get a feedback by ID
+      description: Retrieve details of a specific feedback by their unique ID.
+      tags:
+        -  Feedbacks
+      operationId: GetFeedbacksById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description:  Feedback details retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Feedbacks"
+        "404":
+          description:  Feedbacks not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    put:
+      summary: Update a feedback verification
+      description: Update the details of an existing feedback.
+      tags:
+        -  Feedbacks
+      operationId: UpdateFeedbacks
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateFeedbacks"
+      responses:
+        "200":
+          description:  Feedbacks updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Feedbacks"
+        "400":
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description:  Feedbacks not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    delete:
+      summary: Delete a Feedback
+      description: Deletes a Feedbacks by their ID.
+      tags:
+        -  Feedbacks
+      operationId: DeleteFeedbacks
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "204":
+          description:  Feedbacks deleted successfully.
+        "404":
+          description:  Feedbacks not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
 components:
   schemas:
     CreateUser:
@@ -1033,6 +1167,39 @@ components:
         - type: object
           properties:
             id: 
+              type: string
+              format: uuid
+            created_at:
+              type: string
+              format: date-time
+            updated_at:
+              type: string
+              format: date-time
+              nullable: true
+            deleted_at:
+              type: string
+              format: date-time
+              nullable: true
+    CreateFeedbacks:
+      required:
+        - user_id
+        - message
+      type: object
+      properties:
+        user_id:
+          type: string
+          format: uuid
+        subject:
+          type: string
+        message:
+          type: string
+          format: text
+    Feedbacks:
+      allOf:
+        - $ref: "#/components/schemas/CreateFeedbacks"
+        - type: object
+          properties:
+            id:
               type: string
               format: uuid
             created_at:
