@@ -680,7 +680,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
-  /ticket_verification:
+  /ticketVerifications:
     get:
       summary: Retrieve all tickets verification
       description: Returns a list of all registered tickes verification
@@ -727,7 +727,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
-  /ticket_verification/{id}:
+  /ticketVerifications/{id}:
     get:
       summary: Get a ticket verification by ID
       description: Retrieve details of a specific ticket verification by their unique ID.
@@ -1082,7 +1082,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
-  /news_letter:
+  /newsletters:
     get:
       summary: Retrieve all newsletters
       description: Returns a list of all registered newsletters
@@ -1129,7 +1129,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
-  /news_letter/{id}:
+  /newsletters/{id}:
     get:
       summary: Get a newsletter by ID
       description: Retrieve details of a specific newsletter by their unique ID.
@@ -1216,7 +1216,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
-  /ticket_type:
+  /ticketTypes:
     get:
       summary: Retrieve all tickets types
       description: Returns a list of all registered tickets types
@@ -1263,7 +1263,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
-  /ticket_type/{id}:
+  /ticketTypes/{id}:
     get:
       summary: Get a ticket type by ID
       description: Retrieve details of a specific ticket type by their unique ID.
