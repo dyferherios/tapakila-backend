@@ -615,7 +615,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/EventHall"
         "404":
-          description: Event not found.
+          description: Event hall not found.
           content:
             application/json:
               schema:
@@ -653,7 +653,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
         "404":
-          description: Event not found.
+          description: Event hall not found.
           content:
             application/json:
               schema:
@@ -676,6 +676,140 @@ paths:
           description: Event  hall deleted successfully.
         "404":
           description: Event hall not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /ticket_verification:
+    get:
+      summary: Retrieve all tickets verification
+      description: Returns a list of all registered tickes verification
+      tags:
+        - Ticket_verification
+      operationId: GetTicketVerification
+      responses:
+        "200":
+          description: List of tickets verification retrieved successfully
+          content: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TicketVerification"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    post:
+      summary: Create a new ticket verification
+      description: Adds a new ticket verification to the system.
+      tags:
+        - Ticket_verification
+      operationId: CreateTicketVerification
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateTicketVerification"
+      responses:
+        "201":
+          description: Ticket verification created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TicketVerification"
+        "400":
+          description: Bad request (invalid input).
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /ticket_verification/{id}:
+    get:
+      summary: Get a ticket verification by ID
+      description: Retrieve details of a specific ticket verification by their unique ID.
+      tags:
+        -  Ticket_verification
+      operationId: GetTicketVerificationById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description:  Ticket verification details retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TicketVerification"
+        "404":
+          description:  Ticket verification not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    put:
+      summary: Update a ticket verification
+      description: Update the details of an existing ticket verification.
+      tags:
+        -  Ticket_verification
+      operationId: UpdateTicketVerification
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateTicketVerification"
+      responses:
+        "200":
+          description:  Ticket verification updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TicketVerification"
+        "400":
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description:  Ticket verification not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    delete:
+      summary: Delete a ticket verification
+      description: Deletes a  ticket verification by their ID.
+      tags:
+        -  Ticket_verification
+      operationId: DeleteTicketVerification
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "204":
+          description:  Ticket verification deleted successfully.
+        "404":
+          description:  Ticket verification not found.
           content:
             application/json:
               schema:
@@ -865,6 +999,40 @@ components:
         - type: object
           properties:
             id:
+              type: string
+              format: uuid
+            created_at:
+              type: string
+              format: date-time
+            updated_at:
+              type: string
+              format: date-time
+              nullable: true
+            deleted_at:
+              type: string
+              format: date-time
+              nullable: true
+    CreateTicketVerification:
+      required:
+        - ticket_id
+        - user_id
+      type: object
+      properties:
+        ticket_id:
+          type: string
+          format: uuid
+        user_id:
+          type: string
+          format: uuid
+        payment_confirmed:
+          type: boolean  
+          default: false
+    TicketVerification:
+      allOf:
+        - $ref: "#/components/schemas/CreateTicketVerification"
+        - type: object
+          properties:
+            id: 
               type: string
               format: uuid
             created_at:
