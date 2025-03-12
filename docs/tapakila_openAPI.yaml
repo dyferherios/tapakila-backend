@@ -948,6 +948,140 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+  /tickets:
+    get:
+      summary: Retrieve all tickets
+      description: Returns a list of all registered tickets
+      tags:
+        - Tickets
+      operationId: GetTickets
+      responses:
+        "200":
+          description: List of Tickets retrieved successfully
+          content: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Ticket"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    post:
+      summary: Create a new Ticket
+      description: Adds a new Ticket to the system.
+      tags:
+        - Tickets
+      operationId: CreateTicket
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateTicket"
+      responses:
+        "201":
+          description: Ticket created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Ticket"
+        "400":
+          description: Bad request (invalid input).
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /tickets/{id}:
+    get:
+      summary: Get a ticket by ID
+      description: Retrieve details of a specific ticket by their unique ID.
+      tags:
+        -  Tickets
+      operationId: GetTicketById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description:  Ticket details retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Ticket"
+        "404":
+          description:  Ticket not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    put:
+      summary: Update a ticket verification
+      description: Update the details of an existing ticket.
+      tags:
+        -  Tickets
+      operationId: UpdateTicket
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateTicket"
+      responses:
+        "200":
+          description:  Ticket updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Ticket"
+        "400":
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description:  Ticket not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    delete:
+      summary: Delete a Ticket
+      description: Deletes a Ticket by their ID.
+      tags:
+        -  Tickets
+      operationId: DeleteTicket
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "204":
+          description:  Ticket deleted successfully.
+        "404":
+          description:  Ticket not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
 components:
   schemas:
     CreateUser:
@@ -1210,6 +1344,48 @@ components:
               format: date-time
               nullable: true
             deleted_at:
+              type: string
+              format: date-time
+              nullable: true
+    CreateTicket:
+      type: object
+      properties:
+        event_id:
+          type: string
+          format: uuid
+        ticket_type_id:
+          type: string
+          format: uuid
+        user_id:
+          type: string
+          format: uuid
+        ticket_number:
+          type: string
+        amount_paid:
+          type: integer
+          default: 0
+        currency_id:
+          type: string
+          format: uuid
+        payment_confirmed:
+          type: boolean
+          default: false
+    Ticket:
+      allOf:
+        - $ref: "#/components/schemas/CreateTicket"
+        - type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+            created_at:
+              type: string
+              format: date-time
+            updated_at:
+              type: string
+              format: date-time
+              nullable: true
+            delete_at:
               type: string
               format: date-time
               nullable: true
