@@ -1216,6 +1216,542 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+  /ticket_type:
+    get:
+      summary: Retrieve all tickets types
+      description: Returns a list of all registered tickets types
+      tags:
+        - Ticket_Type
+      operationId: GetTicketType
+      responses:
+        "200":
+          description: List of Ticket_Type retrieved successfully
+          content: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TicketType"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    post:
+      summary: Create a new Ticket_Type
+      description: Adds a new Ticket_Type to the system.
+      tags:
+        - Ticket_Type
+      operationId: CreateTicketType
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateTicketType"
+      responses:
+        "201":
+          description: Ticket_Type created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TicketType"
+        "400":
+          description: Bad request (invalid input).
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /ticket_type/{id}:
+    get:
+      summary: Get a ticket type by ID
+      description: Retrieve details of a specific ticket type by their unique ID.
+      tags:
+        -  Ticket_Type
+      operationId: GetTicketTypeById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description:  Ticket type details retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TicketType"
+        "404":
+          description:  Ticket_Type not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    put:
+      summary: Update a Ticket_Type 
+      description: Update the details of an existing Ticket_Type.
+      tags:
+        -  Ticket_Type
+      operationId: UpdateTicketType
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateTicketType"
+      responses:
+        "200":
+          description:  Ticket_Type updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TicketType"
+        "400":
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description:  Ticket_Type not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    delete:
+      summary: Delete a Ticket_Type
+      description: Deletes a Ticket_Type by their ID.
+      tags:
+        -  Ticket_Type
+      operationId: DeleteTicketType
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "204":
+          description:  Ticket_Type deleted successfully.
+        "404":
+          description:  Ticket_Type not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /currencies:
+    get:
+      summary: Retrieve all currencies.
+      description: Returns a list of all registered currencies
+      tags:
+        - Currency
+      operationId: GetCurrency
+      responses:
+        "200":
+          description: List of Currency retrieved successfully
+          content: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Currency"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    post:
+      summary: Create a new Currency
+      description: Adds a new Currency to the system.
+      tags:
+        - Currency
+      operationId: CreateCurrency
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateCurrency"
+      responses:
+        "201":
+          description: Currency created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Currency"
+        "400":
+          description: Bad request (invalid input).
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /currencies/{id}:
+    get:
+      summary: Get a currency by ID
+      description: Retrieve details of a specific currency by their unique ID.
+      tags:
+        -  Currency
+      operationId: GetCurrencyById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description:  Currency details retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Currency"
+        "404":
+          description:  Currency not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    put:
+      summary: Update a Currency
+      description: Update the details of an existing Currency.
+      tags:
+        -  Currency
+      operationId: UpdateCurrency
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateCurrency"
+      responses:
+        "200":
+          description:  Currency updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Currency"
+        "400":
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description:  Currency not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    delete:
+      summary: Delete a Currency
+      description: Deletes a Currency by their ID.
+      tags:
+        -  Currency
+      operationId: DeleteCurrency
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "204":
+          description:  Currency deleted successfully.
+        "404":
+          description:  Currency not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /tags:
+    get:
+      summary: Retrieve all tags.
+      description: Returns a list of all registered tags
+      tags:
+        - Tag
+      operationId: GetTag
+      responses:
+        "200":
+          description: List of Tag retrieved successfully
+          content: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Tag"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    post:
+      summary: Create a new Tag
+      description: Adds a new Tag to the system.
+      tags:
+        - Tag
+      operationId: CreateTag
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateTag"
+      responses:
+        "201":
+          description: Tag created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Tag"
+        "400":
+          description: Bad request (invalid input).
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /tags/{id}:
+    get:
+      summary: Get a Tag by ID
+      description: Retrieve details of a specific Tag by their unique ID.
+      tags:
+        -  Tag
+      operationId: GetTagById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description:  Tag details retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Tag"
+        "404":
+          description:  Tag not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    put:
+      summary: Update a Tag
+      description: Update the details of an existing Tag.
+      tags:
+        -  Tag
+      operationId: UpdateTag
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateTag"
+      responses:
+        "200":
+          description:  Tag updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Tag"
+        "400":
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description:  Tag not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    delete:
+      summary: Delete a Tag
+      description: Deletes a Tag by their ID.
+      tags:
+        -  Tag
+      operationId: DeleteTag
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "204":
+          description:  Tag deleted successfully.
+        "404":
+          description:  Tag not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /hosts:
+    get:
+      summary: Retrieve all hosts.
+      description: Returns a list of all registered hosts
+      tags:
+        - Host
+      operationId: GetHost
+      responses:
+        "200":
+          description: List of Host retrieved successfully
+          content: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Host"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    post:
+      summary: Create a new Host
+      description: Adds a new Host to the system.
+      tags:
+        - Host
+      operationId: CreateHost
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateHost"
+      responses:
+        "201":
+          description: Host created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Host"
+        "400":
+          description: Bad request (invalid input).
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /hosts/{id}:
+    get:
+      summary: Get a Host by ID
+      description: Retrieve details of a specific Host by their unique ID.
+      tags:
+        -  Host
+      operationId: GetHostById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description:  Host details retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Host"
+        "404":
+          description:  Host not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    put:
+      summary: Update a Host
+      description: Update the details of an existing Host.
+      tags:
+        -  Host
+      operationId: UpdateHost
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateHost"
+      responses:
+        "200":
+          description:  Host updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Host"
+        "400":
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description:  Host not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    delete:
+      summary: Delete a Host
+      description: Deletes a Host by their ID.
+      tags:
+        -  Host
+      operationId: DeleteHost
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "204":
+          description:  Host deleted successfully.
+        "404":
+          description:  Host not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
 components:
   schemas:
     CreateUser:
@@ -1537,6 +2073,129 @@ components:
     NewsLetter:
       allOf:
         - $ref: "#/components/schemas/CreateNewsLetter"
+        - type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+            created_at:
+              type: string
+              format: date-time
+            updated_at:
+              type: string
+              format: date-time
+              nullable: true
+            delete_at:
+              type: string
+              format: date-time
+              nullable: true
+    CreateTicketType:
+      type: object
+      properties:
+        event_id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        slug:
+          type: string
+        description:
+          type: string
+          format: text
+        available_ticket:
+          type: integer
+          default: 0
+        price:
+          type: number
+          format: double
+          default: 0.0
+        currency_id:
+          type: string
+          format: uuid
+    TicketType:
+      allOf:
+        - $ref: "#/components/schemas/CreateTicketType"
+        - type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+            created_at:
+              type: string
+              format: date-time
+            updated_at:
+              type: string
+              format: date-time
+              nullable: true
+            delete_at:
+              type: string
+              format: date-time
+              nullable: true
+    CreateCurrency:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+          format: text
+    Currency:
+      allOf:
+        - $ref: "#/components/schemas/CreateCurrency"
+        - type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+            created_at:
+              type: string
+              format: date-time
+            updated_at:
+              type: string
+              format: date-time
+              nullable: true
+            delete_at:
+              type: string
+              format: date-time
+              nullable: true
+    CreateTag:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+          format: text
+    Tag:
+      allOf:
+        - $ref: "#/components/schemas/CreateTag"
+        - type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+            created_at:
+              type: string
+              format: date-time
+            updated_at:
+              type: string
+              format: date-time
+              nullable: true
+            delete_at:
+              type: string
+              format: date-time
+              nullable: true
+    CreateHost:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+          format: text
+    Host:
+      allOf:
+        - $ref: "#/components/schemas/CreateHost"
         - type: object
           properties:
             id:
