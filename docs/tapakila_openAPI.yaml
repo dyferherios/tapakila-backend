@@ -953,7 +953,7 @@ paths:
       summary: Retrieve all tickets
       description: Returns a list of all registered tickets
       tags:
-        - Tickets
+        - Ticket
       operationId: GetTickets
       responses:
         "200":
@@ -974,7 +974,7 @@ paths:
       summary: Create a new Ticket
       description: Adds a new Ticket to the system.
       tags:
-        - Tickets
+        - Ticket
       operationId: CreateTicket
       requestBody:
         required: true
@@ -1000,7 +1000,7 @@ paths:
       summary: Get a ticket by ID
       description: Retrieve details of a specific ticket by their unique ID.
       tags:
-        -  Tickets
+        -  Ticket
       operationId: GetTicketById
       parameters:
         - name: id
@@ -1023,10 +1023,10 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
     put:
-      summary: Update a ticket verification
+      summary: Update a ticket 
       description: Update the details of an existing ticket.
       tags:
-        -  Tickets
+        -  Ticket
       operationId: UpdateTicket
       parameters:
         - name: id
@@ -1064,7 +1064,7 @@ paths:
       summary: Delete a Ticket
       description: Deletes a Ticket by their ID.
       tags:
-        -  Tickets
+        -  Ticket
       operationId: DeleteTicket
       parameters:
         - name: id
@@ -1078,6 +1078,140 @@ paths:
           description:  Ticket deleted successfully.
         "404":
           description:  Ticket not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /news_letter:
+    get:
+      summary: Retrieve all newsletters
+      description: Returns a list of all registered newsletters
+      tags:
+        - Newsletter
+      operationId: GetNewsletters
+      responses:
+        "200":
+          description: List of Newsletters retrieved successfully
+          content: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/NewsLetter"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    post:
+      summary: Create a new Newsletter
+      description: Adds a new Newsletter to the system.
+      tags:
+        - Newsletter
+      operationId: CreateNewsletter
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateNewsLetter"
+      responses:
+        "201":
+          description: Newsletter created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NewsLetter"
+        "400":
+          description: Bad request (invalid input).
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /news_letter/{id}:
+    get:
+      summary: Get a newsletter by ID
+      description: Retrieve details of a specific newsletter by their unique ID.
+      tags:
+        -  Newsletter
+      operationId: GetNewsletterById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description:  Newsletter details retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NewsLetter"
+        "404":
+          description:  Newsletter not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    put:
+      summary: Update a Newsletter 
+      description: Update the details of an existing Newsletter.
+      tags:
+        -  Newsletter
+      operationId: UpdateNewsletter
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateNewsLetter"
+      responses:
+        "200":
+          description:  Newsletter updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NewsLetter"
+        "400":
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description:  Newsletter not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    delete:
+      summary: Delete a Newsletter
+      description: Deletes a Newsletter by their ID.
+      tags:
+        -  Newsletter
+      operationId: DeleteNewsletter
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "204":
+          description:  Newsletter deleted successfully.
+        "404":
+          description:  Newsletter not found.
           content:
             application/json:
               schema:
@@ -1373,6 +1507,36 @@ components:
     Ticket:
       allOf:
         - $ref: "#/components/schemas/CreateTicket"
+        - type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+            created_at:
+              type: string
+              format: date-time
+            updated_at:
+              type: string
+              format: date-time
+              nullable: true
+            delete_at:
+              type: string
+              format: date-time
+              nullable: true
+    CreateNewsLetter:
+      type: object
+      required:
+        - name
+        - email
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+    NewsLetter:
+      allOf:
+        - $ref: "#/components/schemas/CreateNewsLetter"
         - type: object
           properties:
             id:
