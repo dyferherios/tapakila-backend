@@ -5,6 +5,7 @@ import { Currency } from "./Currency.js";
 
 export class Ticket {
   id: string;
+  eventId: Event;
   ticketTypeId: TicketType;
   userId: User;
   ticketNumber: string;
@@ -15,8 +16,9 @@ export class Ticket {
   updatedAt: Date;
   deletedAt?: Date;
 
-  constructor(id: string, ticketTypeId: TicketType, userId: User, ticketNumber: string, amountPaid: number, currencyId: Currency, paymentConfirmed: boolean, createdAt: Date, updatedAt: Date, deletedAt?: Date) {
+  constructor(id: string, eventId: Event, ticketTypeId: TicketType, userId: User, ticketNumber: string, amountPaid: number, currencyId: Currency, paymentConfirmed: boolean, createdAt: Date, updatedAt: Date, deletedAt?: Date) {
     this.id = id;
+    this.eventId = eventId;
     this.ticketTypeId = ticketTypeId;
     this.userId = userId;
     this.ticketNumber = ticketNumber;
@@ -29,6 +31,9 @@ export class Ticket {
   }
   public getId(): string {
     return this.id;
+  }
+  public getEventId(): Event {
+    return this.eventId;
   }
   public getTicketTypeId(): TicketType {
     return this.ticketTypeId;
@@ -59,6 +64,9 @@ export class Ticket {
   }
   public setId(id: string): void {
     this.id = id;
+  }
+  public setEventId(eventId: Event): void {
+    this.eventId = eventId;
   }
   public setTicketTypeId(ticketTypeId: TicketType): void {
     this.ticketTypeId = ticketTypeId;
