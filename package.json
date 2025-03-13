@@ -1,12 +1,14 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "main": "dist/server.js",
+  "main": "index.js",
   "type": "module",
   "scripts": {
-    "build": "tsc",
-    "start": "node --require dotenv/config dist/server.js",
-    "dev": "nodemon --require dotenv/config --loader ts-node/esm src/server.ts"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc --listFiles",
+    "start": "node --require dotenv/config --loader ts-node/esm src/server.ts",
+    "dev": "TS_NODE_PROJECT=tsconfig.json node --require dotenv/config --loader ts-node/esm src/server.ts",
+    "prestart": "npm run build"
   },
   "keywords": [],
   "author": "",
