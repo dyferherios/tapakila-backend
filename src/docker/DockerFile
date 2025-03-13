@@ -1,0 +1,11 @@
+# Utilisez l'image officielle de Node.js
+FROM node:14
+
+# Copiez les fichiers de votre application dans le conteneur
+COPY . /app
+
+# Exécutez la commande `npm install` pour installer les dépendances
+RUN npm install
+
+# Exécutez la commande `npm start` pour démarrer l'application
+CMD ["npm", "start"]

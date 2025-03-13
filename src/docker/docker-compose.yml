@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  api:
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=${PGHOST}:${PGDATABASE}:${PGUSER}:${PGPASSWORD}:${DB_PORT}
+    env_file:
+      - ../../.env
+
+  db:
+    image: postgres:14
+    environment:
+      - POSTGRES_USER=${PGUSER}
+      - POSTGRES_PASSWORD=${PGPASSWORD}
+      - POSTGRES_DB=${PGDATABASE}
+    env_file:
+      - ../../.env
