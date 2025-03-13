@@ -3,7 +3,6 @@ import { Event } from '../entity/Event.js';
 import { HostController } from './HostController.js';
 import { UserController } from './UserControllers.js';
 import { EventHallController } from './EventHallController.js';
-import { throws } from 'assert';
 import { TicketController } from './TicketController.js';
 import { EventDTO } from '../entity/EventDTO.js';
 
@@ -42,7 +41,6 @@ class EventController {
 
       response.status(200).json(Events);
     } catch (error) {
-      console.error(error);
       response.status(500).json({ error });
     }
   };
@@ -78,7 +76,6 @@ class EventController {
         event.updated_at
       );
     } catch (error) {
-      console.error(error);
       throw error;
     }
   };
@@ -122,7 +119,6 @@ class EventController {
 
       response.status(200).json(events);
     } catch (error) {
-      console.error(error);
       response.status(500).json({ error });
     }
   };
@@ -136,11 +132,12 @@ class EventController {
      const eventhallId = event.event_hall_id.toString();
      const hostId = event.host_id.toString();
      const userId = event.user_id.toString();
-      const reservations = await TicketController.getReservation(eventId);
+     const reservations = await TicketController.getReservation(eventId);
      const eventHall = await EventHallController.getEventHallById(eventhallId);
      const host = await HostController.getHostById(hostId);
      const user = await UserController.getUserById(userId);
-     return new EventDTO(
+     
+     const eventDto = new EventDTO(
        event.id.toString(),
        eventHall,
        host,
@@ -157,11 +154,14 @@ class EventController {
        event.updated_at,
         reservations
      );
+     eventDto.getTicketTypeSold();
+     
+     return eventDto;
    } catch (error) {
-     console.error(error);
      throw error;
    }
   };
+
 }
 
 export {
