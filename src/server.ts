@@ -33,5 +33,5 @@ app.use("/ticketVerifications", ticketVerificationRoutes);
 const PORT = 5000;
 
 app.listen(PORT, () => {
-  console.log(`Server running on : http://locahost:${PORT}`);
+  console.log(`Server running on : ${PORT}`);
 });
