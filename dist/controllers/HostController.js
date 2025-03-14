@@ -6,7 +6,7 @@ class HostController {
 _a = HostController;
 HostController.getHosts = async (request, response) => {
     try {
-        const results = await pool.query('SELECT * FROM host');
+        const results = await pool.query('SELECT * FROM public.host');
         const hosts = results.rows.map((row) => {
             return new Host(row.id.toString(), row.name, row.decsription, row.createdAt, row.updatedAt);
         });
@@ -19,7 +19,7 @@ HostController.getHosts = async (request, response) => {
 };
 HostController.getHostById = async (hostId) => {
     try {
-        const result = await pool.query('SELECT * FROM host WHERE id = $1', [hostId]);
+        const result = await pool.query('SELECT * FROM public.host WHERE id = $1', [hostId]);
         if (result.rows.length === 0) {
             throw new Error('Host not found');
         }

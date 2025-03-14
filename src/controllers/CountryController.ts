@@ -5,7 +5,7 @@ class CountryController {
 
     static getCountry = async (request: any, response: any) => {
         try {
-            const results = await pool.query('SELECT * FROM country');
+            const results = await pool.query('SELECT * FROM public.country');
             const countries: Country[] = results.rows.map((row) => {
                 return new Country(
                     row.id.toString(),
@@ -22,7 +22,7 @@ class CountryController {
     };
     static getCountryById = async (countryId: string) => {
     try {
-        const result = await pool.query('SELECT * FROM country WHERE id = $1', [countryId]);
+        const result = await pool.query('SELECT * FROM public.country WHERE id = $1', [countryId]);
         if (result.rows.length === 0) {
             throw new Error('Country not found');
         }

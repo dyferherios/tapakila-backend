@@ -4,7 +4,7 @@ import { Role } from "../entity/Role.js";
 class RoleController {
   static getRoles = async (request: any, response: any) => {
     try {
-      const results = await pool.query("SELECT * FROM role");
+      const results = await pool.query('SELECT * FROM public.role');
       const roles: Role[] = results.rows.map((row) => {
         return new Role(
           row.id.toString(),
@@ -21,7 +21,7 @@ class RoleController {
   };
   static getRoleById = async (roleId: string) => {
     try {
-      const result = await pool.query("SELECT * FROM role WHERE id = $1", [
+      const result = await pool.query('SELECT * FROM public.role WHERE id = $1', [
         roleId,
       ]);
       if (result.rows.length === 0) {
@@ -45,12 +45,12 @@ class RoleController {
     const { id, title } = request.body;
 
     try {
-      const result = await pool.query("SELECT * FROM role WHERE id = $1", [id]);
+      const result = await pool.query('SELECT * FROM public.role WHERE id = $1', [id]);
 
       if (result.rows.length > 0) {
         const role = result.rows[0];
         await pool.query(
-          "UPDATE role SET title = $1, updated_at = NOW() WHERE id = $2",
+          'UPDATE public.role SET title = $1, updated_at = NOW() WHERE id = $2',
           [title, id]
         );
 
@@ -64,7 +64,7 @@ class RoleController {
         return response.status(200).json(updatedRole);
       } else {
         const newRole = await pool.query(
-          "INSERT INTO role (title, created_at, updated_at) VALUES ($1, NOW(), NOW()) RETURNING *",
+          'INSERT INTO public.role (title, created_at, updated_at) VALUES ($1, NOW(), NOW()) RETURNING *',
           [title]
         );
 
@@ -88,7 +88,7 @@ class RoleController {
 
     static deleteRoleById = async (roleId: string) => {
         try {
-            await pool.query('DELETE FROM role WHERE id=$1', [roleId]);
+            await pool.query('DELETE FROM public.role WHERE id=$1', [roleId]);
         } catch (error) {
             throw error;
         }

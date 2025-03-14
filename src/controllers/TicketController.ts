@@ -8,7 +8,7 @@ import { UserController } from "./UserControllers.js";
 class TicketController {
     static getTickets = async (request: any, response: any) => {
         try {
-            const results = await pool.query("SELECT * FROM ticket");
+            const results = await pool.query('SELECT * FROM public.ticket');
             const tickets = await Promise.all(
                 results.rows.map(async (row) => {
                     const ticketTypeId = row.ticket_type_id
@@ -52,7 +52,7 @@ class TicketController {
     static getTicketById = async (ticketId: string) => {
         try {
             const result = await pool.query(
-                "SELECT * FROM ticket WHERE id = $1",
+                'SELECT * FROM public.ticket WHERE id = $1',
                 [ticketId]
             );
             const ticket = result.rows[0];
@@ -83,7 +83,7 @@ class TicketController {
   
   static getReservation = async (eventId: string) => {
     try {
-      const results = await pool.query("SELECT * FROM ticket WHERE event_id = $1", [eventId]);
+      const results = await pool.query('SELECT * FROM public.ticket WHERE event_id = $1', [eventId]);
       const tickets = await Promise.all(
         results.rows.map(async (row) => {
           const ticketTypeId = row.ticket_type_id.toString();

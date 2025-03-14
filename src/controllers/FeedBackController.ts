@@ -6,7 +6,7 @@ class FeedbackController {
 
     static getFeedbacks = async (request: any, response: any) => {
         try {
-            const results = await pool.query('SELECT * FROM feedbacks;');
+            const results = await pool.query('SELECT * FROM public.feedbacks;');
             const feedBacks = await Promise.all(
             results.rows.map(async (row) => {
 
@@ -32,7 +32,7 @@ class FeedbackController {
 
     static getFeedbackById = async (feedbackId: string) => {
     try {
-        const result = await pool.query('SELECT * FROM feedbacks WHERE id = $1', [feedbackId]);
+        const result = await pool.query('SELECT * FROM public.feedbacks WHERE id = $1', [feedbackId]);
         if (result.rows.length === 0) {
             throw new Error('Feedback not found');
         }
@@ -57,12 +57,15 @@ class FeedbackController {
         const {id, userId, subject, message } = request.body;
     
         try {
-          const result = await pool.query("SELECT * FROM feedbacks WHERE id = $1", [id]);
+          const result = await pool.query(
+            "SELECT * FROM public.feedbacks WHERE id = $1",
+            [id]
+          );
     
           if (result.rows.length > 0) {
             const feedBack = result.rows[0];
             await pool.query(
-              "UPDATE feedbacks SET user_id = $1, subject = $2, message = $3, updated_at = NOW() WHERE id = $4",
+              "UPDATE public.feedbacks SET user_id = $1, subject = $2, message = $3, updated_at = NOW() WHERE id = $4",
               [userId, subject, message, id]
             );
     
@@ -78,7 +81,7 @@ class FeedbackController {
             return response.status(200).json(updatedFeedbacks);
           } else {
             const newFeedback = await pool.query(
-              "INSERT INTO feedbacks (user_id, subject, message, created_at, updated_at) VALUES ($1, $2, $3 NOW(), NOW()) RETURNING *",
+              "INSERT INTO public.feedbacks (user_id, subject, message, created_at, updated_at) VALUES ($1, $2, $3 NOW(), NOW()) RETURNING *",
               [userId, subject, message]
             );
     
@@ -104,7 +107,9 @@ class FeedbackController {
     
         static deleteFeedbackById = async (feedbackId: string) => {
             try {
-                await pool.query('DELETE FROM feedbacks WHERE id=$1', [feedbackId]);
+                await pool.query("DELETE FROM public.feedbacks WHERE id=$1", [
+                  feedbackId,
+                ]);
             } catch (error) {
                 throw error;
             }

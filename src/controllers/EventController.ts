@@ -9,7 +9,7 @@ import { EventDTO } from '../entity/EventDTO.js';
 class EventController {
   static getEvents = async (request: any, response: any) => {
     try {
-      const results = await pool.query('SELECT * FROM "event"');
+      const results = await pool.query('SELECT * FROM public.event');
       const Events = await Promise.all(
         results.rows.map(async (row) => {
           const eventhallId = row.event_hall_id.toString();
@@ -46,7 +46,7 @@ class EventController {
   };
   static getEventById = async (eventId: string) => {
     try {
-      const result = await pool.query("SELECT * FROM event WHERE id = $1", [
+      const result = await pool.query('SELECT * FROM public.event WHERE id = $1', [
         eventId,
       ]);
       if (result.rows.length === 0) {
@@ -82,7 +82,7 @@ class EventController {
 
   static getEventWithAllReservation = async (request: any, response: any) => {
     try {
-      const results = await pool.query('SELECT * FROM event');
+      const results = await pool.query('SELECT * FROM public.event');
       const events = await Promise.all(
         results.rows.map(async (row) => {
           const eventhallId = row.event_hall_id.toString();
@@ -125,7 +125,7 @@ class EventController {
 
   static getEventWithAllReservationOfOneEvent = async (eventId: string) => {
    try {
-     const result = await pool.query("SELECT * FROM event WHERE id = $1", [
+     const result = await pool.query('SELECT * FROM public.event WHERE id = $1', [
        eventId,
      ]);
      const event = result.rows[0];

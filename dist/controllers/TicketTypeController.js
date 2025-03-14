@@ -8,7 +8,7 @@ class TicketTypeController {
 _a = TicketTypeController;
 TicketTypeController.getTicketTypes = async (request, response) => {
     try {
-        const results = await pool.query("SELECT * FROM ticket_type");
+        const results = await pool.query("SELECT * FROM public.ticket_type");
         const ticketTypes = await Promise.all(results.rows.map(async (row) => {
             const eventId = row.event_id.toString();
             const currencyId = row.currency_id.toString();
@@ -24,7 +24,7 @@ TicketTypeController.getTicketTypes = async (request, response) => {
 };
 TicketTypeController.getTicketTypeById = async (ticketTypeId) => {
     try {
-        const result = await pool.query("SELECT * FROM ticket_type WHERE id = $1", [ticketTypeId]);
+        const result = await pool.query("SELECT * FROM public.ticket_type WHERE id = $1", [ticketTypeId]);
         const ticketType = result.rows[0];
         const eventId = ticketType.event_id.toString();
         const currencyId = ticketType.currency_id.toString();
@@ -38,7 +38,7 @@ TicketTypeController.getTicketTypeById = async (ticketTypeId) => {
 };
 TicketTypeController.getTicketTypeByOfAnEvent = async (eventId) => {
     try {
-        const result = await pool.query("SELECT * FROM ticket_type WHERE event_id = $1", [eventId]);
+        const result = await pool.query("SELECT * FROM public.ticket_type WHERE event_id = $1", [eventId]);
         const ticketTypes = await Promise.all(result.rows.map(async (row) => {
             const currencyId = row.currency_id.toString();
             const event = await EventController.getEventById(eventId);
