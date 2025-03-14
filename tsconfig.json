@@ -8,13 +8,13 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
-    "types": ["node", "express", "pg"],        // Ajoute ces types
-    "skipLibCheck": true                       // Ignore les erreurs internes des bibliothèques
+    "types": ["node", "express", "pg"],
+    "typeRoots": ["./node_modules/@types"],
+    "skipLibCheck": true
   },
   "ts-node": {
-    "esm": true,
-    "experimentalSpecifierResolution": "node"
+    "esm": true
   },
-  "include": ["src/"],
+  "include": ["src"],
   "exclude": ["node_modules"]
 }
