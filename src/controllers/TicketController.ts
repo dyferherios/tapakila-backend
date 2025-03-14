@@ -46,7 +46,6 @@ class TicketController {
 
             response.status(200).json(tickets);
         } catch (error) {
-            console.error(error);
             response.status(500).json({ error });
         }
     };
@@ -78,7 +77,6 @@ class TicketController {
                 ticket.updated_at
             );
         } catch (error) {
-            console.error(error);
             throw new Error("Failed to retrieve ticket");
         }
     };

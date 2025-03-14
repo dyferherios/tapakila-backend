@@ -1,6 +1,7 @@
 import { EventHall } from "./EventHall.js";
 import { Host } from "./Host.js";
 import { Ticket } from "./Ticket.js";
+import { TicketType } from "./TicketType.js";
 import { User } from "./User.js";
 
 export class EventDTO {
@@ -54,5 +55,24 @@ export class EventDTO {
         this.allTicket = allTicket;
     }
 
+    public getAllTicket(): Ticket[]{
+        return this.allTicket;
+    }
+
+    public getTicketTypeSold(): TicketType[] {
+        
+        const ticketTypes = this.getAllTicket().map((ticket) => {
+          return ticket.getticketType();
+        });
+
+        let ticketTypesSetted = new Set<TicketType>(ticketTypes);
+
+        for (const ticketType of ticketTypesSetted) {
+            const tickets = ticketTypes.filter(e => e.id == ticketType.getId());
+            ticketTypesSetted
+        }
+        
+        return [];
+    }
     
 }

@@ -16,7 +16,6 @@ class EventHallController {
             });
             response.status(200).json(EventHalls);
         } catch (error) {
-            console.error(error);
             response.status(500).json({ error });
         }
     };
@@ -27,8 +26,6 @@ class EventHallController {
             throw new Error('EventHall not found');
         }
             const eventHall = result.rows[0]
-            console.log(eventHall);
-            
             return new EventHall(
                     eventHall.id.toString(),
                     eventHall.name,
@@ -37,7 +34,6 @@ class EventHallController {
                     eventHall.updatedAt
                 );
         } catch (error) {
-            console.error(error);
             throw error;
         }
     };

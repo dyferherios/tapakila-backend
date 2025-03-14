@@ -6,7 +6,7 @@ import { Currency } from "./Currency.js";
 export class Ticket {
   id: string;
   eventId: Event;
-  ticketTypeId: TicketType;
+  ticketType: TicketType;
   userId: User;
   ticketNumber: string;
   amountPaid: number;
@@ -16,10 +16,10 @@ export class Ticket {
   updatedAt: Date;
   deletedAt?: Date;
 
-  constructor(id: string, eventId: Event, ticketTypeId: TicketType, userId: User, ticketNumber: string, amountPaid: number, currencyId: Currency, paymentConfirmed: boolean, createdAt: Date, updatedAt: Date, deletedAt?: Date) {
+  constructor(id: string, eventId: Event, ticketType: TicketType, userId: User, ticketNumber: string, amountPaid: number, currencyId: Currency, paymentConfirmed: boolean, createdAt: Date, updatedAt: Date, deletedAt?: Date) {
     this.id = id;
     this.eventId = eventId;
-    this.ticketTypeId = ticketTypeId;
+    this.ticketType = ticketType;
     this.userId = userId;
     this.ticketNumber = ticketNumber;
     this.amountPaid = amountPaid;
@@ -35,8 +35,8 @@ export class Ticket {
   public getEventId(): Event {
     return this.eventId;
   }
-  public getTicketTypeId(): TicketType {
-    return this.ticketTypeId;
+  public getticketType(): TicketType {
+    return this.ticketType;
   }
   public getUserId(): User {
     return this.userId;
@@ -68,8 +68,8 @@ export class Ticket {
   public setEventId(eventId: Event): void {
     this.eventId = eventId;
   }
-  public setTicketTypeId(ticketTypeId: TicketType): void {
-    this.ticketTypeId = ticketTypeId;
+  public setticketType(ticketType: TicketType): void {
+    this.ticketType = ticketType;
   }
   public setUserId(userId: User): void {
     this.userId = userId;
