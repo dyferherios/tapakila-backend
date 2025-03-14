@@ -7,7 +7,7 @@ class FeedbackController {
 _a = FeedbackController;
 FeedbackController.getFeedbacks = async (request, response) => {
     try {
-        const results = await pool.query('SELECT * FROM feedbacks');
+        const results = await pool.query('SELECT * FROM feedbacks;');
         const feedBacks = await Promise.all(results.rows.map(async (row) => {
             const user = await UserController.getUserById(row.user_id);
             return new Feedback(row.id.toString(), user, row.subject, row.message, row.created_at, row.updated_at, row.deleted_at);
@@ -19,9 +19,9 @@ FeedbackController.getFeedbacks = async (request, response) => {
         response.status(500).json({ error });
     }
 };
-FeedbackController.getFeedbackById = async (hostId) => {
+FeedbackController.getFeedbackById = async (feedbackId) => {
     try {
-        const result = await pool.query('SELECT * FROM feedbacks WHERE id = $1', [hostId]);
+        const result = await pool.query('SELECT * FROM feedbacks WHERE id = $1', [feedbackId]);
         if (result.rows.length === 0) {
             throw new Error('Feedback not found');
         }
@@ -31,6 +31,38 @@ FeedbackController.getFeedbackById = async (hostId) => {
     }
     catch (error) {
         console.error(error);
+        throw error;
+    }
+};
+FeedbackController.saveFeedback = async (request, response) => {
+    const { id, userId, subject, message } = request.body;
+    try {
+        const result = await pool.query("SELECT * FROM feedbacks WHERE id = $1", [id]);
+        if (result.rows.length > 0) {
+            const feedBack = result.rows[0];
+            await pool.query("UPDATE feedbacks SET user_id = $1, subject = $2, message = $3, updated_at = NOW() WHERE id = $4", [userId, subject, message, id]);
+            const updatedFeedbacks = new Feedback(feedBack.id.toString(), userId, subject, message, feedBack.created_at, new Date());
+            return response.status(200).json(updatedFeedbacks);
+        }
+        else {
+            const newFeedback = await pool.query("INSERT INTO feedbacks (user_id, subject, message, created_at, updated_at) VALUES ($1, $2, $3 NOW(), NOW()) RETURNING *", [userId, subject, message]);
+            const createdFeedback = newFeedback.rows[0];
+            const feedBackObject = new Feedback(createdFeedback.id.toString(), createdFeedback.userId, createdFeedback.subject, createdFeedback.message, createdFeedback.created_at, createdFeedback.updated_at);
+            return response.status(201).json(feedBackObject);
+        }
+    }
+    catch (error) {
+        console.error(error);
+        response
+            .status(500)
+            .json({ error: "An error occurred while saving/updating the feedback" });
+    }
+};
+FeedbackController.deleteFeedbackById = async (feedbackId) => {
+    try {
+        await pool.query('DELETE FROM feedbacks WHERE id=$1', [feedbackId]);
+    }
+    catch (error) {
         throw error;
     }
 };
