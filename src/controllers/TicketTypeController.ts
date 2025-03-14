@@ -6,7 +6,7 @@ import { EventController } from "./EventController.js";
 class TicketTypeController {
   static getTicketTypes = async (request: any, response: any) => {
     try {
-      const results = await pool.query("SELECT * FROM ticket_type");
+      const results = await pool.query("SELECT * FROM public.ticket_type");
       const ticketTypes = await Promise.all(
         results.rows.map(async (row) => {
           const eventId = row.event_id.toString();
@@ -37,7 +37,7 @@ class TicketTypeController {
   static getTicketTypeById = async (ticketTypeId: string) => {
     try {
       const result = await pool.query(
-        "SELECT * FROM ticket_type WHERE id = $1",
+        "SELECT * FROM public.ticket_type WHERE id = $1",
         [ticketTypeId]
       );
       const ticketType = result.rows[0];
@@ -65,7 +65,7 @@ class TicketTypeController {
   static getTicketTypeByOfAnEvent = async (eventId: string) => {
     try {
       const result = await pool.query(
-        "SELECT * FROM ticket_type WHERE event_id = $1",
+        "SELECT * FROM public.ticket_type WHERE event_id = $1",
         [eventId]
       );
       const ticketTypes = await Promise.all(

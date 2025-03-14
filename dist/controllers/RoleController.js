@@ -6,7 +6,7 @@ class RoleController {
 _a = RoleController;
 RoleController.getRoles = async (request, response) => {
     try {
-        const results = await pool.query("SELECT * FROM role");
+        const results = await pool.query('SELECT * FROM public.role');
         const roles = results.rows.map((row) => {
             return new Role(row.id.toString(), row.title, row.created_at, row.updated_at);
         });
@@ -19,7 +19,7 @@ RoleController.getRoles = async (request, response) => {
 };
 RoleController.getRoleById = async (roleId) => {
     try {
-        const result = await pool.query("SELECT * FROM role WHERE id = $1", [
+        const result = await pool.query('SELECT * FROM public.role WHERE id = $1', [
             roleId,
         ]);
         if (result.rows.length === 0) {
@@ -37,15 +37,15 @@ RoleController.getRoleById = async (roleId) => {
 RoleController.saveRole = async (request, response) => {
     const { id, title } = request.body;
     try {
-        const result = await pool.query("SELECT * FROM role WHERE id = $1", [id]);
+        const result = await pool.query('SELECT * FROM public.role WHERE id = $1', [id]);
         if (result.rows.length > 0) {
             const role = result.rows[0];
-            await pool.query("UPDATE role SET title = $1, updated_at = NOW() WHERE id = $2", [title, id]);
+            await pool.query('UPDATE public.role SET title = $1, updated_at = NOW() WHERE id = $2', [title, id]);
             const updatedRole = new Role(role.id.toString(), title, role.created_at, new Date());
             return response.status(200).json(updatedRole);
         }
         else {
-            const newRole = await pool.query("INSERT INTO role (title, created_at, updated_at) VALUES ($1, NOW(), NOW()) RETURNING *", [title]);
+            const newRole = await pool.query('INSERT INTO public.role (title, created_at, updated_at) VALUES ($1, NOW(), NOW()) RETURNING *', [title]);
             const createdRole = newRole.rows[0];
             const roleObject = new Role(createdRole.id.toString(), createdRole.title, createdRole.created_at, createdRole.updated_at);
             return response.status(201).json(roleObject);
@@ -60,7 +60,7 @@ RoleController.saveRole = async (request, response) => {
 };
 RoleController.deleteRoleById = async (roleId) => {
     try {
-        await pool.query('DELETE FROM role WHERE id=$1', [roleId]);
+        await pool.query('DELETE FROM public.role WHERE id=$1', [roleId]);
     }
     catch (error) {
         throw error;

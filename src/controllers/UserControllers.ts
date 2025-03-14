@@ -7,7 +7,7 @@ class UserController {
 
   static getUsers = async (request: any, response: any) => {
     try {
-      const results = await pool.query('SELECT * FROM "user"');
+      const results = await pool.query('SELECT * FROM public."user"');
       const users = await Promise.all(
         results.rows.map(async (row) => {
           const roleId = row.role_id.toString();
@@ -41,7 +41,7 @@ class UserController {
   };
   static getUserById = async (id: string) => {
   try {
-    const result = await pool.query('SELECT * FROM "user" WHERE id = $1', [id]);
+    const result = await pool.query('SELECT * FROM public."user" WHERE id = $1', [id]);
     if (result.rows.length === 0) {
       throw new Error('User not found');
     }

@@ -10,7 +10,7 @@ class TicketController {
 _a = TicketController;
 TicketController.getTickets = async (request, response) => {
     try {
-        const results = await pool.query("SELECT * FROM ticket");
+        const results = await pool.query('SELECT * FROM public.ticket');
         const tickets = await Promise.all(results.rows.map(async (row) => {
             const ticketTypeId = row.ticket_type_id
                 ? row.ticket_type_id.toString()
@@ -40,7 +40,7 @@ TicketController.getTickets = async (request, response) => {
 };
 TicketController.getTicketById = async (ticketId) => {
     try {
-        const result = await pool.query("SELECT * FROM ticket WHERE id = $1", [ticketId]);
+        const result = await pool.query('SELECT * FROM public.ticket WHERE id = $1', [ticketId]);
         const ticket = result.rows[0];
         const ticketTypeId = ticket.ticket_type_id.toString();
         const userId = ticket.user_id.toString();
@@ -58,7 +58,7 @@ TicketController.getTicketById = async (ticketId) => {
 };
 TicketController.getReservation = async (eventId) => {
     try {
-        const results = await pool.query("SELECT * FROM ticket WHERE event_id = $1", [eventId]);
+        const results = await pool.query('SELECT * FROM public.ticket WHERE event_id = $1', [eventId]);
         const tickets = await Promise.all(results.rows.map(async (row) => {
             const ticketTypeId = row.ticket_type_id.toString();
             const userId = row.user_id.toString();

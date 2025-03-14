@@ -4,8 +4,9 @@ import { Newsletter } from '../entity/NewsLetter.js';
 class NewsletterController {
     static getNewsletters = async (request: any, response: any) => {
         try {
-            const results = await pool.query('SELECT * FROM newsletter');
-            const newsletters: Newsletter[] = results.rows.map((row) => {
+            const results = await pool.query('SELECT * FROM public.newsletter');
+
+            const newsletters: Newsletter[] = results.rows.map((row: any) => {
                 return new Newsletter(
                     row.id.toString(),
                     row.name,
@@ -22,7 +23,7 @@ class NewsletterController {
     };
     static getNewsletterById = async (hostId: string) => {
     try {
-        const result = await pool.query('SELECT * FROM newsletter WHERE id = $1', [hostId]);
+        const result = await pool.query('SELECT * FROM public.newsletter WHERE id = $1', [hostId]);
         if (result.rows.length === 0) {
             throw new Error('Newsletter not found');
         }

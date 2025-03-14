@@ -6,7 +6,7 @@ class TagController {
 _a = TagController;
 TagController.getTags = async (request, response) => {
     try {
-        const results = await pool.query('SELECT * FROM tag');
+        const results = await pool.query('SELECT * FROM public.tag');
         const tags = results.rows.map((row) => {
             return new Tag(row.id.toString(), row.title, row.decsription, row.created_at, row.updated_at, row.deleted_at);
         });
@@ -19,7 +19,7 @@ TagController.getTags = async (request, response) => {
 };
 TagController.getTagById = async (tagId) => {
     try {
-        const result = await pool.query('SELECT * FROM tag WHERE id = $1', [tagId]);
+        const result = await pool.query('SELECT * FROM public.tag WHERE id = $1', [tagId]);
         if (result.rows.length === 0) {
             throw new Error('Tag not found');
         }

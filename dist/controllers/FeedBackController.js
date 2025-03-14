@@ -7,7 +7,7 @@ class FeedbackController {
 _a = FeedbackController;
 FeedbackController.getFeedbacks = async (request, response) => {
     try {
-        const results = await pool.query('SELECT * FROM feedbacks');
+        const results = await pool.query('SELECT * FROM public.feedbacks');
         const feedBacks = await Promise.all(results.rows.map(async (row) => {
             const user = await UserController.getUserById(row.user_id);
             return new Feedback(row.id.toString(), user, row.subject, row.message, row.created_at, row.updated_at, row.deleted_at);
@@ -21,7 +21,7 @@ FeedbackController.getFeedbacks = async (request, response) => {
 };
 FeedbackController.getFeedbackById = async (hostId) => {
     try {
-        const result = await pool.query('SELECT * FROM feedbacks WHERE id = $1', [hostId]);
+        const result = await pool.query("SELECT * FROM public.feedbacks WHERE id = $1", [hostId]);
         if (result.rows.length === 0) {
             throw new Error('Feedback not found');
         }

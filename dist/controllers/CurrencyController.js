@@ -6,7 +6,7 @@ class CurrencyController {
 _a = CurrencyController;
 CurrencyController.getCurrencies = async (request, response) => {
     try {
-        const results = await pool.query('SELECT * FROM currency');
+        const results = await pool.query('SELECT * FROM public.currency');
         const currencies = results.rows.map((row) => {
             return new Currency(row.id.toString(), row.title, row.description, row.created_at, row.updated_at, row.delete_at);
         });
@@ -19,7 +19,7 @@ CurrencyController.getCurrencies = async (request, response) => {
 };
 CurrencyController.getCurrencyById = async (currencyId) => {
     try {
-        const result = await pool.query('SELECT * FROM currency WHERE id = $1', [currencyId]);
+        const result = await pool.query('SELECT * FROM public.currency WHERE id = $1', [currencyId]);
         if (result.rows.length === 0)
             throw new Error('Currency not found');
         const currency = result.rows[0];

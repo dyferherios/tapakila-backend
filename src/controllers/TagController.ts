@@ -4,8 +4,9 @@ import { Tag } from '../entity/Tag.js';
 class TagController {
     static getTags = async (request: any, response: any) => {
         try {
-            const results = await pool.query('SELECT * FROM tag');
-            const tags: Tag[] = results.rows.map((row) => {
+            const results = await pool.query('SELECT * FROM public.tag');
+
+            const tags: Tag[] = results.rows.map((row: any) => {
                 return new Tag(
                     row.id.toString(),
                     row.title,
@@ -23,7 +24,7 @@ class TagController {
     };
     static getTagById = async (tagId: string) => {
     try {
-        const result = await pool.query('SELECT * FROM tag WHERE id = $1', [tagId]);
+        const result = await pool.query('SELECT * FROM public.tag WHERE id = $1', [tagId]);
         if (result.rows.length === 0) {
             throw new Error('Tag not found');
         }

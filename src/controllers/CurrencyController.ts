@@ -5,7 +5,7 @@ import { Currency } from '../entity/Currency.js'
 class CurrencyController {
     static getCurrencies = async(request: any, response: any) => {
         try {
-            const results =  await pool.query('SELECT * FROM currency');
+            const results =  await pool.query('SELECT * FROM public.currency');
             const currencies: Currency[] = results.rows.map((row) => {
                 return new Currency(
                     row.id.toString(),
@@ -25,7 +25,7 @@ class CurrencyController {
 
     static getCurrencyById = async(currencyId: string) => {
         try {
-            const result = await pool.query('SELECT * FROM currency WHERE id = $1', [currencyId]);
+            const result = await pool.query('SELECT * FROM public.currency WHERE id = $1', [currencyId]);
             if (result.rows.length === 0) throw new Error('Currency not found');
             const currency = result.rows[0];
             return new Currency(

@@ -11,7 +11,7 @@ class EventController {
 _a = EventController;
 EventController.getEvents = async (request, response) => {
     try {
-        const results = await pool.query('SELECT * FROM "event"');
+        const results = await pool.query('SELECT * FROM public.event');
         const Events = await Promise.all(results.rows.map(async (row) => {
             const eventhallId = row.event_hall_id.toString();
             const hostId = row.host_id.toString();
@@ -29,7 +29,7 @@ EventController.getEvents = async (request, response) => {
 };
 EventController.getEventById = async (eventId) => {
     try {
-        const result = await pool.query("SELECT * FROM event WHERE id = $1", [
+        const result = await pool.query('SELECT * FROM public.event WHERE id = $1', [
             eventId,
         ]);
         if (result.rows.length === 0) {
@@ -50,7 +50,7 @@ EventController.getEventById = async (eventId) => {
 };
 EventController.getEventWithAllReservation = async (request, response) => {
     try {
-        const results = await pool.query('SELECT * FROM event');
+        const results = await pool.query('SELECT * FROM public.event');
         const events = await Promise.all(results.rows.map(async (row) => {
             const eventhallId = row.event_hall_id.toString();
             const hostId = row.host_id.toString();
@@ -70,7 +70,7 @@ EventController.getEventWithAllReservation = async (request, response) => {
 };
 EventController.getEventWithAllReservationOfOneEvent = async (eventId) => {
     try {
-        const result = await pool.query("SELECT * FROM event WHERE id = $1", [
+        const result = await pool.query('SELECT * FROM public.event WHERE id = $1', [
             eventId,
         ]);
         const event = result.rows[0];

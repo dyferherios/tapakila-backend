@@ -6,7 +6,7 @@ class FeedbackController {
 
     static getFeedbacks = async (request: any, response: any) => {
         try {
-            const results = await pool.query('SELECT * FROM feedbacks');
+            const results = await pool.query('SELECT * FROM public.feedbacks');
             const feedBacks = await Promise.all(
             results.rows.map(async (row) => {
 
@@ -31,7 +31,10 @@ class FeedbackController {
     };
     static getFeedbackById = async (hostId: string) => {
     try {
-        const result = await pool.query('SELECT * FROM feedbacks WHERE id = $1', [hostId]);
+        const result = await pool.query(
+          "SELECT * FROM public.feedbacks WHERE id = $1",
+          [hostId]
+        );
         if (result.rows.length === 0) {
             throw new Error('Feedback not found');
         }

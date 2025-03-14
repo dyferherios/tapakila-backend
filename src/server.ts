@@ -12,8 +12,10 @@ import eventRoutes from './routes/EventRoutes.js'
 import ticketTypesRoutes from './routes/TicketTypeRoutes.js'
 import ticketRoutes from './routes/TicketRoutes.js'
 import ticketVerificationRoutes from './routes/TicketVerificationRoutes.js'
+import cors from "cors"
 
 const app = express();
+app.use(cors())
 app.use(express.json());
 
 app.use("/users", userRoutes);
