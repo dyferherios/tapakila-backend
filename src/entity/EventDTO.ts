@@ -67,12 +67,11 @@ export class EventDTO {
 
         let ticketTypesSetted = new Set<TicketType>(ticketTypes);
 
-        for (const ticketType of ticketTypesSetted) {
+        Array.from(ticketTypesSetted).forEach(ticketType => {
             const tickets = ticketTypes.filter(e => e.id == ticketType.getId());
             ticketTypesSetted
-        }
+        });
         
         return [];
-    }
-    
+    }    
 }

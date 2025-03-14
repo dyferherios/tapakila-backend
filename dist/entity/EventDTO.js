@@ -24,10 +24,10 @@ export class EventDTO {
             return ticket.getticketType();
         });
         let ticketTypesSetted = new Set(ticketTypes);
-        for (const ticketType of ticketTypesSetted) {
+        Array.from(ticketTypesSetted).forEach(ticketType => {
             const tickets = ticketTypes.filter(e => e.id == ticketType.getId());
             ticketTypesSetted;
-        }
+        });
         return [];
     }
 }
