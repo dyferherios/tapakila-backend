@@ -2,7 +2,7 @@ openapi: 3.0.0
 
 info:
   title: Tapakila API (Ticket_place)
-  description: API for managing tickets 
+  description: API for managing tickets.
   version: 1.0.0
 
 servers:
@@ -1752,6 +1752,50 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+  /reservations/tickets:
+    get:
+      summary: Retrieve all tickets reserved.
+      description: Returns a list of all reserved tickets.
+      tags:
+        - Event
+      operationId: GetTicketsReserved
+      responses:
+        "200":
+          description: List of Ticket reserved retrieved successfully
+          content: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/EventDto"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /{id}/reservations/tickets:
+     get:
+      summary: Retrieve all tickets reserved in a specific event.
+      description: Returns all reserved tickets in an event.
+      tags:
+        - Event
+      operationId: GetTicketReservedInOneEvent
+      responses:
+        "200":
+          description: Ticket reserved retrieved successfully
+          content: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/EventDto"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
 components:
   schemas:
     CreateUser:
@@ -1921,6 +1965,16 @@ components:
               type: string
               format: date-time
               nullable: true
+    EventDto:
+      allOf:
+        - $ref: "#/components/schemas/CreateEvent"
+        - type: object
+          properties:
+            reservations:
+              type: array
+              items:
+                type: string
+                format: uuid
     CreateEventHall:
       type: object
       required:
