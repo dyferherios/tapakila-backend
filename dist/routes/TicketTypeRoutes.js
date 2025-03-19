@@ -1,16 +1,15 @@
 import { Router } from 'express';
 import { TicketTypeController } from '../controllers/TicketTypeController.js';
 const router = Router();
-router.get("", async (req, res) => {
+router.get("/event", async (req, res) => {
     try {
-        console.log("Route /ticketTypes reached"); // Vérifiez ce message dans la console
         const eventId = req.query.eventId;
         if (typeof eventId !== "string" || !eventId) {
             return res
                 .status(400)
                 .json({ error: "eventId is required and must be a string" });
         }
-        const ticketTypes = await TicketTypeController.getTicketTypeByIdOfAnEvent(eventId);
+        const ticketTypes = await TicketTypeController.getTicketTypeByEventId(eventId);
         res.json(ticketTypes);
     }
     catch (error) {

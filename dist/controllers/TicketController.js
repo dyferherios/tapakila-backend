@@ -10,7 +10,7 @@ class TicketController {
 _a = TicketController;
 TicketController.getTickets = async (request, response) => {
     try {
-        const results = await pool.query('SELECT * FROM public.ticket');
+        const results = await pool.query("SELECT * FROM public.ticket");
         const tickets = await Promise.all(results.rows.map(async (row) => {
             const ticketTypeId = row.ticket_type_id
                 ? row.ticket_type_id.toString()
@@ -19,9 +19,7 @@ TicketController.getTickets = async (request, response) => {
             const currencyId = row.currency_id
                 ? row.currency_id.toString()
                 : null;
-            const eventId = row.event_id
-                ? row.event_id.toString()
-                : null;
+            const eventId = row.event_id ? row.event_id.toString() : null;
             if (!ticketTypeId || !userId || !currencyId || !eventId) {
                 console.error("One of the required IDs is missing:", row);
                 return null;
@@ -40,7 +38,7 @@ TicketController.getTickets = async (request, response) => {
 };
 TicketController.getTicketById = async (ticketId) => {
     try {
-        const result = await pool.query('SELECT * FROM public.ticket WHERE id = $1', [ticketId]);
+        const result = await pool.query("SELECT * FROM public.ticket WHERE id = $1", [ticketId]);
         const ticket = result.rows[0];
         const ticketTypeId = ticket.ticket_type_id.toString();
         const userId = ticket.user_id.toString();
@@ -56,9 +54,29 @@ TicketController.getTicketById = async (ticketId) => {
         throw new Error("Failed to retrieve ticket");
     }
 };
-TicketController.getReservation = async (eventId) => {
+TicketController.getAllTicketsByEventId = async (eventId) => {
     try {
-        const results = await pool.query('SELECT * FROM public.ticket WHERE event_id = $1', [eventId]);
+        const results = await pool.query("SELECT * FROM public.ticket WHERE event_id = $1", [eventId]);
+        const tickets = await Promise.all(results.rows.map(async (row) => {
+            const ticketTypeId = row.ticket_type_id.toString();
+            const userId = row.user_id.toString();
+            const currencyId = row.currency_id.toString();
+            const eventId = row.event_id.toString();
+            const ticketType = await TicketTypeController.getTicketTypeById(ticketTypeId);
+            const user = await UserController.getUserById(userId);
+            const currency = await CurrencyController.getCurrencyById(currencyId);
+            const event = await EventController.getEventById(eventId);
+            return new Ticket(row.id.toString(), event, ticketType, user, row.ticket_number, row.amount_paid, currency, row.payment_confirmed, row.created_at, row.updated_at);
+        }));
+        return tickets;
+    }
+    catch (error) {
+        throw error;
+    }
+};
+TicketController.getAllTicketsByEventIdAndTicketTypeId = async (eventId, ticketTypeId) => {
+    try {
+        const results = await pool.query("SELECT * FROM public.ticket WHERE event_id = $1 and ticket_type_id = $2", [eventId, ticketTypeId]);
         const tickets = await Promise.all(results.rows.map(async (row) => {
             const ticketTypeId = row.ticket_type_id.toString();
             const userId = row.user_id.toString();

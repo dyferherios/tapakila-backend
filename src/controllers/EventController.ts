@@ -80,7 +80,7 @@ class EventController {
     }
   };
 
-  static getEventWithAllReservation = async (request: any, response: any) => {
+  static getEventWithAllTickets = async (request: any, response: any) => {
     try {
       const results = await pool.query('SELECT * FROM public.event');
       const events = await Promise.all(
@@ -94,7 +94,7 @@ class EventController {
           );
           const host = await HostController.getHostById(hostId);
           const user = await UserController.getUserById(userId);
-          const reservations = await TicketController.getReservation(
+          const reservations = await TicketController.getAllTicketsByEventId(
             eventId
           );
           return new EventDTO(
@@ -123,7 +123,7 @@ class EventController {
     }
   };
 
-  static getEventWithAllReservationOfOneEvent = async (eventId: string) => {
+  static getEventWithAllTicketsOfOneEvent = async (eventId: string) => {
    try {
      const result = await pool.query('SELECT * FROM public.event WHERE id = $1', [
        eventId,
@@ -132,7 +132,7 @@ class EventController {
      const eventhallId = event.event_hall_id.toString();
      const hostId = event.host_id.toString();
      const userId = event.user_id.toString();
-     const reservations = await TicketController.getReservation(eventId);
+     const reservations = await TicketController.getAllTicketsByEventId(eventId);
      const eventHall = await EventHallController.getEventHallById(eventhallId);
      const host = await HostController.getHostById(hostId);
      const user = await UserController.getUserById(userId);

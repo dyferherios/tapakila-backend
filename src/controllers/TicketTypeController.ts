@@ -62,16 +62,12 @@ class TicketTypeController {
     }
   };
 
-  static getTicketTypeByIdOfAnEvent = async (eventId: string) => {
+  static getTicketTypeByEventId = async (eventId: string) => {
     try {
-      console.log("getTicketTypeByIdOfAnEvent called with eventId:", eventId);
       const result = await pool.query(
         "SELECT * FROM public.ticket_type WHERE event_id = $1",
         [eventId]
-      );
-
-      console.log(result);
-      
+      );      
       const ticketTypes = await Promise.all(
         result.rows.map(async (row) => {
           const currencyId = row.currency_id.toString();

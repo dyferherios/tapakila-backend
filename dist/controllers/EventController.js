@@ -48,7 +48,7 @@ EventController.getEventById = async (eventId) => {
         throw error;
     }
 };
-EventController.getEventWithAllReservation = async (request, response) => {
+EventController.getEventWithAllTickets = async (request, response) => {
     try {
         const results = await pool.query('SELECT * FROM public.event');
         const events = await Promise.all(results.rows.map(async (row) => {
@@ -59,7 +59,7 @@ EventController.getEventWithAllReservation = async (request, response) => {
             const eventHall = await EventHallController.getEventHallById(eventhallId);
             const host = await HostController.getHostById(hostId);
             const user = await UserController.getUserById(userId);
-            const reservations = await TicketController.getReservation(eventId);
+            const reservations = await TicketController.getAllTicketsByEventId(eventId);
             return new EventDTO(row.id.toString(), eventHall, host, user, row.title, row.slug, row.description, row.start_date, row.start_time, row.end_date, row.end_time, row.age_limit, row.created_at, row.updated_at, reservations);
         }));
         response.status(200).json(events);
@@ -68,7 +68,7 @@ EventController.getEventWithAllReservation = async (request, response) => {
         response.status(500).json({ error });
     }
 };
-EventController.getEventWithAllReservationOfOneEvent = async (eventId) => {
+EventController.getEventWithAllTicketsOfOneEvent = async (eventId) => {
     try {
         const result = await pool.query('SELECT * FROM public.event WHERE id = $1', [
             eventId,
@@ -77,7 +77,7 @@ EventController.getEventWithAllReservationOfOneEvent = async (eventId) => {
         const eventhallId = event.event_hall_id.toString();
         const hostId = event.host_id.toString();
         const userId = event.user_id.toString();
-        const reservations = await TicketController.getReservation(eventId);
+        const reservations = await TicketController.getAllTicketsByEventId(eventId);
         const eventHall = await EventHallController.getEventHallById(eventhallId);
         const host = await HostController.getHostById(hostId);
         const user = await UserController.getUserById(userId);

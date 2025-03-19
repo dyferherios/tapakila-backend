@@ -5,6 +5,32 @@ import {
 
 const router = Router();
 
+router.get("/event", async (req, res) => {
+  try {
+     const eventId = req.query.eventId;
+     const ticketTypeId = req.query.ticketTypeId;
+     if (typeof eventId !== "string" || !eventId) {
+       return res
+         .status(400)
+         .json({ error: "eventId is required and must be a string" });
+     }
+
+     if (typeof ticketTypeId !== "string" || !ticketTypeId) {
+       return res
+         .status(400)
+         .json({ error: "ticketTypeId is required and must be a string" });
+     }
+
+    const tickets = await TicketController.getAllTicketsByEventIdAndTicketTypeId(eventId, ticketTypeId)
+    res.json(tickets);
+  } catch (error) {
+    console.error("Error in /tickets:", error); // Affichez l'erreur complète
+    res.status(500).json({
+      error: "An error occurred while fetching the ticket type of an event",
+    });
+  }
+});
+
 router.get("/", TicketController.getTickets);
 router.get("/:id", async (req, res) => {
   try {

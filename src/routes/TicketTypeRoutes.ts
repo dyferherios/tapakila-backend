@@ -6,9 +6,8 @@ import {
 const router = Router();
 
 
-router.get("", async (req, res) => {
+router.get("/event", async (req, res) => {
   try {
-    console.log("Route /ticketTypes reached"); // Vérifiez ce message dans la console
     const eventId = req.query.eventId;
 
     if (typeof eventId !== "string" || !eventId) {
@@ -17,7 +16,7 @@ router.get("", async (req, res) => {
         .json({ error: "eventId is required and must be a string" });
     }
 
-    const ticketTypes = await TicketTypeController.getTicketTypeByIdOfAnEvent(
+    const ticketTypes = await TicketTypeController.getTicketTypeByEventId(
       eventId
     );
     res.json(ticketTypes);
