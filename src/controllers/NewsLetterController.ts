@@ -46,12 +46,12 @@ class NewsletterController {
         const { id, name, email } = request.body;
     
         try {
-          const result = await pool.query("SELECT * FROM feedback WHERE id = $1", [id]);
+          const result = await pool.query("SELECT * FROM public.newsletter WHERE id = $1", [id]);
     
           if (result.rows.length > 0) {
             const newsletter = result.rows[0];
             await pool.query(
-              "UPDATE newsletter SET name = $1, email = $2 updated_at = NOW() WHERE id = $3",
+              "UPDATE public.newsletter SET name = $1, email = $2 updated_at = NOW() WHERE id = $3",
               [name, email, id]
             );
     
@@ -66,7 +66,7 @@ class NewsletterController {
             return response.status(200).json(updatedNewsletter);
           } else {
             const newNewsletter = await pool.query(
-              "INSERT INTO role (name, email, created_at, updated_at) VALUES ($1, $2 NOW(), NOW()) RETURNING *",
+              "INSERT INTO public.newsletter (name, email, created_at, updated_at) VALUES ($1, $2 NOW(), NOW()) RETURNING *",
               [name, email]
             );
     
@@ -91,7 +91,7 @@ class NewsletterController {
     
         static deleteNewsletterById = async (newsletterId: string) => {
             try {
-                await pool.query('DELETE FROM newsletter WHERE id=$1', [newsletterId]);
+                await pool.query('DELETE FROM public.newsletter WHERE id=$1', [newsletterId]);
             } catch (error) {
                 throw error;
             }

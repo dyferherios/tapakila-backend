@@ -77,7 +77,6 @@ class FeedbackController {
               feedBack.created_at,
               new Date()
             );
-    
             return response.status(200).json(updatedFeedbacks);
           } else {
             const newFeedback = await pool.query(
@@ -98,7 +97,6 @@ class FeedbackController {
             return response.status(201).json(feedBackObject);
           }
         } catch (error) {
-          console.error(error);
           response
             .status(500)
             .json({ error: "An error occurred while saving/updating the feedback" });

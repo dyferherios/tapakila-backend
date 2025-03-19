@@ -45,12 +45,15 @@ class HostController {
         const { id, name, description } = request.body;
     
         try {
-          const result = await pool.query("SELECT * FROM host WHERE id = $1", [id]);
+          const result = await pool.query(
+            "SELECT * FROM public.host WHERE id = $1",
+            [id]
+          );
     
           if (result.rows.length > 0) {
             const host = result.rows[0];
             await pool.query(
-              "UPDATE host SET name = $1, description = $2, updated_at = NOW() WHERE id = $3",
+              "UPDATE public.host SET name = $1, description = $2, updated_at = NOW() WHERE id = $3",
               [name, description, id]
             );
     
@@ -65,7 +68,7 @@ class HostController {
             return response.status(200).json(updatedHost);
           } else {
             const newHost = await pool.query(
-              "INSERT INTO host (name, description, created_at, updated_at) VALUES ($1, $2 NOW(), NOW()) RETURNING *",
+              "INSERT INTO public.host (name, description, created_at, updated_at) VALUES ($1, $2 NOW(), NOW()) RETURNING *",
               [name, description]
             );
     
@@ -88,14 +91,13 @@ class HostController {
         }
       };
     
-        static deleteHostById = async (hostId: string) => {
-            try {
-                await pool.query('DELETE FROM currency WHERE id=$1', [hostId]);
-            } catch (error) {
-                throw error;
-            }
-        }
-
+      static deleteHostById = async (hostId: string) => {
+          try {
+              await pool.query("DELETE FROM public.host WHERE id=$1", [hostId]);
+          } catch (error) {
+              throw error;
+          }
+      }
 }
 
 export {

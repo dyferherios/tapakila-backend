@@ -75,7 +75,8 @@ class UserController {
     console.error(error);
     throw new Error('Failed to retrieve user');
   }
-};
+  };
+  
 }
 export {
   UserController

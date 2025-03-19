@@ -14,5 +14,20 @@ router.get("/:id", async (req, res) => {
     res.status(500).json({ error: "An error occurred while fetching the host" })
   }
 })
+router.post("/save", HostController.saveHost);
+router.delete("/delete", async (req, res) => {
+  const hostId = req.query.hostId;
+  try {
+    if (typeof hostId !== "string" || !hostId) {
+      return res
+        .status(400)
+        .json({ error: "hostId is required and must be a string" });
+    }
+    await HostController.deleteHostById(hostId);
+    res.status(201).json("Host deleted succefully");
+  } catch (error) {
+    res.status(500).json({ error: "An error occured while deleting host" });
+  }
+});
 
 export default router;

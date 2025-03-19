@@ -16,4 +16,20 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+router.post("/save", FeedbackController.saveFeedback);
+router.delete("/delete", async (req, res) => {
+  const feedBackId = req.query.feedBackId;
+  try {
+    if (typeof feedBackId !== "string" || !feedBackId) {
+      return res
+        .status(400)
+        .json({ error: "feedBackId is required and must be a string" });
+    }
+    await FeedbackController.deleteFeedbackById(feedBackId);
+    res.status(201).json("Feedback deleted succefully");
+  } catch (error) {
+    res.status(500).json({ error: "An error occured while deleting Feedback" });
+  }
+});
+
 export default router;
