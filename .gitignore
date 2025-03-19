@@ -3,3 +3,6 @@ todo.txt
 .env
 .env.local
 /dist
+backuop.sql
+backup.dump
+endpoint.txt
