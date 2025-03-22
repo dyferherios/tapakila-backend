@@ -161,7 +161,32 @@ class EventController {
      throw error;
    }
   };
+  
+  static getAllEventId = async(request:any, response:any) => {
+    try {
+      const result = await pool.query("select id from public.event");
+      const eventsId = await Promise.all(
+        result.rows.map(row => {
+          return row.id.toString();
+        })
+      )
+      response.status(200).json(eventsId);
+    } catch (error) {
+      throw new Error("An error occured while fetching eventId");
+    }
+  }
 
+  // static saveEvent = (request: any, response: any) => {
+  //   const { id, eventHallId, hostId, userId, title, slug, description, startDate, startTime, endDate, endTime, ageLimit, createdAt, updatedAt } = request.body;
+  //   try {
+  //     const result = await pool.query("select * from public.event where id = $1", [id]);
+  //     if (result.rows.length > 0) {
+  //       const event = result.rows[0];
+  //       const eventHalId = eventHallId.tostring();
+  //       await pool.query("update public.event set event_hall_id=$1, host_id=$2, user_id=$3, title=$4, slug=$5,")
+  //     }
+  //   }
+  // }
 }
 
 export {

@@ -2,7 +2,7 @@ import express from 'express';
 import userRoutes from './routes/UserRoutes.js';
 import roleRoutes from './routes/RoleRoutes.js';
 import countryRoutes from './routes/CountryRoutes.js';
-import tagRoutes from './routes/TagController.js';
+import tagRoutes from './routes/TagRoutes.js';
 import hostRoutes from './routes/HostRoutes.js';
 import eventHallRoutes from './routes/EventHallRoutes.js';
 import currencyRoutes from './routes/CurrencyRoutes.js';

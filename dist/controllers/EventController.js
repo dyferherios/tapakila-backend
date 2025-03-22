@@ -89,4 +89,16 @@ EventController.getEventWithAllTicketsOfOneEvent = async (eventId) => {
         throw error;
     }
 };
+EventController.getAllEventId = async (request, response) => {
+    try {
+        const result = await pool.query("select id from public.event");
+        const eventsId = await Promise.all(result.rows.map(row => {
+            return row.id.toString();
+        }));
+        response.status(200).json(eventsId);
+    }
+    catch (error) {
+        throw new Error("An error occured while fetching eventId");
+    }
+};
 export { EventController };

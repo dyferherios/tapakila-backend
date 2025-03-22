@@ -4,6 +4,7 @@ import { EventController } from "../controllers/EventController.js";
 
 const router = Router();
 router.get("/tickets", EventController.getEventWithAllTickets);
+router.get("/allEventsId", EventController.getAllEventId);
 router.get("/", EventController.getEvents);
 router.get("/:id", async(req, res) => {
     try {

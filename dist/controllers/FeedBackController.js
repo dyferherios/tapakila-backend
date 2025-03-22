@@ -52,7 +52,6 @@ FeedbackController.saveFeedback = async (request, response) => {
         }
     }
     catch (error) {
-        console.error(error);
         response
             .status(500)
             .json({ error: "An error occurred while saving/updating the feedback" });

@@ -58,7 +58,7 @@ TagController.saveTag = async (request, response) => {
 };
 TagController.deleteTagById = async (tagId) => {
     try {
-        await pool.query('DELETE FROM currency WHERE id=$1', [tagId]);
+        await pool.query('DELETE FROM public.tag WHERE id=$1', [tagId]);
     }
     catch (error) {
         throw error;
