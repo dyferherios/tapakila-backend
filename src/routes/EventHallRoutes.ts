@@ -12,9 +12,10 @@ router.get("/:id", async(req, res)=>{
     }
 })
 
-router.post("/save", EventHallController.saveEventHall);
-router.delete("/delete", async (req, res) => {
-  const eventHallId = req.query.eventHallId;
+router.post("/", EventHallController.saveEventHall);
+router.put("/", EventHallController.saveEventHall);
+router.delete("/:eventHallId", async (req, res) => {
+  const eventHallId = req.params.eventHallId;
   try {
     if (typeof eventHallId !== "string" || !eventHallId) {
       return res

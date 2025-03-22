@@ -14,9 +14,10 @@ router.get("/:id", async (req, res) => {
     res.status(500).json({ error: "An error occurred while fetching the country" });
   }
 });
-router.post("/save", CountryController.saveCountry);
-router.delete("/delete", async (req, res) => {
-  const countryId = req.query.countryId;
+router.post("/", CountryController.saveCountry);
+router.put("/", CountryController.saveCountry);
+router.delete("/:countryId", async (req, res) => {
+  const countryId = req.params.countryId;
   try {
     if (typeof countryId !== "string" || !countryId) {
       return res

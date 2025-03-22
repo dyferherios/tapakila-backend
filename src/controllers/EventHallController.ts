@@ -9,7 +9,7 @@ class EventHallController {
         return new EventHall(
           row.id.toString(),
           row.name,
-          row.decsription,
+          row.description,
           row.created_at,
           row.updated_at
         );
@@ -32,7 +32,7 @@ class EventHallController {
       return new EventHall(
         eventHall.id.toString(),
         eventHall.name,
-        eventHall.decsription,
+        eventHall.description,
         eventHall.createdAt,
         eventHall.updatedAt
       );
@@ -92,13 +92,24 @@ class EventHallController {
 
   static deleteEventHallById = async (eventHallId: string) => {
     try {
-      await pool.query("DELETE FROM public.event_hall WHERE id=$1", [
-        eventHallId,
-      ]);
+      const result = await pool.query(
+        "select * from public.event_hall where id=$1",
+        [eventHallId]
+      );
+      if (result.rows.length > 0) {
+        await pool.query("DELETE FROM public.event_hall WHERE id=$1", [
+          eventHallId,
+        ]);
+        return {
+          success: true,
+          message: "Event hall deleted successfully",
+          data: null
+        }
+      }
     } catch (error) {
-      throw error;
+      throw Error("An error occurred while deleting event hall");
     }
-  };
+  }
 }
 
 export {

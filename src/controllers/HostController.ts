@@ -9,7 +9,7 @@ class HostController {
                 return new Host(
                     row.id.toString(),
                     row.name,
-                    row.decsription,
+                    row.description,
                     row.createdAt,
                     row.updatedAt
                 );
@@ -31,7 +31,7 @@ class HostController {
             return new Host(
                     host.id.toString(),
                     host.name,
-                    host.decsription,
+                    host.description,
                     host.createdAt,
                     host.updatedAt
                 );
@@ -64,11 +64,11 @@ class HostController {
               host.created_at,
               new Date()
             );
-    
+  
             return response.status(200).json(updatedHost);
           } else {
             const newHost = await pool.query(
-              "INSERT INTO public.host (name, description, created_at, updated_at) VALUES ($1, $2 NOW(), NOW()) RETURNING *",
+              "INSERT INTO public.host (name, description, created_at, updated_at) VALUES ($1, $2, NOW(), NOW()) RETURNING *",
               [name, description]
             );
     
@@ -93,9 +93,20 @@ class HostController {
     
       static deleteHostById = async (hostId: string) => {
           try {
-              await pool.query("DELETE FROM public.host WHERE id=$1", [hostId]);
+            const result = await pool.query("select * from public.host where id=$1", [hostId]);
+            if (result.rows.length > 0) {
+              await pool.query("delete from public.host where id=$1", [hostId]);
+              return {
+                success: true,
+                message: "Host deleted successfully",
+                data: result.rows[0],
+              };
+            }
+            else {
+              throw Error("Host not found")
+            }
           } catch (error) {
-              throw error;
+            throw new Error("An error occurred while deleting the host");
           }
       }
 }

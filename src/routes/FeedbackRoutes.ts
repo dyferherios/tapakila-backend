@@ -16,9 +16,10 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.post("/save", FeedbackController.saveFeedback);
-router.delete("/delete", async (req, res) => {
-  const feedBackId = req.query.feedBackId;
+router.post("/", FeedbackController.saveFeedback);
+router.put("/", FeedbackController.saveFeedback);
+router.delete("/:feedBackId", async (req, res) => {
+  const feedBackId = req.params.feedBackId;
   try {
     if (typeof feedBackId !== "string" || !feedBackId) {
       return res

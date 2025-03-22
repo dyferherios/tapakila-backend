@@ -101,4 +101,68 @@ EventController.getAllEventId = async (request, response) => {
         throw new Error("An error occured while fetching eventId");
     }
 };
+EventController.saveEvent = async (request, response) => {
+    const { id, eventHall, host, user, title, slug, description, startDate, startTime, endDate, endTime, ageLimit, createdAt, updatedAt } = request.body;
+    try {
+        const result = await pool.query("select * from public.event where id = $1", [id]);
+        if (result.rows.length > 0) {
+            await pool.query("update public.event set event_hall_id=$1, host_id=$2, user_id=$3, title=$4, slug=$5,description=$6, start_date=$7, start_time=$8, end_date=$9, end_time=$10, age_limit=$11, created_at=$12, updated_at=NOW() where id=$13", [
+                eventHall.getId(),
+                host.getId(),
+                user.getId(),
+                title,
+                slug,
+                description,
+                startDate,
+                startTime,
+                endDate,
+                endTime,
+                ageLimit,
+                createdAt
+            ]);
+            const eventUpdated = await _a.getEventById(id);
+            response.status(200).json(eventUpdated);
+        }
+        else {
+            const result = await pool.query("insert into public.event (event_hall_id, host_id, user_id, title, slug, description, start_date, start_time, end_date, end_time, age_limit, created_at, updated_at) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12,$13)", [
+                eventHall.getId(),
+                host.getId(),
+                user.getId(),
+                title,
+                slug,
+                description,
+                startDate,
+                startTime,
+                endDate,
+                endTime,
+                ageLimit,
+                createdAt,
+                updatedAt,
+            ]);
+            const eventCreated = await _a.getEventById(id);
+            response.status(200).json(eventCreated);
+        }
+    }
+    catch (error) {
+        throw error;
+    }
+};
+EventController.deleteEventById = async (eventId) => {
+    try {
+        const result = await pool.query("delete from public.event where id = $1", [eventId]);
+        if (result.rows.length > 0) {
+            await pool.query("delete from public.ticket where event_id = $1", [
+                eventId,
+            ]);
+            return {
+                success: true,
+                message: "Event deleted successfully",
+                data: null
+            };
+        }
+    }
+    catch (error) {
+        throw Error("An error occured while deleting event");
+    }
+};
 export { EventController };

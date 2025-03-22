@@ -4,9 +4,9 @@ import { User } from "./User.js";
 
 export class Event {
   id: string;
-  eventHallId: EventHall;
-  hostId: Host;
-  userId: User;
+  eventHall: EventHall;
+  host: Host;
+  user: User;
   title: string;
   slug: string;
   description: string;
@@ -19,11 +19,11 @@ export class Event {
   updatedAt: Date;
   deletedAt?: Date;
 
-  constructor(id: string, eventHallId: EventHall, hostId: Host, userId: User, title: string, slug: string, description: string, startDate: Date, startTime: string, endDate: Date, endTime: string, ageLimit: string, createdAt: Date, updatedAt: Date) {
-    this.id = id;
-    this.eventHallId = eventHallId;
-    this.hostId = hostId;
-    this.userId = userId;
+  constructor(id: string, eventHall: EventHall, host: Host, user: User, title: string, slug: string, description: string, startDate: Date, startTime: string, endDate: Date, endTime: string, ageLimit: string, createdAt: Date, updatedAt: Date) {
+    this. id=id ;
+    this.eventHall = eventHall;
+    this.host = host;
+    this.user = user;
     this.title = title;
     this.slug = slug;
     this.description = description;
@@ -36,17 +36,17 @@ export class Event {
     this.updatedAt = updatedAt;
   }
 
-  public getId(): string {
+  public getd(): string {
     return this.id;
   }
-  public getEventHallId(): EventHall {
-    return this.eventHallId;
+  public getEventHall(): EventHall {
+    return this.eventHall;
   }
-  public getHostId(): Host {
-    return this.hostId;
+  public getHost(): Host {
+    return this.host;
   }
-  public getUserId(): User {
-    return this.userId;
+  public getUser(): User {
+    return this.user;
   }
   public getTitle(): string {
     return this.title;
@@ -81,17 +81,17 @@ export class Event {
   public getDeletedAt(): Date | undefined {
     return this.deletedAt;
   }
-  public setId(id: string): void {
-    this.id = id;
+  public setId(id: string): void{
+    this.id=id;
   }
-  public setEventHallId(eventHallId: EventHall): void {
-    this.eventHallId = eventHallId;
+  public setEventHall(eventHall: EventHall): void {
+    this.eventHall = eventHall;
   }
-  public setHostId(hostId: Host): void {
-    this.hostId = hostId;
+  public setHost(host: Host): void {
+    this.host = host;
   }
-  public setUserId(userId: User): void {
-    this.userId = userId;
+  public setUser(user: User): void {
+    this.user = user;
   }
   public setTitle(title: string): void {
     this.title = title;

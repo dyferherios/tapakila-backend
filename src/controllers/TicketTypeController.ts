@@ -92,6 +92,75 @@ class TicketTypeController {
       throw new Error("Failed to retrieve user");
     }
   };
+
+  static saveTicketType = async (request: any, response: any) => {
+    try {
+      const {
+        id,
+        title,
+        slug,
+        description,
+        available_ticket,
+        price,
+        currency_id,
+        event_id,
+      } = request.body;
+      const result = await pool.query("select * from ticket_type where id = $1", [id]);
+      if (result.rows.length > 0) {
+        const ticketTypeUpdated = await pool.query(
+          "UPDATE public.ticket_type SET title = $1, slug = $2, description = $3, available_ticket = $4, price = $5, currency_id = $6, event_id = $7 WHERE id = $8 RETURNING *",
+          [
+            title,
+            slug,
+            description,
+            available_ticket,
+            price,
+            currency_id,
+            event_id,
+            id,
+          ]
+        );
+        response.status(200).json(ticketTypeUpdated);
+      } else {
+        const ticketTypeCreated = await pool.query(
+          "INSERT INTO public.ticket_type (title, slug, description, available_ticket, price, currency_id, event_id) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *",
+          [
+            title,
+            slug,
+            description,
+            available_ticket,
+            price,
+            currency_id,
+            event_id
+          ]
+        );
+        response.status(201).json(ticketTypeCreated.rows[0]);
+      }
+    } catch (error) {
+      response.status(500).json({ error });
+    }
+  };
+
+  static deleteTicketType = async (request: any, response: any) => {
+    try {
+      const { id } = request.params;
+      const result = await pool.query(
+        "select * from publit.ticket_type where id = $1",
+        [id]
+      );
+      if (result.rows.length > 0) {
+        const ticketTypeDeleted = await pool.query(
+          "DELETE FROM public.ticket_type WHERE id = $1",
+          [id]
+        );
+        response.status(200).json(ticketTypeDeleted);
+      } else {
+        response.status(404).json({ error: "Ticket type not found" });
+      }
+    } catch (error) {
+      response.status(500).json({ error });
+    }
+  };
 }
 
 export { TicketTypeController };

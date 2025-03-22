@@ -1,8 +1,8 @@
 export class TicketVerification {
-    constructor(id, ticketId, userId, paymentConfirmed, createdAt, updatedAt, deletedAt) {
+    constructor(id, ticket, user, paymentConfirmed, createdAt, updatedAt, deletedAt) {
         this.id = id;
-        this.ticketId = ticketId;
-        this.userId = userId;
+        this.ticket = ticket;
+        this.user = user;
         this.paymentConfirmed = paymentConfirmed;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
@@ -11,11 +11,11 @@ export class TicketVerification {
     getId() {
         return this.id;
     }
-    getTicketId() {
-        return this.ticketId;
+    getTicket() {
+        return this.ticket;
     }
-    getUserId() {
-        return this.userId;
+    getUser() {
+        return this.user;
     }
     getPaymentConfirmed() {
         return this.paymentConfirmed;
@@ -32,11 +32,11 @@ export class TicketVerification {
     setId(id) {
         this.id = id;
     }
-    setTicketId(ticketId) {
-        this.ticketId = ticketId;
+    setTicket(ticket) {
+        this.ticket = ticket;
     }
-    setUserId(userId) {
-        this.userId = userId;
+    setUser(user) {
+        this.user = user;
     }
     setPaymentConfirmed(paymentConfirmed) {
         this.paymentConfirmed = paymentConfirmed;

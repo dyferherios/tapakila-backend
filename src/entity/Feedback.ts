@@ -2,16 +2,16 @@ import { User } from "./User.js";
 
 export class Feedback {
   id: string;
-  userId: User;
+  user: User;
   subject: string;
   message: string;
   createdAt: Date;
   updatedAt: Date;
   deletedAt?: Date;
 
-  constructor(id: string, userId: User, subject: string, message: string, createdAt: Date, updatedAt: Date, deletedAt?: Date) {
+  constructor(id: string, user: User, subject: string, message: string, createdAt: Date, updatedAt: Date, deletedAt?: Date) {
     this.id = id;
-    this.userId = userId;
+    this.user = user;
     this.subject = subject;
     this.message = message;
     this.createdAt = createdAt;
@@ -23,8 +23,8 @@ export class Feedback {
     return this.id;
   }
 
-  public getUserId(): User {
-    return this.userId;
+  public getUser(): User {
+    return this.user;
   }
 
   public getSubject(): string {
@@ -51,8 +51,8 @@ export class Feedback {
     this.id = id;
   }
 
-  public setUserId(userId: User): void {
-    this.userId = userId;
+  public setUser(user: User): void {
+    this.user = user;
   }
 
   public setSubject(subject: string): void {

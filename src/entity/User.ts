@@ -3,41 +3,41 @@ import { Role } from "./Role.js";
 
 export class User {
   id: string;
-  roleId: Role;
+  role: Role;
   username: string;
   name: string;
   email: string;
   emailVerifiedAt: Date;
   password: string;
   imageUrl: string;
-  countryId: Country;
+  country: Country;
   createdAt: Date;
   updatedAt: Date;
   deletedAt?: Date;
 
   constructor(
     id: string,
-    roleId: Role,
+    role: Role,
     username: string,
     name: string,
     email: string,
     emailVerifiedAt: Date,
     password: string,
     imageUrl: string,
-    countryId: Country,
+    country: Country,
     createdAt: Date,
     updatedAt: Date,
     deletedAt?: Date
   ) {
     this.id = id;
-    this.roleId = roleId;
+    this.role = role;
     this.username = username;
     this.name = name;
     this.email = email;
     this.emailVerifiedAt = emailVerifiedAt;
     this.password = password;
     this.imageUrl = imageUrl;
-    this.countryId = countryId;
+    this.country = country;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
     this.deletedAt = deletedAt;
@@ -46,8 +46,8 @@ export class User {
   public getId(): string {
     return this.id;
   }
-  public getRoleId(): Role {
-    return this.roleId;
+  public getRole(): Role {
+    return this.role;
   }
   public getUsername(): string {
     return this.username;
@@ -67,8 +67,8 @@ export class User {
   public getImageUrl(): string {
     return this.imageUrl;
   }
-  public getCountryId(): Country {
-    return this.countryId;
+  public getCountry(): Country {
+    return this.country;
   }
   public getCreatedAt(): Date {
     return this.createdAt;
@@ -82,8 +82,8 @@ export class User {
   public setId(id: string): void {
     this.id = id;
   }
-  public setRoleId(roleId: Role): void {
-    this.roleId = roleId;
+  public setRoleId(role: Role): void {
+    this.role = role;
   }
   public setUsername(username: string): void {
     this.username
@@ -103,8 +103,8 @@ export class User {
   public setImageUrl(imageUrl: string): void {
     this.imageUrl = imageUrl;
   }
-  public setCountryId(countryId: Country): void {
-    this.countryId = countryId;
+  public setCountry(country: Country): void {
+    this.country = country;
   }
   public setCreatedAt(createdAt: Date): void {
     this.createdAt = createdAt;

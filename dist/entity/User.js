@@ -1,14 +1,14 @@
 export class User {
-    constructor(id, roleId, username, name, email, emailVerifiedAt, password, imageUrl, countryId, createdAt, updatedAt, deletedAt) {
+    constructor(id, role, username, name, email, emailVerifiedAt, password, imageUrl, country, createdAt, updatedAt, deletedAt) {
         this.id = id;
-        this.roleId = roleId;
+        this.role = role;
         this.username = username;
         this.name = name;
         this.email = email;
         this.emailVerifiedAt = emailVerifiedAt;
         this.password = password;
         this.imageUrl = imageUrl;
-        this.countryId = countryId;
+        this.country = country;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.deletedAt = deletedAt;
@@ -16,8 +16,8 @@ export class User {
     getId() {
         return this.id;
     }
-    getRoleId() {
-        return this.roleId;
+    getRole() {
+        return this.role;
     }
     getUsername() {
         return this.username;
@@ -37,8 +37,8 @@ export class User {
     getImageUrl() {
         return this.imageUrl;
     }
-    getCountryId() {
-        return this.countryId;
+    getCountry() {
+        return this.country;
     }
     getCreatedAt() {
         return this.createdAt;
@@ -52,8 +52,8 @@ export class User {
     setId(id) {
         this.id = id;
     }
-    setRoleId(roleId) {
-        this.roleId = roleId;
+    setRoleId(role) {
+        this.role = role;
     }
     setUsername(username) {
         this.username;
@@ -73,8 +73,8 @@ export class User {
     setImageUrl(imageUrl) {
         this.imageUrl = imageUrl;
     }
-    setCountryId(countryId) {
-        this.countryId = countryId;
+    setCountry(country) {
+        this.country = country;
     }
     setCreatedAt(createdAt) {
         this.createdAt = createdAt;

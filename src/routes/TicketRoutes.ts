@@ -24,7 +24,7 @@ router.get("/event", async (req, res) => {
     const tickets = await TicketController.getAllTicketsByEventIdAndTicketTypeId(eventId, ticketTypeId)
     res.json(tickets);
   } catch (error) {
-    console.error("Error in /tickets:", error); // Affichez l'erreur complète
+    console.error("Error in /tickets:", error); 
     res.status(500).json({
       error: "An error occurred while fetching the ticket type of an event",
     });

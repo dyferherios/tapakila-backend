@@ -13,4 +13,21 @@ router.get("/:id", async (req, res) => {
         res.status(500).json({ error: "An error occured while fetching event." });
     }
 });
+router.post("/", EventController.saveEvent);
+router.put("/", EventController.saveEvent);
+router.delete("/:eventId", async (req, res) => {
+    const eventId = req.params.eventId;
+    try {
+        if (typeof eventId !== "string" || !eventId) {
+            return res
+                .status(400)
+                .json({ error: "eventId is required and must be a string" });
+        }
+        await EventController.deleteEventById(eventId);
+        res.status(201).json("Event deleted succefully");
+    }
+    catch (error) {
+        res.status(500).json({ error: "An error occured while deleting event" });
+    }
+});
 export default router;

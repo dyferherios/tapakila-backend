@@ -1,21 +1,21 @@
 export class TicketType {
-    constructor(id, eventId, title, slug, description, availableTicket, price, currencyId, createdAt, updatedAt) {
+    constructor(id, event, title, slug, description, availableTicket, price, currency, createdAt, updatedAt) {
         this.id = id;
-        this.eventId = eventId;
+        this.event = event;
         this.title = title;
         this.slug = slug;
         this.description = description;
         this.availableTicket = availableTicket;
         this.price = price;
-        this.currencyId = currencyId;
+        this.currency = currency;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
     getId() {
         return this.id;
     }
-    getEventId() {
-        return this.eventId;
+    getEvent() {
+        return this.event;
     }
     getTitle() {
         return this.title;
@@ -32,8 +32,8 @@ export class TicketType {
     getPrice() {
         return this.price;
     }
-    getCurrencyId() {
-        return this.currencyId;
+    getCurrency() {
+        return this.currency;
     }
     getCreatedAt() {
         return this.createdAt;
@@ -47,8 +47,8 @@ export class TicketType {
     setId(id) {
         this.id = id;
     }
-    setEventId(eventId) {
-        this.eventId = eventId;
+    setEvent(event) {
+        this.event = event;
     }
     setTitle(title) {
         this.title = title;
@@ -65,8 +65,8 @@ export class TicketType {
     setPrice(price) {
         this.price = price;
     }
-    setCurrencyId(currencyId) {
-        this.currencyId = currencyId;
+    setCurrency(currency) {
+        this.currency = currency;
     }
     setCreatedAt(createdAt) {
         this.createdAt = createdAt;

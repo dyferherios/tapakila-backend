@@ -8,7 +8,7 @@ HostController.getHosts = async (request, response) => {
     try {
         const results = await pool.query('SELECT * FROM public.host');
         const hosts = results.rows.map((row) => {
-            return new Host(row.id.toString(), row.name, row.decsription, row.createdAt, row.updatedAt);
+            return new Host(row.id.toString(), row.name, row.description, row.createdAt, row.updatedAt);
         });
         response.status(200).json(hosts);
     }
@@ -24,7 +24,7 @@ HostController.getHostById = async (hostId) => {
             throw new Error('Host not found');
         }
         const host = result.rows[0];
-        return new Host(host.id.toString(), host.name, host.decsription, host.createdAt, host.updatedAt);
+        return new Host(host.id.toString(), host.name, host.description, host.createdAt, host.updatedAt);
     }
     catch (error) {
         console.error(error);
@@ -42,7 +42,7 @@ HostController.saveHost = async (request, response) => {
             return response.status(200).json(updatedHost);
         }
         else {
-            const newHost = await pool.query("INSERT INTO public.host (name, description, created_at, updated_at) VALUES ($1, $2 NOW(), NOW()) RETURNING *", [name, description]);
+            const newHost = await pool.query("INSERT INTO public.host (name, description, created_at, updated_at) VALUES ($1, $2, NOW(), NOW()) RETURNING *", [name, description]);
             const createHost = newHost.rows[0];
             const hostObject = new Host(createHost.id.toString(), createHost.name, createHost.description, createHost.created_at, createHost.updated_at);
             return response.status(201).json(hostObject);
@@ -57,10 +57,21 @@ HostController.saveHost = async (request, response) => {
 };
 HostController.deleteHostById = async (hostId) => {
     try {
-        await pool.query("DELETE FROM public.host WHERE id=$1", [hostId]);
+        const result = await pool.query("select * from public.host where id=$1", [hostId]);
+        if (result.rows.length > 0) {
+            await pool.query("delete from public.host where id=$1", [hostId]);
+            return {
+                success: true,
+                message: "Host deleted successfully",
+                data: result.rows[0],
+            };
+        }
+        else {
+            throw Error("Host not found");
+        }
     }
     catch (error) {
-        throw error;
+        throw new Error("An error occurred while deleting the host");
     }
 };
 export { HostController };

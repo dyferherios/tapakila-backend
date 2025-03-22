@@ -11,16 +11,18 @@ router.get("/:id", async (req, res) => {
         res.status(500).json({ error: "An error occurred while fetching the news letter" });
     }
 });
-router.post("/save", NewsletterController.saveNewsletter);
-router.delete("/delete", async (req, res) => {
-    const newsletterId = req.query.newsletterId;
+router.post("/", NewsletterController.saveNewsletter);
+router.put("/", NewsletterController.saveNewsletter);
+router.delete("/:newsLetterId", async (req, res) => {
+    const newsLetterId = req.params.newsLetterId;
+    const id = newsLetterId.toString();
     try {
-        if (typeof newsletterId !== "string" || !newsletterId) {
+        if (typeof newsLetterId !== "string" || !newsLetterId) {
             return res
                 .status(400)
                 .json({ error: "newsletterId is required and must be a string" });
         }
-        await NewsletterController.deleteNewsletterById(newsletterId);
+        await NewsletterController.deleteNewsLetterById(newsLetterId);
         res.status(201).json("Newsletter deleted succefully");
     }
     catch (error) {

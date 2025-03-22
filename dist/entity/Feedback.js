@@ -1,7 +1,7 @@
 export class Feedback {
-    constructor(id, userId, subject, message, createdAt, updatedAt, deletedAt) {
+    constructor(id, user, subject, message, createdAt, updatedAt, deletedAt) {
         this.id = id;
-        this.userId = userId;
+        this.user = user;
         this.subject = subject;
         this.message = message;
         this.createdAt = createdAt;
@@ -11,8 +11,8 @@ export class Feedback {
     getId() {
         return this.id;
     }
-    getUserId() {
-        return this.userId;
+    getUser() {
+        return this.user;
     }
     getSubject() {
         return this.subject;
@@ -32,8 +32,8 @@ export class Feedback {
     setId(id) {
         this.id = id;
     }
-    setUserId(userId) {
-        this.userId = userId;
+    setUser(user) {
+        this.user = user;
     }
     setSubject(subject) {
         this.subject = subject;

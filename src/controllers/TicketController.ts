@@ -162,6 +162,7 @@ class TicketController {
       throw error;
     }
   };
+
 }
 
 export { TicketController };

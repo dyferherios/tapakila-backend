@@ -2,26 +2,26 @@ import { Currency } from "./Currency.js";
 import { Event } from "./Event.js";
 export class TicketType {
   id: string;
-  eventId: Event;
+  event: Event;
   title: string;
   slug: string;
   description: string;
   availableTicket: number;
   price: number;
-  currencyId: Currency;
+  currency: Currency;
   createdAt: Date;
   updatedAt: Date;
   deletedAt?: Date;
 
-  constructor(id: string, eventId: Event, title: string, slug: string, description: string, availableTicket: number, price: number, currencyId: Currency, createdAt: Date, updatedAt: Date) {
+  constructor(id: string, event: Event, title: string, slug: string, description: string, availableTicket: number, price: number, currency: Currency, createdAt: Date, updatedAt: Date) {
     this.id = id;
-    this.eventId = eventId;
+    this.event = event;
     this.title = title;
     this.slug = slug;
     this.description = description;
     this.availableTicket = availableTicket;
     this.price = price;
-    this.currencyId = currencyId;
+    this.currency = currency;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
   }
@@ -29,8 +29,8 @@ export class TicketType {
   public getId(): string {
     return this.id;
   } 
-  public getEventId(): Event {
-    return this.eventId;
+  public getEvent(): Event {
+    return this.event;
   }
   public getTitle(): string {
     return this.title
@@ -47,8 +47,8 @@ export class TicketType {
   public getPrice(): number {
     return this.price;
   }
-  public getCurrencyId(): Currency {
-    return this.currencyId;
+  public getCurrency(): Currency {
+    return this.currency;
   }
   public getCreatedAt(): Date {
     return this.createdAt;
@@ -62,8 +62,8 @@ export class TicketType {
   public setId(id: string): void {
     this.id = id;
   }
-  public setEventId(eventId: Event): void {
-    this.eventId = eventId;
+  public setEvent(event: Event): void {
+    this.event = event;
   }
   public setTitle(title: string): void {
     this.title = title;
@@ -80,8 +80,8 @@ export class TicketType {
   public setPrice(price: number): void {
     this.price = price;
   }
-  public setCurrencyId(currencyId: Currency): void {
-    this.currencyId = currencyId;
+  public setCurrency(currency: Currency): void {
+    this.currency = currency;
   }
   public setCreatedAt(createdAt: Date): void {
     this.createdAt = createdAt;

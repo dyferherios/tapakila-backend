@@ -11,9 +11,10 @@ router.get("/:id", async (req, res) => {
         res.status(500).json({ error: "An error occurred while fetching the host" });
     }
 });
-router.post("/save", HostController.saveHost);
-router.delete("/delete", async (req, res) => {
-    const hostId = req.query.hostId;
+router.post("/", HostController.saveHost);
+router.put("/", HostController.saveHost);
+router.delete("/:hostId", async (req, res) => {
+    const hostId = req.params.hostId;
     try {
         if (typeof hostId !== "string" || !hostId) {
             return res

@@ -8,6 +8,7 @@
     "build": "tsc --listFiles",
     "start": "node --require dotenv/config --loader ts-node/esm src/server.ts",
     "dev": "TS_NODE_PROJECT=tsconfig.json node --require dotenv/config --loader ts-node/esm src/server.ts",
+    "dev:watch": "nodemon --exec \"TS_NODE_PROJECT=tsconfig.json node --require dotenv/config --loader ts-node/esm src/server.ts\"",
     "prestart": "npm run build"
   },
   "keywords": [],

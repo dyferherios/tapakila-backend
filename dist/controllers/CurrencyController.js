@@ -41,7 +41,7 @@ CurrencyController.saveCurrency = async (request, response) => {
             return response.status(200).json(updatedCurrency);
         }
         else {
-            const newCurrency = await pool.query("INSERT INTO public.currency (title, description, created_at, updated_at) VALUES ($1, $2 NOW(), NOW()) RETURNING *", [title, description]);
+            const newCurrency = await pool.query("INSERT INTO public.currency (title, description, created_at, updated_at) VALUES ($1, $2, NOW(), NOW()) RETURNING *", [title, description]);
             const createdCurrency = newCurrency.rows[0];
             const currencyObject = new Currency(createdCurrency.id.toString(), createdCurrency.title, createdCurrency.description, createdCurrency.created_at, createdCurrency.updated_at);
             return response.status(201).json(currencyObject);
@@ -56,10 +56,18 @@ CurrencyController.saveCurrency = async (request, response) => {
 };
 CurrencyController.deleteCurrencyById = async (currencyId) => {
     try {
-        await pool.query('DELETE FROM public.currency WHERE id=$1', [currencyId]);
+        const result = await pool.query("SELECT * FROM public.currency WHERE id = $1", [currencyId]);
+        if (result.rows.length > 0) {
+            await pool.query("DELETE FROM public.currency WHERE id = $1", [currencyId]);
+            return {
+                success: true,
+                message: "Currency deleted successfully",
+                data: null,
+            };
+        }
     }
     catch (error) {
-        throw error;
+        throw Error("Error while deleting currency");
     }
 };
 export { CurrencyController };

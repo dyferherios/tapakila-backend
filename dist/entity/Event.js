@@ -1,9 +1,9 @@
 export class Event {
-    constructor(id, eventHallId, hostId, userId, title, slug, description, startDate, startTime, endDate, endTime, ageLimit, createdAt, updatedAt) {
+    constructor(id, eventHall, host, user, title, slug, description, startDate, startTime, endDate, endTime, ageLimit, createdAt, updatedAt) {
         this.id = id;
-        this.eventHallId = eventHallId;
-        this.hostId = hostId;
-        this.userId = userId;
+        this.eventHall = eventHall;
+        this.host = host;
+        this.user = user;
         this.title = title;
         this.slug = slug;
         this.description = description;
@@ -15,17 +15,17 @@ export class Event {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
-    getId() {
+    getd() {
         return this.id;
     }
-    getEventHallId() {
-        return this.eventHallId;
+    getEventHall() {
+        return this.eventHall;
     }
-    getHostId() {
-        return this.hostId;
+    getHost() {
+        return this.host;
     }
-    getUserId() {
-        return this.userId;
+    getUser() {
+        return this.user;
     }
     getTitle() {
         return this.title;
@@ -63,14 +63,14 @@ export class Event {
     setId(id) {
         this.id = id;
     }
-    setEventHallId(eventHallId) {
-        this.eventHallId = eventHallId;
+    setEventHall(eventHall) {
+        this.eventHall = eventHall;
     }
-    setHostId(hostId) {
-        this.hostId = hostId;
+    setHost(host) {
+        this.host = host;
     }
-    setUserId(userId) {
-        this.userId = userId;
+    setUser(user) {
+        this.user = user;
     }
     setTitle(title) {
         this.title = title;

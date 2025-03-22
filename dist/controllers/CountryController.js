@@ -55,12 +55,20 @@ CountryController.saveCountry = async (request, response) => {
         });
     }
 };
-CountryController.deleteCountryById = async (countryId) => {
+CountryController.deleteCountryById = async (countryById) => {
     try {
-        await pool.query("DELETE FROM public.country WHERE id=$1", [countryId]);
+        const result = await pool.query("select * from public.country where id=$1", [countryById]);
+        if (result.rows.length > 0) {
+            await pool.query("delete from public.country where id=$1", [countryById]);
+            return {
+                success: true,
+                message: "Country deleted successfully",
+                data: null
+            };
+        }
     }
     catch (error) {
-        throw error;
+        throw Error("Error occured while deleting country");
     }
 };
 export { CountryController };

@@ -12,9 +12,10 @@ router.get("/:id", async(req, res) => {
     }
 })
 
-router.post("/save", CurrencyController.saveCurrency);
-router.delete("/delete", async (req, res) => {
-  const currencyId = req.query.currencyId;
+router.post("/", CurrencyController.saveCurrency);
+router.put("/", CurrencyController.saveCurrency);
+router.delete("/:currencyId", async (req, res) => {
+  const currencyId = req.params.currencyId;
   try {
     if (typeof currencyId !== "string" || !currencyId) {
       return res

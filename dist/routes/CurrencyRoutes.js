@@ -11,9 +11,10 @@ router.get("/:id", async (req, res) => {
         res.status(500).json({ error: "An error occured while fetching currency" });
     }
 });
-router.post("/save", CurrencyController.saveCurrency);
-router.delete("/delete", async (req, res) => {
-    const currencyId = req.query.currencyId;
+router.post("/", CurrencyController.saveCurrency);
+router.put("/", CurrencyController.saveCurrency);
+router.delete("/:currencyId", async (req, res) => {
+    const currencyId = req.params.currencyId;
     try {
         if (typeof currencyId !== "string" || !currencyId) {
             return res

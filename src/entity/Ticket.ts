@@ -5,25 +5,25 @@ import { Currency } from "./Currency.js";
 
 export class Ticket {
   id: string;
-  eventId: Event;
+  event: Event;
   ticketType: TicketType;
-  userId: User;
+  user: User;
   ticketNumber: string;
   amountPaid: number;
-  currencyId: Currency;
+  currency: Currency;
   paymentConfirmed: boolean;
   createdAt: Date;
   updatedAt: Date;
   deletedAt?: Date;
 
-  constructor(id: string, eventId: Event, ticketType: TicketType, userId: User, ticketNumber: string, amountPaid: number, currencyId: Currency, paymentConfirmed: boolean, createdAt: Date, updatedAt: Date, deletedAt?: Date) {
+  constructor(id: string, event: Event, ticketType: TicketType, user: User, ticketNumber: string, amountPaid: number, currency: Currency, paymentConfirmed: boolean, createdAt: Date, updatedAt: Date, deletedAt?: Date) {
     this.id = id;
-    this.eventId = eventId;
+    this.event = event;
     this.ticketType = ticketType;
-    this.userId = userId;
+    this.user = user;
     this.ticketNumber = ticketNumber;
     this.amountPaid = amountPaid;
-    this.currencyId = currencyId;
+    this.currency = currency;
     this.paymentConfirmed = paymentConfirmed;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
@@ -32,14 +32,14 @@ export class Ticket {
   public getId(): string {
     return this.id;
   }
-  public getEventId(): Event {
-    return this.eventId;
+  public getEvent(): Event {
+    return this.event;
   }
   public getticketType(): TicketType {
     return this.ticketType;
   }
-  public getUserId(): User {
-    return this.userId;
+  public getUser(): User {
+    return this.user;
   }
   public getTicketNumber(): string {
     return this.ticketNumber;
@@ -47,8 +47,8 @@ export class Ticket {
   public getAmountPaid(): number {
     return this.amountPaid;
   }
-  public getCurrencyId(): Currency {
-    return this.currencyId;
+  public getCurrency(): Currency {
+    return this.currency;
   }
   public getPaymentConfirmed(): boolean {
     return this.paymentConfirmed;
@@ -65,14 +65,14 @@ export class Ticket {
   public setId(id: string): void {
     this.id = id;
   }
-  public setEventId(eventId: Event): void {
-    this.eventId = eventId;
+  public setEvent(event: Event): void {
+    this.event = event;
   }
   public setticketType(ticketType: TicketType): void {
     this.ticketType = ticketType;
   }
-  public setUserId(userId: User): void {
-    this.userId = userId;
+  public setUser(user: User): void {
+    this.user = user;
   }
   public setTicketNumber(ticketNumber: string): void {
     this.ticketNumber = ticketNumber;
@@ -80,8 +80,8 @@ export class Ticket {
   public setAmountPaid(amountPaid: number): void {
     this.amountPaid = amountPaid;
   }
-  public setCurrencyId(currencyId: Currency): void {
-    this.currencyId = currencyId;
+  public setCurrency(currency: Currency): void {
+    this.currency = currency;
   }
   public setPaymentConfirmed(paymentConfirmed: boolean): void {
     this.paymentConfirmed = paymentConfirmed;

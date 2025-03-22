@@ -1,12 +1,12 @@
 export class Ticket {
-    constructor(id, eventId, ticketType, userId, ticketNumber, amountPaid, currencyId, paymentConfirmed, createdAt, updatedAt, deletedAt) {
+    constructor(id, event, ticketType, user, ticketNumber, amountPaid, currency, paymentConfirmed, createdAt, updatedAt, deletedAt) {
         this.id = id;
-        this.eventId = eventId;
+        this.event = event;
         this.ticketType = ticketType;
-        this.userId = userId;
+        this.user = user;
         this.ticketNumber = ticketNumber;
         this.amountPaid = amountPaid;
-        this.currencyId = currencyId;
+        this.currency = currency;
         this.paymentConfirmed = paymentConfirmed;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
@@ -15,14 +15,14 @@ export class Ticket {
     getId() {
         return this.id;
     }
-    getEventId() {
-        return this.eventId;
+    getEvent() {
+        return this.event;
     }
     getticketType() {
         return this.ticketType;
     }
-    getUserId() {
-        return this.userId;
+    getUser() {
+        return this.user;
     }
     getTicketNumber() {
         return this.ticketNumber;
@@ -30,8 +30,8 @@ export class Ticket {
     getAmountPaid() {
         return this.amountPaid;
     }
-    getCurrencyId() {
-        return this.currencyId;
+    getCurrency() {
+        return this.currency;
     }
     getPaymentConfirmed() {
         return this.paymentConfirmed;
@@ -48,14 +48,14 @@ export class Ticket {
     setId(id) {
         this.id = id;
     }
-    setEventId(eventId) {
-        this.eventId = eventId;
+    setEvent(event) {
+        this.event = event;
     }
     setticketType(ticketType) {
         this.ticketType = ticketType;
     }
-    setUserId(userId) {
-        this.userId = userId;
+    setUser(user) {
+        this.user = user;
     }
     setTicketNumber(ticketNumber) {
         this.ticketNumber = ticketNumber;
@@ -63,8 +63,8 @@ export class Ticket {
     setAmountPaid(amountPaid) {
         this.amountPaid = amountPaid;
     }
-    setCurrencyId(currencyId) {
-        this.currencyId = currencyId;
+    setCurrency(currency) {
+        this.currency = currency;
     }
     setPaymentConfirmed(paymentConfirmed) {
         this.paymentConfirmed = paymentConfirmed;

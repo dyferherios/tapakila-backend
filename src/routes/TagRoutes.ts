@@ -14,20 +14,25 @@ router.get("/:id", async (req, res) => {
     res.status(500).json({ error: "An error occurred while fetching the tag" })
   }
 })
-router.post("/save", TagController.saveTag);
-router.delete("/delete", async (req, res) => {
-  const tagId = req.query.tagId;
+router.post("/", TagController.saveTag);
+router.put("/", TagController.saveTag);
+router.delete("/:tagId", async (req, res) => {
+  const tagId = req.params.tagId;
+  const id = tagId.toString();
   try {
-    if (typeof tagId !== "string" || !tagId) {
+    if (typeof id !== "string" || !id) {
       return res
         .status(400)
         .json({ error: "TagId is required and must be a string" });
     }
-    await TagController.deleteTagById(tagId);
-    res.status(201).json("Tag deleted succefully");
-  } catch (error) {
-    res.status(500).json({ error: "An error occured while deleting tag" });
+    const result = await TagController.deleteTagById(id);
+    res.status(200).json(result);
+  } catch (error: any) {
+    if (error.message === "Tag not found") {
+      res.status(404).json({ error: error.message });
+    } else {
+      res.status(500).json({ error: error.message });
+    }
   }
 });
-
 export default router;

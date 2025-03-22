@@ -28,4 +28,20 @@ router.get("/:id", async (req, res) => {
         res.status(500).json({ error: "An error occurred while fetching the ticket type" });
     }
 });
+// router.post("/save", TicketTypeController.saveTicketType);
+// router.delete("/delete)", async (req, res) => {
+//   const ticketTypeId = req.query.ticketTypeId;
+//   if (typeof ticketTypeId !== "string" || !ticketTypeId) {
+//     return res
+//       .status(400)
+//       .json({ error: "ticketTypeId is required and must be a string" });
+//   }
+//   try {
+//     await TicketTypeController.deleteTicketType(ticketTypeId, res);
+//   } catch (error) {
+//     res
+//       .status(500)
+//       .json({ error: "An error occurred while deleting the ticket type" });
+//   }
+// })
 export default router;

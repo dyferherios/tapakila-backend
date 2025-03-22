@@ -3,16 +3,16 @@ import { User } from "./User.js";
 
 export class TicketVerification {
   id: string;
-  ticketId: Ticket;
-  userId: User;
+  ticket: Ticket;
+  user: User;
   paymentConfirmed: boolean;
   createdAt: Date;
   updatedAt: Date;
   deletedAt?: Date;
-  constructor(id: string, ticketId: Ticket, userId: User, paymentConfirmed: boolean, createdAt: Date, updatedAt: Date, deletedAt?: Date) {
+  constructor(id: string, ticket: Ticket, user: User, paymentConfirmed: boolean, createdAt: Date, updatedAt: Date, deletedAt?: Date) {
     this.id = id;
-    this.ticketId = ticketId;
-    this.userId = userId;
+    this.ticket = ticket;
+    this.user = user;
     this.paymentConfirmed = paymentConfirmed;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
@@ -21,11 +21,11 @@ export class TicketVerification {
   public getId(): string {
     return this.id;
   }
-  public getTicketId(): Ticket {
-    return this.ticketId;
+  public getTicket(): Ticket {
+    return this.ticket;
   }
-  public getUserId(): User {
-    return this.userId;
+  public getUser(): User {
+    return this.user;
   }
   public getPaymentConfirmed(): boolean {
     return this.paymentConfirmed;
@@ -42,11 +42,11 @@ export class TicketVerification {
   public setId(id: string): void {
     this.id = id;
   }
-  public setTicketId(ticketId: Ticket): void {
-    this.ticketId = ticketId;
+  public setTicket(ticket: Ticket): void {
+    this.ticket = ticket;
   }
-  public setUserId(userId: User): void {
-    this.userId = userId;
+  public setUser(user: User): void {
+    this.user = user;
   }
   public setPaymentConfirmed(paymentConfirmed: boolean): void {
     this.paymentConfirmed = paymentConfirmed;
