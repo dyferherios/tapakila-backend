@@ -1,9 +1,0 @@
-/event?eventId={eventId}
-get ticketsTypes inside an event -> ticketTypes
-
-tickets/event?eventId={eventId}&&ticketstypesId={ticketstypesId}
-get tickets list of each ticketstypes types inside a specific event -> tickets
-
-
-
-

@@ -24,7 +24,6 @@ router.get("/event", async (req, res) => {
     const tickets = await TicketController.getAllTicketsByEventIdAndTicketTypeId(eventId, ticketTypeId)
     res.json(tickets);
   } catch (error) {
-    console.error("Error in /tickets:", error); 
     res.status(500).json({
       error: "An error occurred while fetching the ticket type of an event",
     });
@@ -38,6 +37,23 @@ router.get("/:id", async (req, res) => {
     res.json(ticket)
   } catch (error) {
     res.status(500).json({ error: "An error occurred while fetching the ticket" })
+  }
+})
+
+router.post("/", TicketController.saveTicket);
+router.put("/", TicketController.saveTicket);
+router.delete("/:ticketId", async (req, res) => {
+  try {
+    const ticketId = req.params.ticketId;
+    if (typeof ticketId !== "string" || !ticketId) {
+      return res
+        .status(400)
+        .json({ error: "ticketId is required and must be a string" });
+    }
+    const ticketdeleted = await TicketController.deleteTicketById(ticketId);
+    res.status(200).json({ message: "Ticket deleted successfully" });
+  } catch (error) {
+    throw Error("An error occured while deleting ticket");
   }
 })
 

@@ -8,8 +8,9 @@ router.get("/allEventsId", EventController.getAllEventId);
 router.get("/", EventController.getEvents);
 router.get("/:id", async(req, res) => {
     try {
-        const event = await EventController.getEventById(req.params.id);
-        res.json(event);
+        const eventId = req.params.id;
+        const event = await EventController.getEventById(eventId);
+        res.status(200).json(event);
     } catch (error) {
         res.status(500).json({error: "An error occured while fetching event."})
     }
