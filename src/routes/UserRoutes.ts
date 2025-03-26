@@ -35,3 +35,13 @@ router.delete("/:userId", async (req, res) => {
 })
 
 export default router;
+
+// user.routes.ts
+// router.post('/refresh-token', (req, res) => {
+//   const { refreshToken } = req.body;
+//   const decoded = jwt.verify(refreshToken, process.env.REFRESH_SECRET!);
+//   const newAccessToken = AuthService.generateToken(decoded);
+//   res.json({ accessToken: newAccessToken });
+// });
+
+

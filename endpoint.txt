@@ -1,8 +1,25 @@
-/ticketstypes?eventId={eventId}
-get ticketsTypes inside an event -> ticketTypes
-
-/tickets?eventId={eventId}&&ticketstypesId={ticketstypesId}
-get tickets list of each ticketstypes types inside a specific event -> tickets
-
+export class User {
+  // ...
+  refreshToken?: string; // Stocke le refresh token en DB
+}
 
 
+const { accessToken, refreshToken } = AuthService.generateTokens(user);
+user.refreshToken = refreshToken;
+await user.save();
+res.json({ accessToken, refreshToken });
+
+
+router.post('/refresh-token', async (req, res) => {
+  const { refreshToken } = req.body;
+  const user = await User.findOne({ refreshToken });
+  if (!user) return res.status(403).json({ error: "Invalid token" });
+
+  try {
+    jwt.verify(refreshToken, process.env.REFRESH_SECRET!);
+    const newAccessToken = AuthService.generateToken(user);
+    res.json({ accessToken: newAccessToken });
+  } catch (error) {
+    res.status(401).json({ error: "Expired token" });
+  }
+});

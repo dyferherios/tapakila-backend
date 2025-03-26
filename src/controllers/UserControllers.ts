@@ -139,3 +139,39 @@ export {
   UserController
 };
 
+// import { Request, Response } from "express";
+// import { AuthService } from "./auth.service";
+// import { User } from "./user.model";
+
+// export const register = async (req: Request, res: Response) => {
+//   try {
+//     const hashedPassword = await AuthService.hashPassword(req.body.password);
+//     const user = new User({
+//       ...req.body,
+//       password: hashedPassword,
+//     });
+//     await user.save();
+//     res.status(201).json(user);
+//   } catch (error) {
+//     res.status(400).json({ error: error.message });
+//   }
+// };
+
+// export const login = async (req: Request, res: Response) => {
+//   try {
+//     const { email, password } = req.body;
+//     const user = await User.findOne({ email });
+
+//     if (
+//       !user ||
+//       !(await AuthService.comparePasswords(password, user.password))
+//     ) {
+//       return res.status(401).json({ message: "Identifiants invalides" });
+//     }
+
+//     const token = await AuthService.generateToken(user);
+//     res.json({ token });
+//   } catch (error) {
+//     res.status(500).json({ error: error.message });
+//   }
+// };
