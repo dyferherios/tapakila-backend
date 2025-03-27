@@ -1,5 +1,5 @@
 export class EventDTO {
-    constructor(id, eventHallId, hostId, userId, title, slug, description, startDate, startTime, endDate, endTime, ageLimit, createdAt, updatedAt, allTicket) {
+    constructor(id, eventHallId, hostId, userId, title, slug, description, startDate, startTime, endDate, endTime, ageLimit, createdAt, updatedAt, eventImage, category, allTicket) {
         this.id = id;
         this.eventHallId = eventHallId;
         this.hostId = hostId;
@@ -14,6 +14,8 @@ export class EventDTO {
         this.ageLimit = ageLimit;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.eventImage = eventImage;
+        this.category = category;
         this.allTicket = allTicket;
     }
     getAllTicket() {

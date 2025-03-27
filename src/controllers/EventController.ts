@@ -5,7 +5,7 @@ import { UserController } from "./UserControllers.js";
 import { EventHallController } from "./EventHallController.js";
 import { TicketController } from "./TicketController.js";
 import { EventDTO } from "../entity/EventDTO.js";
-import Response from "express";
+import { Response } from "express";
 import express from 'express';
 
 class EventController {
@@ -220,20 +220,15 @@ class EventController {
     }
   };
 
-  static getAllEventId = async (request: any, response: any) => {
+  static getAllEventId = async () => {
     try {
-      const result = await pool.query("select id from public.event");
-      const eventsId = await Promise.all(
-        result.rows.map((row) => {
-          return row.id.toString();
-        })
-      );
-      response.status(200).json(eventsId);
+      const result = await pool.query("SELECT id FROM public.event");
+      const eventsId = result.rows.map((row) => row.id.toString());
+      return eventsId;
     } catch (error) {
-      throw new Error("An error occured while fetching eventId");
+      console.error("Error in getAllEventId:", error);
     }
   };
-
   static saveEvent = async (request: any, response: any) => {
     const {
       id,

@@ -1,5 +1,5 @@
 export class Event {
-    constructor(id, eventHall, host, user, title, slug, description, startDate, startTime, endDate, endTime, ageLimit, createdAt, updatedAt, eventImage) {
+    constructor(id, eventHall, host, user, title, slug, description, startDate, startTime, endDate, endTime, ageLimit, createdAt, updatedAt, eventImage, category) {
         this.id = id;
         this.eventHall = eventHall;
         this.host = host;
@@ -15,6 +15,7 @@ export class Event {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.eventImage = eventImage;
+        this.category = category;
     }
     getd() {
         return this.id;
@@ -111,5 +112,11 @@ export class Event {
     }
     setEventImage(eventImage) {
         this.eventImage = eventImage;
+    }
+    getCategory() {
+        return this.category;
+    }
+    setCategory(category) {
+        this.category = category;
     }
 }

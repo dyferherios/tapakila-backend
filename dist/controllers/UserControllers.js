@@ -127,14 +127,14 @@ UserController.register = async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
         // Insérer l'utilisateur dans la base de données
         const newUser = await pool.query('INSERT INTO public."user" (role_id, username, name, email, password, country_id, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, $6, NOW(), NOW()) RETURNING id', [roleId, username, name, email, hashedPassword, countryId]);
-        res.status(201).json({ message: "Utilisateur créé avec succès" });
+        res
+            .status(201)
+            .json(await _a.getUserById(newUser.rows[0].id));
     }
     catch (error) {
-        console.error(error);
         res.status(500).json({ error: "Erreur lors de l'inscription" });
     }
 };
-// Modifier la méthode saveUser pour hacher le mot de passe
 UserController.saveUser = async (request, response) => {
     const { id, role, username, name, email, email_verified_at, password, image_url, country, } = request.body;
     try {
@@ -189,16 +189,15 @@ UserController.saveUser = async (request, response) => {
         }
     }
     catch (error) {
-        console.error(error);
         response.status(500).json({
-            error: "Une erreur est survenue lors de l'enregistrement de l'utilisateur",
+            error: "Uan error occured while saving user",
         });
     }
 };
 UserController.login = async (req, res) => {
     const { email, password } = req.body;
     if (!email || !password) {
-        return res.status(400).json({ error: "Email et mot de passe requis" });
+        return res.status(400).json({ error: "Email and password required" });
     }
     try {
         // Vérifier si l'utilisateur existe
@@ -206,20 +205,18 @@ UserController.login = async (req, res) => {
         if (result.rows.length === 0) {
             return res
                 .status(401)
-                .json({ error: "Email ou mot de passe incorrect" });
+                .json({ error: "Email or password incorrect" });
         }
         const user = result.rows[0];
         // Vérifier le mot de passe
         const passwordMatch = await bcrypt.compare(password, user.password);
         if (!passwordMatch) {
-            return res
-                .status(401)
-                .json({ error: "Email ou mot de passe incorrect" });
+            return res.status(401).json({ error: "Email or password incorrect" });
         }
         // Générer un token JWT
         const token = jwt.sign({ id: user.id, role: user.role_id }, process.env.JWT_SECRET_KEY || (() => { throw new Error("JWT_SECRET_KEY is not defined in environment variables"); })(), { expiresIn: "1h" });
         res.status(200).json({
-            message: "Connexion réussie",
+            message: "User logged in successfully",
             token,
             user: {
                 id: user.id,
@@ -230,8 +227,7 @@ UserController.login = async (req, res) => {
         });
     }
     catch (error) {
-        console.error(error);
-        res.status(500).json({ error: "Erreur lors de la connexion" });
+        res.status(500).json({ error: "Network error" });
     }
 };
 UserController.deleteUserById = async (userId) => {
