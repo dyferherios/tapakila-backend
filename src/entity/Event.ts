@@ -19,6 +19,7 @@ export class Event {
   updatedAt: Date;
   deletedAt?: Date;
   eventImage: string;
+  category: string;
 
   constructor(
     id: string,
@@ -35,7 +36,8 @@ export class Event {
     ageLimit: string,
     createdAt: Date,
     updatedAt: Date,
-    eventImage: string
+    eventImage: string,
+    category: string
   ) {
     this.id = id;
     this.eventHall = eventHall;
@@ -52,6 +54,7 @@ export class Event {
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
     this.eventImage = eventImage;
+    this.category = category;
   }
 
   public getd(): string {
@@ -149,5 +152,11 @@ export class Event {
   }
   public setEventImage(eventImage: string): void {
     this.eventImage = eventImage;
+  }
+  public getCategory(): string {
+    return this.category;
+  }
+  public setCategory(category: string): void {
+    this.category = category;
   }
 }

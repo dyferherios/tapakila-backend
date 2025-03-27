@@ -123,7 +123,10 @@ class TicketController {
     }
   };
 
-  static getAllTicketsByEventIdAndTicketTypeId = async (eventId: string, ticketTypeId: string) => {
+  static getAllTicketsByEventIdAndTicketTypeId = async (
+    eventId: string,
+    ticketTypeId: string
+  ) => {
     try {
       const results = await pool.query(
         "SELECT * FROM public.ticket WHERE event_id = $1 and ticket_type_id = $2",
@@ -163,9 +166,20 @@ class TicketController {
     }
   };
 
-  static saveTicket = async (request:any, response:any) => {
+  static saveTicket = async (request: any, response: any) => {
     try {
-      const { id, event, ticketType, user, ticketNumber, amountPaid, currency, paymentConfirmed, createdAt, updatedAd } = request.body;
+      const {
+        id,
+        event,
+        ticketType,
+        user,
+        ticketNumber,
+        amountPaid,
+        currency,
+        paymentConfirmed,
+        createdAt,
+        updatedAd,
+      } = request.body;
       const result = await pool.query(
         "select * from public.ticket where id = $1",
         [id]
@@ -177,14 +191,20 @@ class TicketController {
       if (result.rows.length > 0) {
         const ticketUpdated = await pool.query(
           "UPDATE public.ticket SET event_id = $1, ticket_type_id = $2, user_id = $3, ticket_number = $4, amount_paid = $5, currency_id = $6, payment_confirmed = $7, updated_at=NOW() WHERE id = $8 RETURNING *",
-          [eventId, ticketTypeId, userId, ticketNumber, amountPaid, currencyId, paymentConfirmed, id]
+          [
+            eventId,
+            ticketTypeId,
+            userId,
+            ticketNumber,
+            amountPaid,
+            currencyId,
+            paymentConfirmed,
+            id,
+          ]
         );
-        const idTicketUpdated = ticketUpdated.rows[0].id
+        const idTicketUpdated = ticketUpdated.rows[0].id;
         const ticket = await TicketController.getTicketById(idTicketUpdated);
-        response
-          .status(200)  
-          .json(ticket);
-      
+        response.status(200).json(ticket);
       } else {
         const ticketSaved = await pool.query(
           "INSERT INTO public.ticket (event_id, ticket_type_id, user_id, ticket_number, amount_paid, currency_id, payment_confirmed, created_at) VALUES ($1, $2, $3, $4, $5, $6, $7, NOW()) RETURNING *",
@@ -198,21 +218,19 @@ class TicketController {
             paymentConfirmed,
           ]
         );
-        
+
         const idTicketSaved = ticketSaved.rows[0].id;
-        
+
         const ticket = await TicketController.getTicketById(idTicketSaved);
-        
-        response
-          .status(200)
-          .json(ticket);
+
+        response.status(200).json(ticket);
       }
     } catch (error) {
       throw error;
-    }      
-  }
+    }
+  };
 
-  static deleteTicketById = async (ticketId:string) => {
+  static deleteTicketById = async (ticketId: string) => {
     try {
       const result = await pool.query(
         "select * from public.ticket where id = $1",

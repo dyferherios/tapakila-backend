@@ -1,5 +1,5 @@
-import pool from '../db/datasource.js';
-import { Country } from '../entity/Country.js';
+import pool from "../db/datasource.js";
+import { Country } from "../entity/Country.js";
 
 class CountryController {
   static getCountry = async (request: any, response: any) => {
@@ -89,21 +89,24 @@ class CountryController {
 
   static deleteCountryById = async (countryById: string) => {
     try {
-      const result = await pool.query("select * from public.country where id=$1", [countryById]);
+      const result = await pool.query(
+        "select * from public.country where id=$1",
+        [countryById]
+      );
       if (result.rows.length > 0) {
-        await pool.query("delete from public.country where id=$1", [countryById]);
+        await pool.query("delete from public.country where id=$1", [
+          countryById,
+        ]);
         return {
           success: true,
           message: "Country deleted successfully",
-          data : null
-        }
-      }      
+          data: null,
+        };
+      }
     } catch (error) {
       throw Error("Error occured while deleting country");
     }
-  }
+  };
 }
 
-export {
-    CountryController
-};
+export { CountryController };

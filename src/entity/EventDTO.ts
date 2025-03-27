@@ -20,6 +20,8 @@ export class EventDTO {
     createdAt: Date;
     updatedAt: Date;
     deletedAt?: Date;
+    eventImage: string;
+    category: string;
     allTicket: Ticket[];
     constructor(
         id: string,
@@ -36,6 +38,8 @@ export class EventDTO {
         ageLimit: string,
         createdAt: Date,
         updatedAt: Date,
+        eventImage: string,
+        category: string,
         allTicket: Ticket[]
     ) {
         this.id = id;
@@ -52,6 +56,8 @@ export class EventDTO {
         this.ageLimit = ageLimit;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.eventImage = eventImage;
+        this.category = category;
         this.allTicket = allTicket;
     }
 
