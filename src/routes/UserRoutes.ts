@@ -2,8 +2,20 @@ import { Router } from 'express';
 import {
   UserController
 } from '../controllers/UserControllers.js'
+import { authenticate } from '../middleware/auth.middleware.js';
 
 const router = Router();
+
+router.post("/register", UserController.register);
+router.post("/login", UserController.login);
+router.get("/profile", authenticate, async (req: any, res) => {
+  try {
+    const user = await UserController.getUserById(req.user.id);
+    res.json(user);
+  } catch (error) {
+    res.status(500).json({ error: "Erreur lors de la récupération du profil" });
+  }
+});
 
 router.get("/", UserController.getUsers);
 router.get("/:id", async (req, res) => {
@@ -35,13 +47,5 @@ router.delete("/:userId", async (req, res) => {
 })
 
 export default router;
-
-// user.routes.ts
-// router.post('/refresh-token', (req, res) => {
-//   const { refreshToken } = req.body;
-//   const decoded = jwt.verify(refreshToken, process.env.REFRESH_SECRET!);
-//   const newAccessToken = AuthService.generateToken(decoded);
-//   res.json({ accessToken: newAccessToken });
-// });
 
 

@@ -20,28 +20,26 @@ router.get("/event", async (req, res) => {
 });
 router.get("/", TicketTypeController.getTicketTypes);
 router.get("/:id", async (req, res) => {
+    const ticketTypeId = req.params.id;
     try {
-        const ticketTYpe = await TicketTypeController.getTicketTypeById(req.params.id);
-        res.json(ticketTYpe);
+        const ticketType = await TicketTypeController.getTicketTypeById(ticketTypeId);
+        res.json(ticketType);
     }
     catch (error) {
-        res.status(500).json({ error: "An error occurred while fetching the ticket type" });
+        throw error;
+        //res.status(500).json({ error: "An error occurred while fetching the ticket type" })
     }
 });
-// router.post("/save", TicketTypeController.saveTicketType);
-// router.delete("/delete)", async (req, res) => {
-//   const ticketTypeId = req.query.ticketTypeId;
-//   if (typeof ticketTypeId !== "string" || !ticketTypeId) {
-//     return res
-//       .status(400)
-//       .json({ error: "ticketTypeId is required and must be a string" });
-//   }
-//   try {
-//     await TicketTypeController.deleteTicketType(ticketTypeId, res);
-//   } catch (error) {
-//     res
-//       .status(500)
-//       .json({ error: "An error occurred while deleting the ticket type" });
-//   }
-// })
+router.post("/", TicketTypeController.saveTicketType);
+router.put("/", TicketTypeController.saveTicketType);
+router.delete("/:ticketTypeId", async (req, res) => {
+    const ticketTypeId = req.params.ticketTypeId;
+    try {
+        await TicketTypeController.deleteTicketTypeById(ticketTypeId);
+        res.status(200).json({ message: "Ticket type deleted successfully" });
+    }
+    catch (error) {
+        res.status(500).json({ error: "An error occured while deleting ticket type" });
+    }
+});
 export default router;

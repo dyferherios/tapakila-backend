@@ -94,4 +94,60 @@ TicketController.getAllTicketsByEventIdAndTicketTypeId = async (eventId, ticketT
         throw error;
     }
 };
+TicketController.saveTicket = async (request, response) => {
+    try {
+        const { id, event, ticketType, user, ticketNumber, amountPaid, currency, paymentConfirmed, createdAt, updatedAd } = request.body;
+        const result = await pool.query("select * from public.ticket where id = $1", [id]);
+        const eventId = event.id.toString();
+        const ticketTypeId = ticketType.id.toString();
+        const userId = user.id.toString();
+        const currencyId = currency.id.toString();
+        if (result.rows.length > 0) {
+            const ticketUpdated = await pool.query("UPDATE public.ticket SET event_id = $1, ticket_type_id = $2, user_id = $3, ticket_number = $4, amount_paid = $5, currency_id = $6, payment_confirmed = $7, updated_at=NOW() WHERE id = $8 RETURNING *", [eventId, ticketTypeId, userId, ticketNumber, amountPaid, currencyId, paymentConfirmed, id]);
+            const idTicketUpdated = ticketUpdated.rows[0].id;
+            const ticket = await _a.getTicketById(idTicketUpdated);
+            response
+                .status(200)
+                .json(ticket);
+        }
+        else {
+            const ticketSaved = await pool.query("INSERT INTO public.ticket (event_id, ticket_type_id, user_id, ticket_number, amount_paid, currency_id, payment_confirmed, created_at) VALUES ($1, $2, $3, $4, $5, $6, $7, NOW()) RETURNING *", [
+                eventId,
+                ticketTypeId,
+                userId,
+                ticketNumber,
+                amountPaid,
+                currencyId,
+                paymentConfirmed,
+            ]);
+            const idTicketSaved = ticketSaved.rows[0].id;
+            const ticket = await _a.getTicketById(idTicketSaved);
+            response
+                .status(200)
+                .json(ticket);
+        }
+    }
+    catch (error) {
+        throw error;
+    }
+};
+TicketController.deleteTicketById = async (ticketId) => {
+    try {
+        const result = await pool.query("select * from public.ticket where id = $1", [ticketId]);
+        if (result.rows.length > 0) {
+            await pool.query("DELETE FROM public.ticket WHERE id = $1", [ticketId]);
+            return {
+                success: true,
+                message: "Ticket deleted successfully",
+                data: null,
+            };
+        }
+        else {
+            throw new Error("Ticket type not found");
+        }
+    }
+    catch (error) {
+        throw error;
+    }
+};
 export { TicketController };

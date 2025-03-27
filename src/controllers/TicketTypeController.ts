@@ -2,7 +2,7 @@ import pool from "../db/datasource.js";
 import { TicketType } from "../entity/TicketType.js";
 import { CurrencyController } from "./CurrencyController.js";
 import { EventController } from "./EventController.js";
-import { Currency } from '../entity/Currency';
+import { Currency } from '../entity/Currency.js';
 import { create } from "domain";
 
 class TicketTypeController {

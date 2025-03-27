@@ -25,6 +25,9 @@ TicketTypeController.getTicketTypes = async (request, response) => {
 TicketTypeController.getTicketTypeById = async (ticketTypeId) => {
     try {
         const result = await pool.query("SELECT * FROM public.ticket_type WHERE id = $1", [ticketTypeId]);
+        if (result.rows.length === 0) {
+            throw new Error("Ticket type not found");
+        }
         const ticketType = result.rows[0];
         const eventId = ticketType.event_id.toString();
         const currencyId = ticketType.currency_id.toString();
@@ -33,7 +36,12 @@ TicketTypeController.getTicketTypeById = async (ticketTypeId) => {
         return new TicketType(ticketType.id.toString(), event, ticketType.title, ticketType.slug, ticketType.description, ticketType.available_ticket, ticketType.price, currency, ticketType.created_at, ticketType.updated_at);
     }
     catch (error) {
-        throw new Error("Failed to retrieve user");
+        if (error instanceof Error && error.message === "Ticket type not found") {
+            throw error;
+        }
+        else {
+            throw new Error("Failed to retrieve ticket type");
+        }
     }
 };
 TicketTypeController.getTicketTypeByEventId = async (eventId) => {
@@ -53,52 +61,63 @@ TicketTypeController.getTicketTypeByEventId = async (eventId) => {
 };
 TicketTypeController.saveTicketType = async (request, response) => {
     try {
-        const { id, title, slug, description, available_ticket, price, currency_id, event_id, } = request.body;
-        const result = await pool.query("select * from ticket_type where id = $1", [id]);
+        const { id, title, slug, description, availableTicket, price, currency, event, createdAt, updatedAt, } = request.body;
+        const result = await pool.query("select * from public.ticket_type where id = $1", [id]);
+        const currencyId = currency.id.toString();
+        const eventId = event.id.toString();
         if (result.rows.length > 0) {
-            const ticketTypeUpdated = await pool.query("UPDATE public.ticket_type SET title = $1, slug = $2, description = $3, available_ticket = $4, price = $5, currency_id = $6, event_id = $7 WHERE id = $8 RETURNING *", [
+            const ticketTypeUpdated = await pool.query("UPDATE public.ticket_type SET title = $1, slug = $2, description = $3, available_ticket = $4, price = $5, currency_id = $6, event_id = $7, created_at=$8, updated_at=NOW() WHERE id = $9 RETURNING id", [
                 title,
                 slug,
                 description,
-                available_ticket,
+                availableTicket,
                 price,
-                currency_id,
-                event_id,
+                currencyId,
+                eventId,
+                createdAt,
                 id,
             ]);
-            response.status(200).json(ticketTypeUpdated);
+            const ticketType = await _a.getTicketTypeById(ticketTypeUpdated.rows[0].id);
+            response.status(200).json(ticketType);
         }
         else {
-            const ticketTypeCreated = await pool.query("INSERT INTO public.ticket_type (title, slug, description, available_ticket, price, currency_id, event_id) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *", [
+            const ticketTypeCreated = await pool.query("INSERT INTO public.ticket_type (title, slug, description, available_ticket, price, currency_id, event_id,created_at,updated_at) VALUES ($1, $2, $3, $4, $5, $6, $7,NOW(),$8) RETURNING id", [
                 title,
                 slug,
                 description,
-                available_ticket,
+                availableTicket,
                 price,
-                currency_id,
-                event_id
+                currencyId,
+                eventId,
+                updatedAt,
             ]);
-            response.status(201).json(ticketTypeCreated.rows[0]);
+            const ticketType = await _a.getTicketTypeById(ticketTypeCreated.rows[0].id);
+            response.status(200).json(ticketType);
         }
     }
     catch (error) {
         response.status(500).json({ error });
     }
 };
-TicketTypeController.deleteTicketType = async (request, response) => {
+TicketTypeController.deleteTicketTypeById = async (ticketTypeId) => {
     try {
-        const { id } = request.params;
-        const result = await pool.query("select * from publit.ticket_type where id = $1", [id]);
+        const result = await pool.query("select * from public.ticket_type where id = $1", [ticketTypeId]);
         if (result.rows.length > 0) {
-            const ticketTypeDeleted = await pool.query("DELETE FROM public.ticket_type WHERE id = $1", [id]);
-            response.status(200).json(ticketTypeDeleted);
+            await pool.query("DELETE FROM public.ticket_type WHERE id = $1", [
+                ticketTypeId,
+            ]);
+            return {
+                success: true,
+                message: "Ticket type deleted successfully",
+                data: null,
+            };
         }
         else {
-            response.status(404).json({ error: "Ticket type not found" });
+            throw new Error("Ticket type not found");
         }
     }
     catch (error) {
-        response.status(500).json({ error });
+        throw new Error("An error occurred while deleting the ticket type");
     }
 };
 export { TicketTypeController };

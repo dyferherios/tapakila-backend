@@ -18,9 +18,26 @@ export class Event {
   createdAt: Date;
   updatedAt: Date;
   deletedAt?: Date;
+  eventImage: string;
 
-  constructor(id: string, eventHall: EventHall, host: Host, user: User, title: string, slug: string, description: string, startDate: Date, startTime: string, endDate: Date, endTime: string, ageLimit: string, createdAt: Date, updatedAt: Date) {
-    this. id=id ;
+  constructor(
+    id: string,
+    eventHall: EventHall,
+    host: Host,
+    user: User,
+    title: string,
+    slug: string,
+    description: string,
+    startDate: Date,
+    startTime: string,
+    endDate: Date,
+    endTime: string,
+    ageLimit: string,
+    createdAt: Date,
+    updatedAt: Date,
+    eventImage: string
+  ) {
+    this.id = id;
     this.eventHall = eventHall;
     this.host = host;
     this.user = user;
@@ -34,6 +51,7 @@ export class Event {
     this.ageLimit = ageLimit;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
+    this.eventImage = eventImage;
   }
 
   public getd(): string {
@@ -81,8 +99,8 @@ export class Event {
   public getDeletedAt(): Date | undefined {
     return this.deletedAt;
   }
-  public setId(id: string): void{
-    this.id=id;
+  public setId(id: string): void {
+    this.id = id;
   }
   public setEventHall(eventHall: EventHall): void {
     this.eventHall = eventHall;
@@ -121,9 +139,15 @@ export class Event {
     this.createdAt = createdAt;
   }
   public setUpdatedAt(updatedAt: Date): void {
-    this.updatedAt
+    this.updatedAt;
   }
   public setDeletedAt(deletedAt: Date): void {
     this.deletedAt = deletedAt;
+  }
+  public getEventImage(): string {
+    return this.eventImage;
+  }
+  public setEventImage(eventImage: string): void {
+    this.eventImage = eventImage;
   }
 }

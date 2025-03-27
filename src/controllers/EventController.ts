@@ -35,7 +35,8 @@ class EventController {
             row.end_time,
             row.age_limit,
             row.created_at,
-            row.updated_at
+            row.updated_at,
+            row.event_images
           );
         })
       );
@@ -75,7 +76,8 @@ class EventController {
         event.end_time,
         event.age_limit,
         event.created_at,
-        event.updated_at
+        event.updated_at,
+       event.event_images,
       );
     } catch (error) {
       throw error;
@@ -197,6 +199,7 @@ class EventController {
       ageLimit,
       createdAt,
       updatedAt,
+      eventImage,
     } = request.body;
 
     try {
@@ -207,7 +210,7 @@ class EventController {
       if (id) {
         // Update existing event
         const result = await pool.query(
-          "UPDATE public.event SET event_hall_id=$1, host_id=$2, user_id=$3, title=$4, slug=$5, description=$6, start_date=$7, start_time=$8, end_date=$9, end_time=$10, age_limit=$11, created_at=$12, updated_at=NOW() WHERE id=$13 RETURNING id",
+          "UPDATE public.event SET event_hall_id=$1, host_id=$2, user_id=$3, title=$4, slug=$5, description=$6, start_date=$7, start_time=$8, end_date=$9, end_time=$10, age_limit=$11, created_at=$12, updated_at=NOW(), event_image=$13 WHERE id=$14 RETURNING id",
           [
             eventHallId,
             hostId,
@@ -221,6 +224,7 @@ class EventController {
             endTime,
             ageLimit,
             createdAt,
+            eventImage,
             id,
           ]
         );
@@ -234,7 +238,7 @@ class EventController {
         response.status(200).json(eventUpdated);
       } else {
         const result = await pool.query(
-          "INSERT INTO public.event (event_hall_id, host_id, user_id, title, slug, description, start_date, start_time, end_date, end_time, age_limit, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, NOW()) RETURNING id",
+          "INSERT INTO public.event (event_hall_id, host_id, user_id, title, slug, description, start_date, start_time, end_date, end_time, age_limit, created_at, updated_at,event_image) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, NOW(),$13) RETURNING id",
           [
             eventHallId,
             hostId,
@@ -248,6 +252,7 @@ class EventController {
             endTime,
             ageLimit,
             createdAt,
+            eventImage
           ]
         );
 
