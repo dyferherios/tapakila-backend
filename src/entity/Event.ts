@@ -1,5 +1,6 @@
 import { EventHall } from "./EventHall.js";
 import { Host } from "./Host.js";
+import { Tag } from "./Tag.js";
 import { User } from "./User.js";
 
 export class Event {
@@ -19,7 +20,7 @@ export class Event {
   updatedAt: Date;
   deletedAt?: Date;
   eventImage: string;
-  category: string;
+  tag: Tag;
 
   constructor(
     id: string,
@@ -37,7 +38,7 @@ export class Event {
     createdAt: Date,
     updatedAt: Date,
     eventImage: string,
-    category: string
+    tag: Tag
   ) {
     this.id = id;
     this.eventHall = eventHall;
@@ -54,7 +55,7 @@ export class Event {
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
     this.eventImage = eventImage;
-    this.category = category;
+    this.tag = tag;
   }
 
   public getd(): string {
@@ -153,10 +154,10 @@ export class Event {
   public setEventImage(eventImage: string): void {
     this.eventImage = eventImage;
   }
-  public getCategory(): string {
-    return this.category;
+  public gettag(): Tag {
+    return this.tag;
   }
-  public setCategory(category: string): void {
-    this.category = category;
+  public settag(tag: Tag): void {
+    this.tag = tag;
   }
 }

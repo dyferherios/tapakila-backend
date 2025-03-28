@@ -83,6 +83,16 @@ class TicketController {
     }
   };
 
+  static getAllTicketId = async() => {
+    try {
+      const result = await pool.query("select id from public.ticket");
+      const ticketIds = result.rows.map((row) => row.id.toString());
+      return ticketIds;
+    } catch (error) {
+      throw new Error("Error while fetching ticket id")
+    }
+  }
+
   static getAllTicketsByEventId = async (eventId: string) => {
     try {
       const results = await pool.query(

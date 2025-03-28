@@ -1,5 +1,6 @@
 import { EventHall } from "./EventHall.js";
 import { Host } from "./Host.js";
+import { Tag } from "./Tag.js";
 import { Ticket } from "./Ticket.js";
 import { TicketType } from "./TicketType.js";
 import { User } from "./User.js";
@@ -21,7 +22,7 @@ export class EventDTO {
     updatedAt: Date;
     deletedAt?: Date;
     eventImage: string;
-    category: string;
+    tag: Tag;
     allTicket: Ticket[];
     constructor(
         id: string,
@@ -39,7 +40,7 @@ export class EventDTO {
         createdAt: Date,
         updatedAt: Date,
         eventImage: string,
-        category: string,
+        tag: Tag,
         allTicket: Ticket[]
     ) {
         this.id = id;
@@ -57,7 +58,7 @@ export class EventDTO {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.eventImage = eventImage;
-        this.category = category;
+        this.tag = tag;
         this.allTicket = allTicket;
     }
 

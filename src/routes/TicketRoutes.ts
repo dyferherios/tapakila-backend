@@ -30,6 +30,8 @@ router.get("/event", async (req, res) => {
   }
 });
 
+router.get("/allTicketsId", TicketController.getAllTicketId)
+
 router.get("/", TicketController.getTickets);
 router.get("/:id", async (req, res) => {
   try {

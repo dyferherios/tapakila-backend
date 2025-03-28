@@ -7,6 +7,7 @@ import { TicketController } from "./TicketController.js";
 import { EventDTO } from "../entity/EventDTO.js";
 import { Response } from "express";
 import express from 'express';
+import { TagController } from "./TagController.js";
 
 class EventController {
   static getEvents = async (request: any, response: any) => {
@@ -17,11 +18,13 @@ class EventController {
           const eventhallId = row.event_hall_id.toString();
           const hostId = row.host_id.toString();
           const userId = row.user_id.toString();
+          const tagId = row.tag_id.toString();
           const eventHall = await EventHallController.getEventHallById(
             eventhallId
           );
           const host = await HostController.getHostById(hostId);
           const user = await UserController.getUserById(userId);
+          const tag = await TagController.getTagById(tagId);
           return new Event(
             row.id.toString(),
             eventHall,
@@ -38,7 +41,7 @@ class EventController {
             row.created_at,
             row.updated_at,
             row.event_image,
-            row.category
+            tag
           );
         })
       );
@@ -61,6 +64,8 @@ class EventController {
       const eventhallId = event.event_hall_id.toString();
       const hostId = event.host_id.toString();
       const userId = event.user_id.toString();
+      const tagId = event.tag_id.toString();
+      const tag = await TagController.getTagById(tagId);
       const eventHall = await EventHallController.getEventHallById(eventhallId);
       const host = await HostController.getHostById(hostId);
       const user = await UserController.getUserById(userId);
@@ -80,7 +85,7 @@ class EventController {
         event.created_at,
         event.updated_at,
         event.event_image,
-        event.category
+        tag
       );
     } catch (error) {
       throw error;
@@ -96,6 +101,8 @@ class EventController {
           const hostId = row.host_id.toString();
           const userId = row.user_id.toString();
           const eventId = row.id.toString();
+          const tagId = row.tag_id.toString();
+          const tag = await TagController.getTagById(tagId);
           const eventHall = await EventHallController.getEventHallById(
             eventhallId
           );
@@ -120,7 +127,7 @@ class EventController {
             row.created_at,
             row.updated_at,
             row.event_image,
-            row.category,
+            tag,
             reservations
           );
         })
@@ -142,6 +149,8 @@ class EventController {
       const eventhallId = event.event_hall_id.toString();
       const hostId = event.host_id.toString();
       const userId = event.user_id.toString();
+      const tagId = event.tag_id.toString();
+      const tag = await TagController.getTagById(tagId);
       const reservations = await TicketController.getAllTicketsByEventId(
         eventId
       );
@@ -165,7 +174,7 @@ class EventController {
         event.created_at,
         event.updated_at,
         event.event_image,
-        event.category,
+        tag,
         reservations
       );
       eventDto.getTicketTypeSold();
@@ -186,6 +195,8 @@ class EventController {
       const eventhallId = event.event_hall_id.toString();
       const hostId = event.host_id.toString();
       const userId = event.user_id.toString();
+      const tagId = event.tag_id.toString();
+      const tag = await TagController.getTagById(tagId);
       const reservations = await TicketController.getAllTicketsByEventId(
         event.id.toString()
       );
@@ -209,7 +220,7 @@ class EventController {
         event.created_at,
         event.updated_at,
         event.event_image,
-        event.category,
+        tag,
         reservations
       );
       eventDto.getTicketTypeSold();
@@ -246,17 +257,18 @@ class EventController {
       createdAt,
       updatedAt,
       eventImage,
-      category,
+      tag,
     } = request.body;
 
     try {
       const eventHallId = eventHall.id.toString();
       const hostId = host.id.toString();
       const userId = user.id.toString();
+      const tagId = tag.id.toString();
 
       if (id) {
         const result = await pool.query(
-          "UPDATE public.event SET event_hall_id=$1, host_id=$2, user_id=$3, title=$4, slug=$5, description=$6, start_date=$7, start_time=$8, end_date=$9, end_time=$10, age_limit=$11, created_at=$12, updated_at=NOW(), event_image=$13,category=$14 WHERE id=$15 RETURNING id",
+          "UPDATE public.event SET event_hall_id=$1, host_id=$2, user_id=$3, title=$4, slug=$5, description=$6, start_date=$7, start_time=$8, end_date=$9, end_time=$10, age_limit=$11, created_at=$12, updated_at=NOW(), event_image=$13,tag_id=$14 WHERE id=$15 RETURNING id",
           [
             eventHallId,
             hostId,
@@ -271,7 +283,7 @@ class EventController {
             ageLimit,
             createdAt,
             eventImage,
-            category,
+            tagId,
             id,
           ]
         );
@@ -285,7 +297,7 @@ class EventController {
         response.status(200).json(eventUpdated);
       } else {
         const result = await pool.query(
-          "INSERT INTO public.event (event_hall_id, host_id, user_id, title, slug, description, start_date, start_time, end_date, end_time, age_limit, created_at, updated_at,event_image, category) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, NOW(),$13, $14) RETURNING id",
+          "INSERT INTO public.event (event_hall_id, host_id, user_id, title, slug, description, start_date, start_time, end_date, end_time, age_limit, created_at, updated_at,event_image, tag_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, NOW(),$13, $14) RETURNING id",
           [
             eventHallId,
             hostId,
@@ -300,7 +312,7 @@ class EventController {
             ageLimit,
             createdAt,
             eventImage,
-            category,
+            tagId,
           ]
         );
 

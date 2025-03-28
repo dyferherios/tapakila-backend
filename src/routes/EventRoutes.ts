@@ -27,10 +27,10 @@ router.get("/allEventsId", async (req, res) => {
 });
 
 router.get(
-  "/category/:category",
+  "/tag/:tag",
  async (req, res) => {
   try {
-    const category = req.params.category;
+    const category = req.params.tag;
     const events = await EventController.getEventWithAllTicketsByCategory(
       category
     );
