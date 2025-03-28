@@ -6,7 +6,7 @@ router.get("/", CountryController.getCountry);
 router.get("/:id", async (req, res) => {
   try {
     const country = await CountryController.getCountryById(req.params.id);
-    res.json(country); // Retourner l'objet pays
+    res.json(country);
   } catch (error) {
     console.error(error);
     res

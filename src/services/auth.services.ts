@@ -15,7 +15,6 @@ class AuthService {
     return bcrypt.compare(plainPassword, hashedPassword);
   }
 
-  // Générer un token JWT
   static async generateToken(user: User): Promise<string> {
     const payload = {
       id: user.id,
