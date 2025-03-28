@@ -27,7 +27,7 @@ router.get("/allEventsId", async (req, res) => {
 });
 
 router.get(
-  "/:category",
+  "/category/:category",
  async (req, res) => {
   try {
     const category = req.params.category;
@@ -36,7 +36,7 @@ router.get(
     );
     res.status(200).json(events);
   } catch (error) {
-    res.status(500).json({ error: "An error occured while fetching events." });
+    res.status(500).json({ error: "An error occured while fetching events by category." });
   }
 });
 
@@ -48,7 +48,7 @@ router.get("/:id", async(req, res) => {
         const event = await EventController.getEventById(eventId);
         res.status(200).json(event);
     } catch (error) {
-        res.status(500).json({error: "An error occured while fetching event."})
+        res.status(500).json({error: "An error occured while fetching event by id."})
     }
 })
 router.post("/", EventController.saveEvent);

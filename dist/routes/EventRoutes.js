@@ -21,14 +21,14 @@ router.get("/allEventsId", async (req, res) => {
         res.status(500).json({ error: "An error occurred while fetching event IDs." });
     }
 });
-router.get("/:category", async (req, res) => {
+router.get("/category/:category", async (req, res) => {
     try {
         const category = req.params.category;
         const events = await EventController.getEventWithAllTicketsByCategory(category);
         res.status(200).json(events);
     }
     catch (error) {
-        res.status(500).json({ error: "An error occured while fetching events." });
+        res.status(500).json({ error: "An error occured while fetching events by category." });
     }
 });
 router.get("/", EventController.getEvents);
@@ -39,7 +39,7 @@ router.get("/:id", async (req, res) => {
         res.status(200).json(event);
     }
     catch (error) {
-        res.status(500).json({ error: "An error occured while fetching event." });
+        res.status(500).json({ error: "An error occured while fetching event by id." });
     }
 });
 router.post("/", EventController.saveEvent);
