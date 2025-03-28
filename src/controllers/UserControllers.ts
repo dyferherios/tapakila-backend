@@ -201,9 +201,9 @@ class UserController {
       username,
       name,
       email,
-      email_verified_at,
+      emailVerifiedAt,
       password,
-      image_url,
+      imageUrl,
       country,
     } = request.body;
 
@@ -237,9 +237,9 @@ class UserController {
               username,
               name,
               email,
-              email_verified_at,
+              emailVerifiedAt,
               passwordToUpdate,
-              image_url,
+              imageUrl,
               countryId,
               id,
             ]
@@ -258,9 +258,9 @@ class UserController {
             username,
             name,
             email,
-            email_verified_at,
+            emailVerifiedAt,
             hashedPassword,
-            image_url,
+            imageUrl,
             countryId,
           ]
         );
