@@ -257,7 +257,7 @@ class UserController {
             name,
             email,
             emailVerifiedAt,
-            hashedPassword,
+            passwordToUpdate,
             imageUrl,
             countryId,
           ]
