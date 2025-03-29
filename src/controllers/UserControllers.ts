@@ -92,70 +92,6 @@ class UserController {
     }
   };
 
-  // static saveUser = async (request: any, response: any) => {
-  //   const {
-  //     id,
-  //     role,
-  //     username,
-  //     name,
-  //     email,
-  //     email_verified_at,
-  //     password,
-  //     image_url,
-  //     country,
-  //   } = request.body;
-  //   try {
-  //     const result = await pool.query(
-  //       'SELECT * FROM public."user" WHERE id = $1',
-  //       [id]
-  //     );
-  //     const roleId = role.id.toString();
-  //     const countryId = country.id.toString();
-
-  //     if (result.rows.length > 0) {
-  //       await pool.query(
-  //         'UPDATE public."user" SET role_id = $1, username = $2, name = $3, email = $4, email_verified_at = $5, password = $6, image_url = $7, country_id = $8, updated_at = NOW() WHERE id = $9',
-  //         [
-  //           roleId,
-  //           username,
-  //           name,
-  //           email,
-  //           email_verified_at,
-  //           password,
-  //           image_url,
-  //           countryId,
-  //           id,
-  //         ]
-  //       );
-  //       const userUpdated = await UserController.getUserById(id);
-  //       response.status(200).json(userUpdated);
-  //     } else {
-  //       const newUser = await pool.query(
-  //         'INSERT INTO public."user" (role_id, username, name, email, email_verified_at, password, image_url, country_id, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, NOW(), NOW()) returning id',
-  //         [
-  //           roleId,
-  //           username,
-  //           name,
-  //           email,
-  //           email_verified_at,
-  //           password,
-  //           image_url,
-  //           countryId,
-  //         ]
-  //       );
-  //       const newUserId = newUser.rows[0].id;
-  //       const userCreated = await UserController.getUserById(newUserId);
-  //       response.status(200).json(userCreated);
-  //     }
-  //   } catch (error) {
-  //     response
-  //       .status(500)
-  //       .json({ error: "An error occured while saving user" });
-  //   }
-  // };
-
-  // Ajouter ces méthodes à votre classe UserController
-
   static register = async (req:any, res:any) => {
     const { username, name, email, password, country, role } = req.body;
     const countryId = country.id.toString();
@@ -323,7 +259,8 @@ class UserController {
       res.status(500).json({ error: "Network error" });
     }
 
-  };  static deleteUserById = async (userId: string) => {
+  };
+  static deleteUserById = async (userId: string) => {
     try {
       const result = await pool.query(
         'SELECT * FROM public."user" WHERE id = $1',
