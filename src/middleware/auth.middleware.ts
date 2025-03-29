@@ -8,7 +8,7 @@ export const authenticate = (req:any, res:any, next:any) => {
   }
 
   if (!process.env.JWT_SECRET_KEY) {
-    return res.status(500).json({ error: "JWT_SECRET not configured" });
+    return res.status(500).json({ error: "JWT_SECRET_KEY not configured" });
   }
 
   try {
