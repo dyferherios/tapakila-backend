@@ -210,11 +210,7 @@ class UserController {
     try {
       const roleId = role.id.toString();
       const countryId = country.id.toString();
-
-      // Hacher le mot de passe si fourni
-      const hashedPassword = password
-        ? await AuthService.hashPassword(password)
-        : password;
+      let passwordToUpdate = await bcrypt.hash(password, 10);
 
       if (id) {
         // Mise à jour d'un utilisateur existant
@@ -224,10 +220,12 @@ class UserController {
         );
 
         if (result.rows.length > 0) {
-          // Si un mot de passe est fourni, le mettre à jour, sinon garder l'ancien
-          let passwordToUpdate = hashedPassword;
-          if (!password) {
-            passwordToUpdate = result.rows[0].password;
+          // Vérifier le mot de passe
+          const passwordMatch = await bcrypt.compare(password,  result.rows[0].password);
+          if (!passwordMatch) {
+              passwordToUpdate = await bcrypt.hash(password, 10);
+          } else {
+              passwordToUpdate = result.rows[0].password;
           }
 
           await pool.query(
