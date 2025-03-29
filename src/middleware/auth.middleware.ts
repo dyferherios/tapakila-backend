@@ -7,12 +7,12 @@ export const authenticate = (req:any, res:any, next:any) => {
     return res.status(401).json({ error: "Accès non autorisé" });
   }
 
-  if (!process.env.JWT_SECRET) {
+  if (!process.env.JWT_SECRET_KEY) {
     return res.status(500).json({ error: "JWT_SECRET not configured" });
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
     req.user = decoded;
     next();
   } catch (error) {
