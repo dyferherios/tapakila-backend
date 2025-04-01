@@ -126,7 +126,6 @@ class TicketController {
           );
         })
       );
-
       return tickets;
     } catch (error) {
       throw error;
@@ -216,6 +215,18 @@ class TicketController {
         const ticket = await TicketController.getTicketById(idTicketUpdated);
         response.status(200).json(ticket);
       } else {
+        const ticketType = await TicketTypeController.getTicketTypeById(
+          ticketTypeId
+        );
+
+        const availableTicket = ticketType.availableTicket - 1;
+
+        if (availableTicket < 0) {
+          return response
+            .status(400)
+            .json({ message: "No available tickets left" });
+        }
+
         const ticketSaved = await pool.query(
           "INSERT INTO public.ticket (event_id, ticket_type_id, user_id, ticket_number, amount_paid, currency_id, payment_confirmed, created_at) VALUES ($1, $2, $3, $4, $5, $6, $7, NOW()) RETURNING *",
           [
@@ -228,6 +239,11 @@ class TicketController {
             paymentConfirmed,
           ]
         );
+
+        await pool.query(
+          "update public.ticket_type set available_ticket=$1 where id=$2",
+          [availableTicket, ticketTypeId]
+        );        
 
         const idTicketSaved = ticketSaved.rows[0].id;
 

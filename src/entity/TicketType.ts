@@ -7,19 +7,33 @@ export class TicketType {
   slug: string;
   description: string;
   availableTicket: number;
+  totalTicket: number;
   price: number;
   currency: Currency;
   createdAt: Date;
   updatedAt: Date;
   deletedAt?: Date;
 
-  constructor(id: string, event: Event, title: string, slug: string, description: string, availableTicket: number, price: number, currency: Currency, createdAt: Date, updatedAt: Date) {
+  constructor(
+    id: string,
+    event: Event,
+    title: string,
+    slug: string,
+    description: string,
+    availableTicket: number,
+    totalTicket: number,
+    price: number,
+    currency: Currency,
+    createdAt: Date,
+    updatedAt: Date
+  ) {
     this.id = id;
     this.event = event;
     this.title = title;
     this.slug = slug;
     this.description = description;
     this.availableTicket = availableTicket;
+    this.totalTicket = totalTicket;
     this.price = price;
     this.currency = currency;
     this.createdAt = createdAt;
@@ -28,12 +42,12 @@ export class TicketType {
 
   public getId(): string {
     return this.id;
-  } 
+  }
   public getEvent(): Event {
     return this.event;
   }
   public getTitle(): string {
-    return this.title
+    return this.title;
   }
   public getSlug(): string {
     return this.slug;
@@ -42,7 +56,10 @@ export class TicketType {
     return this.description;
   }
   public getAvailableTicket(): number {
-    return this.availableTicket
+    return this.availableTicket;
+  }
+  public getTotalTicket(): number {
+    return this.totalTicket;
   }
   public getPrice(): number {
     return this.price;
@@ -69,13 +86,16 @@ export class TicketType {
     this.title = title;
   }
   public setSlug(slug: string): void {
-    this.slug = slug
+    this.slug = slug;
   }
   public setDescription(description: string): void {
     this.description = description;
   }
   public setAvailableTicket(availableTicket: number): void {
     this.availableTicket = availableTicket;
+  }
+  public setTotalTicket(totalTicket: number): void {
+    this.totalTicket = totalTicket;
   }
   public setPrice(price: number): void {
     this.price = price;
@@ -86,5 +106,4 @@ export class TicketType {
   public setCreatedAt(createdAt: Date): void {
     this.createdAt = createdAt;
   }
-
 }

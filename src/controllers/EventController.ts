@@ -297,7 +297,7 @@ class EventController {
         response.status(200).json(eventUpdated);
       } else {
         const result = await pool.query(
-          "INSERT INTO public.event (event_hall_id, host_id, user_id, title, slug, description, start_date, start_time, end_date, end_time, age_limit, created_at, updated_at,event_image, tag_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, NOW(),$13, $14) RETURNING id",
+          "INSERT INTO public.event (event_hall_id, host_id, user_id, title, slug, description, start_date, start_time, end_date, end_time, age_limit, created_at, updated_at, event_image, tag_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11,NOW(), NOW(), $12, $13) RETURNING id",
           [
             eventHallId,
             hostId,
@@ -310,7 +310,6 @@ class EventController {
             endDate,
             endTime,
             ageLimit,
-            createdAt,
             eventImage,
             tagId,
           ]

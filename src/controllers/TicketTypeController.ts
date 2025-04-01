@@ -22,6 +22,7 @@ class TicketTypeController {
             row.slug,
             row.description,
             row.available_ticket,
+            row.total_ticket,
             row.price,
             currency,
             row.created_at,
@@ -61,6 +62,7 @@ class TicketTypeController {
         ticketType.slug,
         ticketType.description,
         ticketType.available_ticket,
+        ticketType.total_ticket,
         ticketType.price,
         currency,
         ticketType.created_at,
@@ -92,6 +94,7 @@ class TicketTypeController {
             row.slug,
             row.description,
             row.available_ticket,
+            row.total_ticket,
             row.price,
             currency,
             row.created_at,
@@ -112,12 +115,10 @@ class TicketTypeController {
         title,
         slug,
         description,
-        availableTicket,
+        totalTicket,
         price,
         currency,
-        event,
-        createdAt,
-        updatedAt,
+        event
       } = request.body;
       const result = await pool.query(
         "select * from public.ticket_type where id = $1",
@@ -125,19 +126,20 @@ class TicketTypeController {
       );
       const currencyId = currency.id.toString();
       const eventId = event.id.toString();
+      const availableTicket = totalTicket;
       if (result.rows.length > 0) {
         const ticketTypeUpdated = await pool.query(
-          "UPDATE public.ticket_type SET title = $1, slug = $2, description = $3, available_ticket = $4, price = $5, currency_id = $6, event_id = $7, created_at=$8, updated_at=NOW() WHERE id = $9 RETURNING id",
+          "UPDATE public.ticket_type SET title = $1, slug = $2, description = $3, available_ticket=$4, total_ticket=$5, price = $6, currency_id = $7, event_id = $8, updated_at=NOW() WHERE id = $9 RETURNING id",
           [
             title,
             slug,
             description,
             availableTicket,
+            totalTicket,
             price,
             currencyId,
             eventId,
-            createdAt,
-            id,
+            id
           ]
         );
         const ticketType = await TicketTypeController.getTicketTypeById(
@@ -146,18 +148,19 @@ class TicketTypeController {
         response.status(200).json(ticketType);
       } else {
         const ticketTypeCreated = await pool.query(
-          "INSERT INTO public.ticket_type (title, slug, description, available_ticket, price, currency_id, event_id,created_at,updated_at) VALUES ($1, $2, $3, $4, $5, $6, $7,NOW(),$8) RETURNING id",
+          "INSERT INTO public.ticket_type (title, slug, description, available_ticket, total_ticket, price, currency_id, event_id,created_at) VALUES ($1, $2, $3, $4, $5, $6,$7, $8, NOW()) RETURNING id",
           [
             title,
             slug,
             description,
             availableTicket,
+            totalTicket,
             price,
             currencyId,
-            eventId,
-            updatedAt,
+            eventId
           ]
         );
+        
         const ticketType = await TicketTypeController.getTicketTypeById(
           ticketTypeCreated.rows[0].id
         );

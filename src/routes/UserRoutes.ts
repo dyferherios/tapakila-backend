@@ -13,7 +13,7 @@ router.get("/profile", authenticate, async (req: any, res) => {
     const user = await UserController.getUserById(req.user.id);
     res.json(user);
   } catch (error) {
-    res.status(500).json({ error: "Erreur lors de la récupération du profil" });
+    res.status(500).json({ error: "Error while fetching user profile" });
   }
 });
 
