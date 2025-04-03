@@ -139,6 +139,7 @@ class UserController {
       email,
       emailVerifiedAt,
       password,
+      newPassword,
       imageUrl,
       country,
     } = request.body;
@@ -146,24 +147,25 @@ class UserController {
     try {
       const roleId = role.id.toString();
       const countryId = country.id.toString();
-
-      // Hacher le mot de passe si fourni
-      const hashedPassword = password
-        ? await AuthService.hashPassword(password)
-        : password;
-
       if (id) {
-        // Mise à jour d'un utilisateur existant
         const result = await pool.query(
           'SELECT * FROM public."user" WHERE id = $1',
           [id]
         );
 
         if (result.rows.length > 0) {
-          // Si un mot de passe est fourni, le mettre à jour, sinon garder l'ancien
-          let passwordToUpdate = hashedPassword;
-          if (!password) {
-            passwordToUpdate = result.rows[0].password;
+
+          let passwordToUpdate = result.rows[0].password;
+          if (password != null && newPassword!=null) {
+              const passwordMatch = await bcrypt.compare(
+              password,
+              passwordToUpdate
+              )
+              if (passwordMatch) {
+                passwordToUpdate = await bcrypt.hash(newPassword, 10);
+              } else {
+                response.status(403).json("Error  password doesn't match");
+              }
           }
 
           await pool.query(
@@ -183,10 +185,13 @@ class UserController {
           const userUpdated = await UserController.getUserById(id);
           response.status(200).json(userUpdated);
         } else {
-          response.status(404).json({ error: "Utilisateur non trouvé" });
+          response.status(404).json({ error: "user not found" });
         }
       } else {
-        // Création d'un nouvel utilisateur
+        const hashedPassword = password
+          ? await AuthService.hashPassword(password)
+          : password;
+        
         const newUser = await pool.query(
           'INSERT INTO public."user" (role_id, username, name, email, email_verified_at, password, image_url, country_id, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, NOW(), NOW()) returning id',
           [

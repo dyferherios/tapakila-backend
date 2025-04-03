@@ -302,6 +302,8 @@ class TicketController {
           ticketTypeId
         );
 
+        console.log(ticketType.availableTicket);
+        
         const availableTicket = ticketType.availableTicket - 1;
 
         if (availableTicket < 0) {
