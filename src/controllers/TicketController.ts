@@ -183,8 +183,6 @@ class TicketController {
         "SELECT * FROM public.ticket WHERE user_id = $1",
         [userId]
       );
-      console.log(results);
-
       const tickets = await Promise.all(
         results.rows.map(async (row) => {
           const ticketTypeId = row.ticket_type_id.toString();
