@@ -139,6 +139,53 @@ class EventController {
     }
   };
 
+  static getEventWithAllTicketsDTO = async (request: any, response: any) => {
+    try {
+      const results = await pool.query("SELECT * FROM public.event");
+      const events = await Promise.all(
+        results.rows.map(async (row) => {
+          const eventhallId = row.event_hall_id.toString();
+          const hostId = row.host_id.toString();
+          const userId = row.user_id.toString();
+          const eventId = row.id.toString();
+          const tagId = row.tag_id.toString();
+          const tag = await TagController.getTagById(tagId);
+          const eventHall = await EventHallController.getEventHallById(
+            eventhallId
+          );
+          const host = await HostController.getHostById(hostId);
+          const user = await UserController.getUserById(userId);
+          const reservations = await TicketController.getAllTicketsDTOByEventId(
+            eventId
+          );
+          return new EventDTO(
+            row.id.toString(),
+            eventHall,
+            host,
+            user,
+            row.title,
+            row.slug,
+            row.description,
+            row.start_date,
+            row.start_time,
+            row.end_date,
+            row.end_time,
+            row.age_limit,
+            row.created_at,
+            row.updated_at,
+            row.event_image,
+            tag,
+            reservations
+          );
+        })
+      );
+
+      response.status(200).json(events);
+    } catch (error) {
+      response.status(500).json({ error });
+    }
+  };
+
   static getEventWithAllTicketsOfOneEvent = async (eventId: string) => {
     try {
       const result = await pool.query(
@@ -177,7 +224,8 @@ class EventController {
         tag,
         reservations
       );
-      eventDto.getTicketTypeSold();
+
+      // eventDto.getTicketTypeSold();
 
       return eventDto;
     } catch (error) {
@@ -185,17 +233,62 @@ class EventController {
     }
   };
 
-  static getEventWithAllTicketsByCategory = async (category: string) => {
+  static getEventWithAllTicketsDTOfOneEvent = async (eventId: string) => {
+    try {
+      const results = await pool.query(
+        "SELECT * FROM public.event where id=$1",
+        [eventId]
+      );
+      const event = results.rows[0];
+          const eventhallId = event.event_hall_id.toString();
+          const hostId = event.host_id.toString();
+          const userId = event.user_id.toString();
+
+          const tagId = event.tag_id.toString();
+          const tag = await TagController.getTagById(tagId);
+          const eventHall = await EventHallController.getEventHallById(
+            eventhallId
+          );
+          const host = await HostController.getHostById(hostId);
+          const user = await UserController.getUserById(userId);
+          const reservations = await TicketController.getAllTicketsDTOByEventId(
+            eventId
+          );
+          const eventDto = new EventDTO(
+            event.id.toString(),
+            eventHall,
+            host,
+            user,
+            event.title,
+            event.slug,
+            event.description,
+            event.start_date,
+            event.start_time,
+            event.end_date,
+            event.end_time,
+            event.age_limit,
+            event.created_at,
+            event.updated_at,
+            event.event_image,
+            tag,
+            reservations
+          );
+          return eventDto;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  static getEventWithAllTicketsByTag = async (tagId: string) => {
     try {
       const result = await pool.query(
-        "SELECT * FROM public.event WHERE category = $1",
-        [category]
+        "SELECT * FROM public.event WHERE tag_id = $1",
+        [tagId]
       );
       const event = result.rows[0];
       const eventhallId = event.event_hall_id.toString();
       const hostId = event.host_id.toString();
       const userId = event.user_id.toString();
-      const tagId = event.tag_id.toString();
       const tag = await TagController.getTagById(tagId);
       const reservations = await TicketController.getAllTicketsByEventId(
         event.id.toString()
@@ -223,8 +316,7 @@ class EventController {
         tag,
         reservations
       );
-      eventDto.getTicketTypeSold();
-
+      // eventDto.getTicketTypeSold();
       return eventDto;
     } catch (error) {
       throw error;

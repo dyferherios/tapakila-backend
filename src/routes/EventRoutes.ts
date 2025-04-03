@@ -17,6 +17,20 @@ router.get("/tickets/:id", async (req, res) => {
   }
 });
 
+router.get("/ticketDTOs", EventController.getEventWithAllTicketsDTO)
+
+router.get("/ticketDTOs/:id", async (req, res) => {
+  try {
+    const eventId = req.params.id;
+    const event = await EventController.getEventWithAllTicketsDTOfOneEvent(
+      eventId
+    );
+    res.status(200).json(event);
+  } catch (error) {
+    res.status(500).json({ error: "An error occured while fetching event." });
+  }
+});
+
 router.get("/allEventsId", async (req, res) => {
   try {
     const eventIds = await EventController.getAllEventId();
@@ -27,16 +41,16 @@ router.get("/allEventsId", async (req, res) => {
 });
 
 router.get(
-  "/tag/:tag",
+  "/tag/:tagId",
  async (req, res) => {
   try {
-    const category = req.params.tag;
-    const events = await EventController.getEventWithAllTicketsByCategory(
-      category
+    const tagId = req.params.tagId;
+    const events = await EventController.getEventWithAllTicketsByTag(
+      tagId
     );
     res.status(200).json(events);
   } catch (error) {
-    res.status(500).json({ error: "An error occured while fetching events by category." });
+    res.status(500).json({ error: "An error occured while fetching events by tag." });
   }
 });
 

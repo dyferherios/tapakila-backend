@@ -1,9 +1,12 @@
+import { log } from "console";
 import pool from "../db/datasource.js";
 import { Ticket } from "../entity/Ticket.js";
+import { TicketDTO } from "../entity/TicketDTO.js";
 import { CurrencyController } from "./CurrencyController.js";
 import { EventController } from "./EventController.js";
 import { TicketTypeController } from "./TicketTypeController.js";
 import { UserController } from "./UserControllers.js";
+
 
 class TicketController {
   static getTickets = async (request: any, response: any) => {
@@ -83,15 +86,15 @@ class TicketController {
     }
   };
 
-  static getAllTicketId = async() => {
+  static getAllTicketId = async () => {
     try {
       const result = await pool.query("select id from public.ticket");
       const ticketIds = result.rows.map((row) => row.id.toString());
       return ticketIds;
     } catch (error) {
-      throw new Error("Error while fetching ticket id")
+      throw new Error("Error while fetching ticket id");
     }
-  }
+  };
 
   static getAllTicketsByEventId = async (eventId: string) => {
     try {
@@ -121,6 +124,47 @@ class TicketController {
             row.amount_paid,
             currency,
             row.payment_confirmed,
+            row.created_at,
+            row.updated_at
+          );
+        })
+      );
+      return tickets;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  static getAllTicketsDTOByEventId = async (eventId: string) => {
+    try {
+      const results = await pool.query(
+        "SELECT * FROM public.ticket WHERE event_id = $1",
+        [eventId]
+      );
+      console.log(results);
+      
+      const tickets = await Promise.all(
+        results.rows.map(async (row) => {
+          const ticketTypeId = row.ticket_type_id.toString();
+          // const userId = row.user_id.toString();
+          const currencyId = row.currency_id.toString();
+          const eventId = row.event_id.toString();
+          const ticketType = await TicketTypeController.getTicketTypeById(
+            ticketTypeId
+          );
+          // const user = await UserController.getUserById(userId);
+          const currency = await CurrencyController.getCurrencyById(currencyId);
+          const event = await EventController.getEventById(eventId);
+
+          return new TicketDTO(
+            row.id.toString(),
+            event.title,
+            event.slug,
+            ticketType.totalTicket,
+            ticketType.availableTicket,
+            ticketType.price,
+            currency.title,
+            row.ticket_number,
             row.created_at,
             row.updated_at
           );
@@ -243,7 +287,7 @@ class TicketController {
         await pool.query(
           "update public.ticket_type set available_ticket=$1 where id=$2",
           [availableTicket, ticketTypeId]
-        );        
+        );
 
         const idTicketSaved = ticketSaved.rows[0].id;
 
