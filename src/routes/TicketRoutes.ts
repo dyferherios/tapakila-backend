@@ -42,6 +42,18 @@ router.get("/:id", async (req, res) => {
   }
 })
 
+router.get("/user/:userId", async (req, res) => {
+  try {
+    const ticket = await TicketController.getAllTicketsDTOByUserId(req.params.userId);
+    res.json(ticket);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ error: "An error occurred while fetching the ticket" });
+  }
+});
+
+
 router.post("/", TicketController.saveTicket);
 router.put("/", TicketController.saveTicket);
 router.delete("/:ticketId", async (req, res) => {

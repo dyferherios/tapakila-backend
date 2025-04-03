@@ -142,7 +142,7 @@ class TicketController {
         [eventId]
       );
       console.log(results);
-      
+
       const tickets = await Promise.all(
         results.rows.map(async (row) => {
           const ticketTypeId = row.ticket_type_id.toString();
@@ -157,9 +157,50 @@ class TicketController {
           const event = await EventController.getEventById(eventId);
 
           return new TicketDTO(
-            row.id.toString(),
             event.title,
             event.slug,
+            ticketType.title,
+            ticketType.description,
+            ticketType.totalTicket,
+            ticketType.availableTicket,
+            ticketType.price,
+            currency.title,
+            row.ticket_number,
+            row.created_at,
+            row.updated_at
+          );
+        })
+      );
+      return tickets;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  static getAllTicketsDTOByUserId = async (userId: string) => {
+    try {
+      const results = await pool.query(
+        "SELECT * FROM public.ticket WHERE user_id = $1",
+        [userId]
+      );
+      console.log(results);
+
+      const tickets = await Promise.all(
+        results.rows.map(async (row) => {
+          const ticketTypeId = row.ticket_type_id.toString();
+          const currencyId = row.currency_id.toString();
+          const eventId = row.event_id.toString();
+          const ticketType = await TicketTypeController.getTicketTypeById(
+            ticketTypeId
+          );
+          const currency = await CurrencyController.getCurrencyById(currencyId);
+          const event = await EventController.getEventById(eventId);
+
+          return new TicketDTO(
+            event.title,
+            event.slug,
+            ticketType.title,
+            ticketType.description,
             ticketType.totalTicket,
             ticketType.availableTicket,
             ticketType.price,

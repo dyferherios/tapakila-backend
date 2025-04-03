@@ -1,6 +1,7 @@
 export class TicketDTO {
   title: string;
   slug: string;
+  ticketType: string;
   description: string;
   availableTicket: number;
   totalTicket: number;
@@ -14,6 +15,7 @@ export class TicketDTO {
   constructor(
     title: string,
     slug: string,
+    ticketType: string,
     description: string,
     availableTicket: number,
     totalTicket: number,
@@ -25,6 +27,7 @@ export class TicketDTO {
   ) {
     this.title = title;
     this.slug = slug;
+    this.ticketType = ticketType;
     this.description = description;
     this.availableTicket = availableTicket;
     this.totalTicket = totalTicket;
@@ -39,6 +42,18 @@ export class TicketDTO {
   }
   public getSlug(): string {
     return this.slug;
+  }
+  getTicketType(): string {
+    return this.ticketType;
+  }
+  public getTicketNumber(): string {
+    return this.ticketNumber;
+  }
+  public setTIcketType(ticketType: string): void {
+    this.ticketType = ticketType;
+  }
+  public setTicketNumber(ticketNumber: string): void {
+    this.ticketNumber = ticketNumber;
   }
   public getDescription(): string {
     return this.description;
