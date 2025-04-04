@@ -304,7 +304,8 @@ class TicketController {
 
         console.log(ticketType.availableTicket);
         
-        const availableTicket = ticketType.availableTicket - 1;
+        const availableTicket =
+          ticketType.availableTicket - parseInt(ticketNumber);
 
         if (availableTicket < 0) {
           return response
