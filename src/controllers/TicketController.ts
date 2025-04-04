@@ -157,6 +157,7 @@ class TicketController {
           const event = await EventController.getEventById(eventId);
 
           return new TicketDTO(
+            eventId,
             event.title,
             event.slug,
             ticketType.title,
@@ -195,6 +196,7 @@ class TicketController {
           const event = await EventController.getEventById(eventId);
 
           return new TicketDTO(
+            eventId,
             event.title,
             event.slug,
             ticketType.title,
@@ -296,6 +298,7 @@ class TicketController {
         );
         const idTicketUpdated = ticketUpdated.rows[0].id;
         const ticket = await TicketController.getTicketById(idTicketUpdated);
+        
         response.status(200).json(ticket);
       } else {
         const ticketType = await TicketTypeController.getTicketTypeById(

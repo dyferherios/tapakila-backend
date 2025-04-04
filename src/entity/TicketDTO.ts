@@ -1,4 +1,5 @@
 export class TicketDTO {
+  eventId: string;
   title: string;
   slug: string;
   ticketType: string;
@@ -13,6 +14,7 @@ export class TicketDTO {
   deletedAt?: Date;
 
   constructor(
+    eventId: string,
     title: string,
     slug: string,
     ticketType: string,
@@ -25,6 +27,7 @@ export class TicketDTO {
     createdAt: Date,
     updatedAt: Date
   ) {
+    this.eventId = eventId;
     this.title = title;
     this.slug = slug;
     this.ticketType = ticketType;
@@ -36,6 +39,12 @@ export class TicketDTO {
     this.currency = currency;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
+  }
+  public getEventId(): string {
+    return this.eventId;
+  }
+  public setEventId(eventId: string): void {
+    this.eventId = eventId;
   }
   public getTitle(): string {
     return this.title;
